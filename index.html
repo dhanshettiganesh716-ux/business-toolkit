@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Toolkit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>💼 Business Toolkit</h1>
+    <p>Simple Tools for Your Business</p>
+  </header>
+
+  <main>
+
+    <!-- Invoice -->
+    <section class="tool">
+      <h2>🧾 Invoice Calculator</h2>
+
+      <input type="text" id="customerName" placeholder="Customer Name">
+      <input type="text" id="itemName" placeholder="Product / Service">
+      <input type="number" id="quantity" placeholder="Quantity">
+      <input type="number" id="price" placeholder="Price per Item">
+
+      <button onclick="calculateInvoice()">Calculate Invoice</button>
+
+      <div id="invoiceResult" class="result"></div>
+    </section>
+
+
+    <!-- GST -->
+    <section class="tool">
+      <h2>🧮 GST Calculator</h2>
+
+      <input type="number" id="gstAmount" placeholder="Amount ₹">
+      <input type="number" id="gstRate" placeholder="GST Rate %">
+
+      <button onclick="calculateGST()">Calculate GST</button>
+
+      <div id="gstResult" class="result"></div>
+    </section>
+
+
+    <!-- Profit Loss -->
+    <section class="tool">
+      <h2>📈 Profit / Loss Calculator</h2>
+
+      <input type="number" id="costPrice" placeholder="Cost Price ₹">
+      <input type="number" id="sellingPrice" placeholder="Selling Price ₹">
+
+      <button onclick="calculateProfit()">Calculate Profit / Loss</button>
+
+      <div id="profitResult" class="result"></div>
+    </section>
+
+
+    <!-- Expense Tracker -->
+    <section class="tool">
+      <h2>💰 Expense Tracker</h2>
+
+      <input type="text" id="expenseName" placeholder="Expense Name">
+      <input type="number" id="expenseAmount" placeholder="Expense Amount ₹">
+
+      <button onclick="addExpense()">Add Expense</button>
+
+      <ul id="expenseList"></ul>
+
+      <h3>Total Expense: ₹<span id="totalExpense">0.00</span></h3>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Business Toolkit</p>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
