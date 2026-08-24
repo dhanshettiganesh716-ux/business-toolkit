@@ -95,3 +95,4 @@ function addExpense() {
   document.getElementById("expenseName").value = "";
   document.getElementById("expenseAmount").value = "";
 }
+
