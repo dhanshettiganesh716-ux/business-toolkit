@@ -6,87 +6,159 @@
   <title>Business Toolkit</title>
   <link rel="stylesheet" href="style.css">
 </head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DQP4EBSQF5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-DQP4EBSQF5');
-</script>
 
 <body>
 
-  <header>
-    <h1>💼 Business Toolkit</h1>
-    <p>Simple Tools for Your Business</p>
-  </header>
+<header>
+  <h1>📊 Business Toolkit</h1>
+  <p>Manage your business easily</p>
+</header>
 
-  <main>
+<nav>
+  <button onclick="showSection('dashboard')">📊 Dashboard</button>
+  <button onclick="showSection('invoice')">🧾 Invoice</button>
+  <button onclick="showSection('sales')">💰 Sales</button>
+  <button onclick="showSection('expenses')">💸 Expenses</button>
+  <button onclick="showSection('customers')">👤 Customers</button>
+  <button onclick="showSection('stock')">📦 Stock</button>
+  <button onclick="showSection('gst')">🧮 GST</button>
+  <button onclick="showSection('profit')">📈 Profit</button>
+</nav>
 
-    <!-- Invoice -->
-    <section class="tool">
-      <h2>🧾 Invoice Calculator</h2>
+<main>
 
-      <input type="text" id="customerName" placeholder="Customer Name">
-      <input type="text" id="itemName" placeholder="Product / Service">
-      <input type="number" id="quantity" placeholder="Quantity">
-      <input type="number" id="price" placeholder="Price per Item">
+<!-- DASHBOARD -->
+<section id="dashboard" class="section active">
+  <h2>📊 Dashboard</h2>
 
-      <button onclick="calculateInvoice()">Calculate Invoice</button>
+  <div class="cards">
+    <div class="card">
+      <h3>Total Sales</h3>
+      <p id="totalSales">₹0</p>
+    </div>
 
-      <div id="invoiceResult" class="result"></div>
-    </section>
+    <div class="card">
+      <h3>Total Expenses</h3>
+      <p id="totalExpenses">₹0</p>
+    </div>
 
+    <div class="card">
+      <h3>Profit</h3>
+      <p id="totalProfit">₹0</p>
+    </div>
 
-    <!-- GST -->
-    <section class="tool">
-      <h2>🧮 GST Calculator</h2>
-
-      <input type="number" id="gstAmount" placeholder="Amount ₹">
-      <input type="number" id="gstRate" placeholder="GST Rate %">
-
-      <button onclick="calculateGST()">Calculate GST</button>
-
-      <div id="gstResult" class="result"></div>
-    </section>
-
-
-    <!-- Profit Loss -->
-    <section class="tool">
-      <h2>📈 Profit / Loss Calculator</h2>
-
-      <input type="number" id="costPrice" placeholder="Cost Price ₹">
-      <input type="number" id="sellingPrice" placeholder="Selling Price ₹">
-
-      <button onclick="calculateProfit()">Calculate Profit / Loss</button>
-
-      <div id="profitResult" class="result"></div>
-    </section>
+    <div class="card">
+      <h3>Customers</h3>
+      <p id="totalCustomers">0</p>
+    </div>
+  </div>
+</section>
 
 
-    <!-- Expense Tracker -->
-    <section class="tool">
-      <h2>💰 Expense Tracker</h2>
+<!-- INVOICE -->
+<section id="invoice" class="section">
+  <h2>🧾 Create Invoice</h2>
 
-      <input type="text" id="expenseName" placeholder="Expense Name">
-      <input type="number" id="expenseAmount" placeholder="Expense Amount ₹">
+  <input id="customerName" placeholder="Customer Name">
+  <input id="customerPhone" placeholder="Mobile Number">
 
-      <button onclick="addExpense()">Add Expense</button>
+  <input id="productName" placeholder="Product Name">
+  <input id="productQty" type="number" placeholder="Quantity">
+  <input id="productPrice" type="number" placeholder="Price">
 
-      <ul id="expenseList"></ul>
+  <button onclick="addInvoice()">➕ Add Invoice</button>
 
-      <h3>Total Expense: ₹<span id="totalExpense">0.00</span></h3>
-    </section>
+  <div id="invoiceList"></div>
+</section>
 
-  </main>
 
-  <footer>
-    <p>© 2026 Business Toolkit</p>
-  </footer>
+<!-- SALES -->
+<section id="sales" class="section">
+  <h2>💰 Sales Records</h2>
 
-  <script src="script.js"></script>
+  <input id="saleAmount" type="number" placeholder="Sale Amount">
+  <input id="saleNote" placeholder="Sale Description">
+
+  <button onclick="addSale()">Add Sale</button>
+
+  <div id="salesList"></div>
+</section>
+
+
+<!-- EXPENSES -->
+<section id="expenses" class="section">
+  <h2>💸 Expenses</h2>
+
+  <input id="expenseAmount" type="number" placeholder="Expense Amount">
+  <input id="expenseNote" placeholder="Expense Description">
+
+  <button onclick="addExpense()">Add Expense</button>
+
+  <div id="expenseList"></div>
+</section>
+
+
+<!-- CUSTOMERS -->
+<section id="customers" class="section">
+  <h2>👤 Customer + Udhaar</h2>
+
+  <input id="custName" placeholder="Customer Name">
+  <input id="custPhone" placeholder="Phone Number">
+  <input id="custDue" type="number" placeholder="Udhaar Amount">
+
+  <button onclick="addCustomer()">Add Customer</button>
+
+  <div id="customerList"></div>
+</section>
+
+
+<!-- STOCK -->
+<section id="stock" class="section">
+  <h2>📦 Stock Manager</h2>
+
+  <input id="stockName" placeholder="Product Name">
+  <input id="stockQty" type="number" placeholder="Quantity">
+  <input id="stockPrice" type="number" placeholder="Price">
+
+  <button onclick="addStock()">Add Stock</button>
+
+  <div id="stockList"></div>
+</section>
+
+
+<!-- GST -->
+<section id="gst" class="section">
+  <h2>🧮 GST Calculator</h2>
+
+  <input id="gstAmount" type="number" placeholder="Amount">
+  <input id="gstRate" type="number" placeholder="GST %">
+
+  <button onclick="calculateGST()">Calculate GST</button>
+
+  <div class="result" id="gstResult"></div>
+</section>
+
+
+<!-- PROFIT -->
+<section id="profit" class="section">
+  <h2>📈 Profit / Loss Calculator</h2>
+
+  <input id="buyPrice" type="number" placeholder="Buying Price">
+  <input id="sellPrice" type="number" placeholder="Selling Price">
+  <input id="profitQty" type="number" placeholder="Quantity">
+
+  <button onclick="calculateProfit()">Calculate</button>
+
+  <div class="result" id="profitResult"></div>
+</section>
+
+</main>
+
+<footer>
+  <p>Business Toolkit © 2026</p>
+</footer>
+
+<script src="script.js"></script>
 
 </body>
 </html>
