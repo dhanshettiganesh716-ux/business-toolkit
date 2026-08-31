@@ -706,3 +706,141 @@ displayCustomers();
 displayStocks();
 displayInvoices();
 updateDashboard();
+let feedbackStep = 0;
+let feedbackAnswers = [];
+
+const feedbackQuestions = [
+
+  {
+    title: "⭐ आपको Business Toolkit कैसा लगा?",
+    options: [
+      "👍 अच्छा",
+      "😐 ठीक",
+      "👎 सुधार चाहिए"
+    ]
+  },
+
+  {
+    title: "क्या सुधार करना चाहिए?",
+    options: [
+      "📱 इस्तेमाल करना और आसान हो"
+    ]
+  },
+
+  {
+    title: "और क्या चाहिए?",
+    options: [
+      "🧾 ज्यादा हिसाब-किताब features"
+    ]
+  },
+
+  {
+    title: "Profit calculation कैसी लगी?",
+    options: [
+      "👍 अच्छी",
+      "👎 सुधार चाहिए"
+    ]
+  },
+
+  {
+    title: "क्या आप इसे दोबारा इस्तेमाल करेंगे?",
+    options: [
+      "👍 हाँ",
+      "👎 नहीं"
+    ]
+  }
+
+];
+
+
+function openFeedback() {
+
+  feedbackStep = 0;
+  feedbackAnswers = [];
+
+  document.getElementById("feedbackBox").style.display = "flex";
+
+  showFeedbackQuestion();
+}
+
+
+function closeFeedback() {
+
+  document.getElementById("feedbackBox").style.display = "none";
+
+}
+
+
+function showFeedbackQuestion() {
+
+  const question = feedbackQuestions[feedbackStep];
+
+  document.getElementById("feedbackTitle").innerText =
+    question.title;
+
+  const optionsBox =
+    document.getElementById("feedbackOptions");
+
+  optionsBox.innerHTML = "";
+
+  question.options.forEach(function(option) {
+
+    const button = document.createElement("button");
+
+    button.className = "feedback-option";
+
+    button.innerText = option;
+
+    button.onclick = function() {
+
+      document
+        .querySelectorAll(".feedback-option")
+        .forEach(function(btn) {
+          btn.classList.remove("selected");
+        });
+
+      button.classList.add("selected");
+
+      feedbackAnswers[feedbackStep] = option;
+    };
+
+    optionsBox.appendChild(button);
+
+  });
+
+}
+
+
+function nextFeedback() {
+
+  if (!feedbackAnswers[feedbackStep]) {
+
+    alert("कृपया एक option चुनें.");
+
+    return;
+  }
+
+  feedbackStep++;
+
+  if (feedbackStep < feedbackQuestions.length) {
+
+    showFeedbackQuestion();
+
+  } else {
+
+    document.getElementById("feedbackTitle").innerText =
+      "🙏 धन्यवाद!";
+
+    document.getElementById("feedbackOptions").innerHTML =
+      "<p>आपका feedback हमें बेहतर बनाने में मदद करेगा.</p>";
+
+    document.getElementById("nextBtn").innerText =
+      "✓ Done";
+
+    document.getElementById("nextBtn").onclick =
+      closeFeedback;
+
+    console.log("Feedback:", feedbackAnswers);
+  }
+
+}
