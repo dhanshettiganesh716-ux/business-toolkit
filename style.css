@@ -161,21 +161,46 @@ footer {
     font-size: 30px;
   }
 }
-.feedback-btn {
-  position: fixed;
-  right: 20px;
-  bottom: 24px;
+./* ⭐ Stylish Feedback Button */
 
-  padding: 15px 20px;
+.feedback-btn {
+  position: fixed !important;
+
+  top: 15px !important;
+  right: 15px !important;
+
+  left: auto !important;
+  bottom: auto !important;
+
+  z-index: 99999 !important;
+
+  padding: 11px 18px;
 
   border: none;
-  border-radius: 35px;
+  border-radius: 25px;
 
-  background: #111829;
+  background: #111827;
   color: white;
 
-  font-size: 30px;
+  font-size: 14px;
+  font-weight: 800;
+
+  letter-spacing: 0.3px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+
   cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.feedback-btn:hover {
+  transform: scale(1.05);
+}
+
+.feedback-btn:active {
+  transform: scale(0.95);
+}
 }
 
 .feedback-box {
