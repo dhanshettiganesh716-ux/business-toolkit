@@ -163,18 +163,18 @@ footer {
 }
 .feedback-btn {
   position: fixed;
-  right: 15px;
+  right: 19px;
   bottom: 20px;
 
-  padding: 12px 18px;
+  padding: 15px 20px;
 
   border: none;
-  border-radius: 25px;
+  border-radius: 30px;
 
   background: #111827;
   color: white;
 
-  font-size: 14px;
+  font-size: 20px;
   cursor: pointer;
 }
 
