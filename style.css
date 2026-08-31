@@ -207,16 +207,27 @@ footer {
   position: relative;
 }
 
-.close-btn {
-  position: absolute;
+/* Feedback Button - Top Right */
 
-  right: 12px;
-  top: 8px;
+.feedback-btn {
+  position: fixed;
+  top: 75px;
+  right: 15px;
+
+  padding: 10px 15px;
 
   border: none;
-  background: none;
+  border-radius: 20px;
 
-  font-size: 25px;
+  background: #111827;
+  color: white;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  z-index: 999;
 }
 
 #feedbackTitle {
