@@ -161,3 +161,105 @@ footer {
     font-size: 23px;
   }
 }
+.feedback-btn {
+  position: fixed;
+  right: 15px;
+  bottom: 20px;
+
+  padding: 12px 18px;
+
+  border: none;
+  border-radius: 25px;
+
+  background: #111827;
+  color: white;
+
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.feedback-box {
+  display: none;
+
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0,0,0,0.55);
+
+  align-items: center;
+  justify-content: center;
+
+  z-index: 9999;
+}
+
+.feedback-card {
+  width: 90%;
+  max-width: 360px;
+
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 25px;
+
+  text-align: center;
+
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+
+  right: 12px;
+  top: 8px;
+
+  border: none;
+  background: none;
+
+  font-size: 25px;
+}
+
+#feedbackTitle {
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+
+.feedback-option {
+  width: 100%;
+
+  padding: 14px;
+
+  margin: 8px 0;
+
+  border: 1px solid #ddd;
+
+  background: white;
+
+  border-radius: 12px;
+
+  font-size: 15px;
+
+  cursor: pointer;
+}
+
+.feedback-option.selected {
+  background: #e5e7eb;
+}
+
+.next-btn {
+  width: 100%;
+
+  margin-top: 15px;
+
+  padding: 13px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #111827;
+
+  color: white;
+
+  font-size: 15px;
+}
