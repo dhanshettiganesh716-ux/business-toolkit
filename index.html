@@ -160,5 +160,29 @@
 
 <script src="script.js"></script>
 
+<!-- FEEDBACK BUTTON -->
+<button class="feedback-btn" onclick="openFeedback()">
+  ⭐ Feedback
+</button>
+
+<!-- FEEDBACK BOX -->
+<div id="feedbackBox" class="feedback-box">
+
+  <div class="feedback-card">
+
+    <button class="close-btn" onclick="closeFeedback()">×</button>
+
+    <h2 id="feedbackTitle">⭐ आपको Business Toolkit कैसा लगा?</h2>
+
+    <div id="feedbackOptions"></div>
+
+    <button id="nextBtn" class="next-btn" onclick="nextFeedback()">
+      आगे →
+    </button>
+
+  </div>
+
+</div>
+  
 </body>
 </html>
