@@ -263,3 +263,26 @@ footer {
 
   font-size: 15px;
 }
+
+/* Feedback Button - Top Right */
+
+.feedback-btn {
+  position: fixed;
+  top: 75px;
+  right: 15px;
+
+  padding: 10px 15px;
+
+  border: none;
+  border-radius: 20px;
+
+  background: #111827;
+  color: white;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  z-index: 999;
+}
