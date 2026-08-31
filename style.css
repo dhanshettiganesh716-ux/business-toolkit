@@ -161,7 +161,9 @@ footer {
     font-size: 30px;
   }
 }
-./* ⭐ Stylish Feedback Button */
+./* 💫 Stylish Feedback Button */
+
+/* ⭐💥 Stylish + Attention Feedback Button */
 
 .feedback-btn {
   position: fixed !important;
@@ -191,9 +193,36 @@ footer {
 
   cursor: pointer;
 
-  transition: 0.2s;
+  animation: feedbackPulse 2s infinite;
+
+  transition: transform 0.2s;
 }
 
+
+/* ✨ Pulse Animation */
+
+@keyframes feedbackPulse {
+
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.06);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+
+}
+
+
+/* Tap Effect */
+
+.feedback-btn:active {
+  transform: scale(0.92);
+}
 .feedback-btn:hover {
   transform: scale(1.05);
 }
