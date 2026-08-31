@@ -210,24 +210,22 @@ footer {
 /* Feedback Button - Top Right */
 
 .feedback-btn {
-  position: fixed;
-  top: 75px;
-  right: 15px;
+  position: fixed !important;
+  top: 80px !important;
+  right: 10px !important;
+  left: auto !important;
+  bottom: auto !important;
 
-  padding: 10px 15px;
+  z-index: 99999 !important;
 
-  border: none;
+  padding: 10px 14px;
+  border: 0;
   border-radius: 20px;
 
-  background: #111827;
+  background: #111;
   color: white;
-
   font-size: 13px;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  z-index: 999;
+  }
 }
 
 #feedbackTitle {
