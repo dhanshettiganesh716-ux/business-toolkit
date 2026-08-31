@@ -71,10 +71,10 @@ main {
 input {
   width: 100%;
   padding: 12px;
-  margin: 7px 0;
+  margin: 9px 0;
   border: 1px solid #ccc;
   border-radius: 7px;
-  font-size: 15px;
+  font-size: 20px;
 }
 
 button {
@@ -90,22 +90,22 @@ button {
 .cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
+  gap: 12px;
 }
 
 .card {
   padding: 20px;
   background: #eef2ff;
   border-radius: 12px;
-  text-align: center;
+  text-align: side;
 }
 
 .card h3 {
-  margin-bottom: 12px;
+  margin-bottom: 18px;
 }
 
 .card p {
-  font-size: 24px;
+  font-size: 30px;
   font-weight: bold;
 }
 
@@ -131,7 +131,7 @@ button {
 }
 
 footer {
-  text-align: center;
+  text-align: side;
   padding: 20px;
   color: #666;
 }
@@ -147,7 +147,7 @@ footer {
   }
 
   nav button {
-    font-size: 13px;
+    font-size: 20px;
   }
 }
 
@@ -158,23 +158,23 @@ footer {
   }
 
   header h1 {
-    font-size: 23px;
+    font-size: 30px;
   }
 }
 .feedback-btn {
   position: fixed;
-  right: 19px;
-  bottom: 20px;
+  right: 20px;
+  bottom: 24px;
 
   padding: 15px 20px;
 
   border: none;
-  border-radius: 30px;
+  border-radius: 35px;
 
-  background: #111827;
+  background: #111829;
   color: white;
 
-  font-size: 20px;
+  font-size: 30px;
   cursor: pointer;
 }
 
