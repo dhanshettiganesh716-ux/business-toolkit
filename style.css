@@ -97,7 +97,7 @@ button {
   padding: 20px;
   background: #eef2ff;
   border-radius: 12px;
-  text-align: side;
+  text-align: center;
 }
 
 .card h3 {
@@ -131,75 +131,47 @@ button {
 }
 
 footer {
-  text-align: side;
+  text-align: center;
   padding: 20px;
   color: #666;
 }
 
-@media (max-width: 700px) {
 
-  .cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  nav {
-    justify-content: flex-start;
-  }
-
-  nav button {
-    font-size: 20px;
-  }
-}
-
-@media (max-width: 400px) {
-
-  .cards {
-    grid-template-columns: 1fr;
-  }
-
-  header h1 {
-    font-size: 30px;
-  }
-}
-./* 💫 Stylish Feedback Button */
-
-/* ⭐💥 Stylish + Attention Feedback Button */
+/* =========================
+   ⭐ FEEDBACK BUTTON
+   ========================= */
 
 .feedback-btn {
   position: fixed !important;
 
-  top: 15px !important;
+  top: 18px !important;
   right: 15px !important;
 
   left: auto !important;
   bottom: auto !important;
 
-  z-index: 99999 !important;
+  z-index: 999999 !important;
 
-  padding: 11px 18px;
+  padding: 11px 18px !important;
 
-  border: none;
-  border-radius: 25px;
+  background: white !important;
+  color: #172554 !important;
 
-  background: #111827;
-  color: white;
+  border: 2px solid #2563eb !important;
+  border-radius: 25px !important;
 
-  font-size: 14px;
-  font-weight: 800;
+  font-size: 14px !important;
+  font-weight: 800 !important;
 
-  letter-spacing: 0.3px;
-
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.30) !important;
 
   cursor: pointer;
 
-  animation: feedbackPulse 2s infinite;
-
-  transition: transform 0.2s;
+  animation: feedbackPulse 1.8s infinite;
 }
 
 
-/* ✨ Pulse Animation */
+/* Feedback हलका Pulse होईल */
 
 @keyframes feedbackPulse {
 
@@ -208,7 +180,7 @@ footer {
   }
 
   50% {
-    transform: scale(1.06);
+    transform: scale(1.07);
   }
 
   100% {
@@ -217,25 +189,20 @@ footer {
 
 }
 
-
-/* Tap Effect */
-
 .feedback-btn:active {
-  transform: scale(0.92);
-}
-.feedback-btn:hover {
-  transform: scale(1.05);
+  transform: scale(0.94);
 }
 
-.feedback-btn:active {
-  transform: scale(0.95);
-}
-}
+
+/* =========================
+   ⭐ FEEDBACK POPUP
+   ========================= */
 
 .feedback-box {
   display: none;
 
   position: fixed;
+
   inset: 0;
 
   background: rgba(0,0,0,0.55);
@@ -243,7 +210,7 @@ footer {
   align-items: center;
   justify-content: center;
 
-  z-index: 9999;
+  z-index: 999999;
 }
 
 .feedback-card {
@@ -259,62 +226,80 @@ footer {
   text-align: center;
 
   position: relative;
+
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
 }
 
-/* Feedback Button - Top Right */
-.feedback-btn {
-  position: fixed !important;
 
-  top: 15px !important;
-  right: 15px !important;
+/* Close Button */
 
-  left: auto !important;
-  bottom: auto !important;
+.close-btn {
+  position: absolute;
 
-  z-index: 99999 !important;
+  top: 8px;
+  right: 12px;
 
-  padding: 9px 14px;
+  background: transparent !important;
 
-  border: none;
-  border-radius: 20px;
+  color: #222 !important;
 
-  background: #111827;
-  color: white;
+  font-size: 25px;
 
-  font-size: 13px;
-  font-weight: 600;
+  padding: 0 !important;
 
-  cursor: pointer;
+  margin: 0 !important;
 }
-.
-}
+
+
+/* Question */
 
 #feedbackTitle {
   font-size: 20px;
-  margin-bottom: 25px;
+
+  margin-bottom: 20px;
+
+  line-height: 1.4;
 }
+
+
+/* Feedback Options */
 
 .feedback-option {
   width: 100%;
 
-  padding: 14px;
+  padding: 13px;
 
-  margin: 8px 0;
+  margin: 7px 0;
 
-  border: 1px solid #ddd;
+  background: white !important;
 
-  background: white;
+  color: #222 !important;
+
+  border: 1px solid #ddd !important;
 
   border-radius: 12px;
 
   font-size: 15px;
 
   cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.feedback-option:hover {
+  border-color: #2563eb !important;
 }
 
 .feedback-option.selected {
-  background: #e5e7eb;
+  background: #eef2ff !important;
+
+  border: 2px solid #2563eb !important;
+
+  font-weight: bold;
 }
+
+
+/* Next Button */
 
 .next-btn {
   width: 100%;
@@ -323,75 +308,56 @@ footer {
 
   padding: 13px;
 
-  border: none;
+  background: #2563eb !important;
+
+  color: white !important;
 
   border-radius: 12px;
 
-  background: #111827;
-
-  color: white;
-
   font-size: 15px;
+
+  font-weight: bold;
 }
 
-/* Feedback Button - Top Right */
 
-.feedback-btn {
-  position: fixed;
-  top: 75px;
-  right: 15px;
+/* =========================
+   📱 MOBILE
+   ========================= */
 
-  padding: 10px 15px;
+@media (max-width: 700px) {
 
-  border: none;
-  border-radius: 20px;
-
-  background: #111827;
-  color: black;
-
-  font-size: 13px;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  z-index: 999;
-}
-.feedback-btn {
-  position: fixed !important;
-  top: 70px !important;
-  right: 10px !important;
-  left: auto !important;
-  bottom: auto !important;
-
-  z-index: 999999 !important;
-
-  display: block !important;
-
-  background: black !important;
-  color: white !important;
-
-  padding: 14px 22px !important;
-  border: 3px solid white !important;
-  border-radius: 30px !important;
-
-  font-size: 16px !important;
-  font-weight: bold !important;
-
-  box-shadow: 0 5px 20px rgba(0,0,0,0.5) !important;
-
-  animation: feedbackPulse 1.5s infinite !important;
-}
-
-@keyframes feedbackPulse {
-  0% {
-    transform: scale(1);
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  50% {
-    transform: scale(1.10);
+  nav {
+    justify-content: flex-start;
   }
 
-  100% {
-    transform: scale(1);
+  nav button {
+    font-size: 20px;
   }
+
+  .feedback-btn {
+    top: 15px !important;
+    right: 10px !important;
+
+    padding: 9px 14px !important;
+
+    font-size: 13px !important;
+  }
+
 }
+
+
+@media (max-width: 400px) {
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  header h1 {
+    font-size: 30px;
+  }
+
+  }
