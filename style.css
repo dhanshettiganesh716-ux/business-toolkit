@@ -1,534 +1,414 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Arial, sans-serif;
+  background:#f5f7fb;
+  color:#111827;
+}
+
+.topbar{
+  height:75px;
+  background:#ffffff;
+  border-bottom:1px solid #e5e7eb;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 25px;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.topbar h1{
+  font-size:22px;
+}
+
+.topbar p{
+  color:#6b7280;
+  font-size:13px;
+  margin-top:4px;
+}
+
+.profile{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#111827;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+}
+
+
+.app{
+  display:flex;
+  min-height:calc(100vh - 75px);
+}
+
+
+.sidebar{
+  width:240px;
+  background:#ffffff;
+  border-right:1px solid #e5e7eb;
+  padding:20px 14px;
+  position:fixed;
+  top:75px;
+  bottom:0;
+  overflow-y:auto;
+}
+
+
+.menu-item{
+  width:100%;
+  border:0;
+  background:transparent;
+  padding:13px 15px;
+  margin-bottom:7px;
+  border-radius:10px;
+  text-align:left;
+  font-size:15px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:#4b5563;
+}
+
+.menu-item:hover{
+  background:#f3f4f6;
+}
+
+.menu-item.active{
+  background:#111827;
+  color:white;
+}
+
+
+.main{
+  margin-left:240px;
+  width:calc(100% - 240px);
+  padding:30px;
+}
+
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
 
-  <title>Business Toolkit</title>
-
-  <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-<header class="topbar">
-  <div>
-    <h1>Business Toolkit</h1>
-    <p>Smart Business Management</p>
-  </div>
-
-  <div class="profile">G</div>
-</header>
-
-
-<div class="app">
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-
-    <button class="menu-item active"
-      onclick="showPage('dashboard', this)">
-      🏠 <span>Dashboard</span>
-    </button>
-
-    <button class="menu-item"
-      onclick="showPage('billing', this)">
-      🧾 <span>Invoice</span>
-    </button>
-
-    <button class="menu-item"
-      onclick="showPage('sales', this)">
-      💰 <span>Sales</span>
-    </button>
-
-    <button class="menu-item"
-      onclick="showPage('expenses', this)">
-      💸 <span>Expenses</span>
-    </button>
-
-    <button class="menu-item"
-      onclick="showPage('customers', this)">
-      👥 <span>Customers</span>
-    </button>
-
-    <button class="menu-item"
-      onclick="showPage('stock', this)">
-      📦 <span>Stock</span>
-    </button>
-
-    <button class="menu-item"
-      onclick="showPage('gst', this)">
-      🧮 <span>GST</span>
-    </button>
-
-    <button class="menu-item"
-      onclick="showPage('profit', this)">
-      📈 <span>Profit</span>
-    </button>
-
-    <button class="menu-item"
-      onclick="openFeedback()">
-      💬 <span>Feedback</span>
-    </button>
-
-  </aside>
-
-
-  <!-- MAIN CONTENT -->
-  <main class="main">
-
-
-    <!-- DASHBOARD -->
-    <section id="dashboard" class="page active">
-
-      <div class="page-title">
-        <h2>Dashboard</h2>
-        <p>Manage your business easily</p>
-      </div>
-
-
-      <div class="stats">
-
-        <div class="stat-card">
-          <div class="icon">💰</div>
-          <div>
-            <p>Total Sales</p>
-            <h3 id="dashboardSales">₹0</h3>
-          </div>
-        </div>
-
-        <div class="stat-card">
-          <div class="icon">💸</div>
-          <div>
-            <p>Total Expenses</p>
-            <h3 id="dashboardExpenses">₹0</h3>
-          </div>
-        </div>
-
-        <div class="stat-card">
-          <div class="icon">📈</div>
-          <div>
-            <p>Net Profit</p>
-            <h3 id="dashboardProfit">₹0</h3>
-          </div>
-        </div>
-
-        <div class="stat-card">
-          <div class="icon">📦</div>
-          <div>
-            <p>Total Stock</p>
-            <h3 id="dashboardStock">0</h3>
-          </div>
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>Quick Tools</h3>
-
-        <div class="quick-grid">
-
-          <button onclick="showPage('billing')">
-            🧾
-            <span>Create Invoice</span>
-          </button>
-
-          <button onclick="showPage('sales')">
-            💰
-            <span>Sales</span>
-          </button>
-
-          <button onclick="showPage('expenses')">
-            💸
-            <span>Expenses</span>
-          </button>
-
-          <button onclick="showPage('customers')">
-            👥
-            <span>Customers</span>
-          </button>
-
-          <button onclick="showPage('stock')">
-            📦
-            <span>Stock</span>
-          </button>
-
-          <button onclick="showPage('gst')">
-            🧮
-            <span>GST</span>
-          </button>
-
-          <button onclick="showPage('profit')">
-            📈
-            <span>Profit</span>
-          </button>
-
-          <button onclick="openFeedback()">
-            💬
-            <span>Feedback</span>
-          </button>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- INVOICE -->
-    <section id="billing" class="page">
-
-      <div class="page-title">
-        <h2>Create Invoice</h2>
-        <p>Create a simple business invoice</p>
-      </div>
-
-
-      <div class="card">
-
-        <div class="form-grid">
-
-          <div class="input-group">
-            <label>Customer Name</label>
-            <input
-              id="customerName"
-              type="text"
-              placeholder="Enter customer name">
-          </div>
-
-
-          <div class="input-group">
-            <label>Mobile Number</label>
-            <input
-              id="customerMobile"
-              type="tel"
-              placeholder="Enter mobile number">
-          </div>
-
-
-          <div class="input-group">
-            <label>Product Name</label>
-            <input
-              id="productName"
-              type="text"
-              placeholder="Enter product name">
-          </div>
-
-
-          <div class="input-group">
-            <label>Quantity</label>
-            <input
-              id="quantity"
-              type="number"
-              min="1"
-              placeholder="Quantity">
-          </div>
-
-
-          <div class="input-group">
-            <label>Price</label>
-            <input
-              id="price"
-              type="number"
-              min="0"
-              placeholder="Price">
-          </div>
-
-        </div>
-
-
-        <button class="primary-btn"
-          onclick="createInvoice()">
-          🧾 Create Invoice
-        </button>
-
-      </div>
-
-
-      <div id="invoiceResult"></div>
-
-    </section>
-
-
-
-    <!-- SALES -->
-    <section id="sales" class="page">
-
-      <div class="page-title">
-        <h2>Sales</h2>
-        <p>Track your business sales</p>
-      </div>
-
-
-      <div class="card">
-
-        <h3>Sales History</h3>
-
-        <div id="salesList">
-          <p class="empty">No sales yet.</p>
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- EXPENSES -->
-    <section id="expenses" class="page">
-
-      <div class="page-title">
-        <h2>Expenses</h2>
-        <p>Track your business expenses</p>
-      </div>
-
-
-      <div class="card">
-
-        <div class="input-group">
-          <label>Expense Name</label>
-          <input
-            id="expenseName"
-            type="text"
-            placeholder="e.g. Electricity">
-        </div>
-
-
-        <div class="input-group">
-          <label>Amount</label>
-          <input
-            id="expenseAmount"
-            type="number"
-            placeholder="Enter amount">
-        </div>
-
-
-        <button class="primary-btn"
-          onclick="addExpense()">
-          Add Expense
-        </button>
-
-
-        <div id="expenseResult"></div>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>Expense History</h3>
-
-        <div id="expenseList">
-          <p class="empty">No expenses yet.</p>
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- CUSTOMERS -->
-    <section id="customers" class="page">
-
-      <div class="page-title">
-        <h2>Customers</h2>
-        <p>Manage customer credit / khata</p>
-      </div>
-
-
-      <div class="card">
-
-        <div class="input-group">
-          <label>Customer Name</label>
-          <input
-            id="customer"
-            type="text"
-            placeholder="Customer name">
-        </div>
-
-
-        <div class="input-group">
-          <label>Credit Amount</label>
-          <input
-            id="credit"
-            type="number"
-            placeholder="₹ Amount">
-        </div>
-
-
-        <button class="primary-btn"
-          onclick="addCustomer()">
-          Add Customer
-        </button>
-
-
-        <div id="customerResult"></div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- STOCK -->
-    <section id="stock" class="page">
-
-      <div class="page-title">
-        <h2>Stock</h2>
-        <p>Manage your inventory</p>
-      </div>
-
-
-      <div class="card">
-
-        <div class="input-group">
-          <label>Product Name</label>
-          <input
-            id="stockName"
-            type="text"
-            placeholder="Product name">
-        </div>
-
-
-        <div class="input-group">
-          <label>Quantity</label>
-          <input
-            id="stockQty"
-            type="number"
-            placeholder="Quantity">
-        </div>
-
-
-        <button class="primary-btn"
-          onclick="addStock()">
-          Add Stock
-        </button>
-
-
-        <div id="stockResult"></div>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>Stock List</h3>
-
-        <div id="stockList">
-          <p class="empty">No stock added.</p>
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- GST -->
-    <section id="gst" class="page">
-
-      <div class="page-title">
-        <h2>GST Calculator</h2>
-        <p>Calculate GST quickly</p>
-      </div>
-
-
-      <div class="card">
-
-        <div class="input-group">
-          <label>Amount</label>
-          <input
-            id="gstAmount"
-            type="number"
-            placeholder="Enter amount">
-        </div>
-
-
-        <div class="input-group">
-          <label>GST Rate (%)</label>
-          <input
-            id="gstRate"
-            type="number"
-            placeholder="e.g. 18">
-        </div>
-
-
-        <button class="primary-btn"
-          onclick="calculateGST()">
-          Calculate GST
-        </button>
-
-
-        <div id="gstResult"></div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- PROFIT -->
-    <section id="profit" class="page">
-
-      <div class="page-title">
-        <h2>Profit Calculator</h2>
-        <p>Calculate your business profit</p>
-      </div>
-
-
-      <div class="card">
-
-        <div class="input-group">
-          <label>Buying Price</label>
-          <input
-            id="buyPrice"
-            type="number"
-            placeholder="₹ Buying price">
-        </div>
-
-
-        <div class="input-group">
-          <label>Selling Price</label>
-          <input
-            id="sellPrice"
-            type="number"
-            placeholder="₹ Selling price">
-        </div>
-
-
-        <div class="input-group">
-          <label>Quantity</label>
-          <input
-            id="profitQty"
-            type="number"
-            value="1"
-            min="1">
-        </div>
-
-
-        <button class="primary-btn"
-          onclick="calculateProfit()">
-          Calculate Profit
-        </button>
-
-
-        <div id="profitResult"></div>
-
-      </div>
-
-    </section>
-
-
-  </main>
-
-</div>
-
-
-<script src="script.js"></script>
-
-</body>
-</html>
+.page-title{
+  margin-bottom:25px;
+}
+
+.page-title h2{
+  font-size:28px;
+  margin-bottom:6px;
+}
+
+.page-title p{
+  color:#6b7280;
+}
+
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  margin-bottom:25px;
+}
+
+
+.stat-card{
+  background:#ffffff;
+  border:1px solid #e5e7eb;
+  border-radius:15px;
+  padding:20px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+
+.stat-card .icon{
+  font-size:27px;
+}
+
+.stat-card p{
+  color:#6b7280;
+  font-size:13px;
+  margin-bottom:5px;
+}
+
+.stat-card h3{
+  font-size:21px;
+}
+
+
+.card{
+  background:#ffffff;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  padding:25px;
+  margin-bottom:22px;
+}
+
+.card h3{
+  margin-bottom:20px;
+}
+
+
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+
+.quick-grid button{
+  border:1px solid #e5e7eb;
+  background:white;
+  border-radius:12px;
+  padding:20px 10px;
+  cursor:pointer;
+  font-size:25px;
+}
+
+.quick-grid button:hover{
+  background:#f3f4f6;
+}
+
+.quick-grid span{
+  display:block;
+  font-size:13px;
+  margin-top:8px;
+}
+
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+
+
+.input-group{
+  margin-bottom:18px;
+}
+
+.input-group label{
+  display:block;
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:8px;
+}
+
+.input-group input{
+  width:100%;
+  padding:13px 14px;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+  font-size:15px;
+  outline:none;
+}
+
+.input-group input:focus{
+  border-color:#111827;
+}
+
+
+.primary-btn{
+  width:100%;
+  background:#111827;
+  color:white;
+  border:0;
+  padding:14px;
+  border-radius:10px;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:5px;
+}
+
+.primary-btn:hover{
+  opacity:.9;
+}
+
+
+.result{
+  margin-top:20px;
+  padding:18px;
+  border-radius:12px;
+  background:#f3f4f6;
+}
+
+
+.invoice{
+  background:#ffffff;
+  border:1px solid #ddd;
+  border-radius:15px;
+  padding:25px;
+  margin-top:22px;
+}
+
+.invoice h2{
+  margin-bottom:20px;
+}
+
+.invoice-row{
+  display:flex;
+  justify-content:space-between;
+  padding:10px 0;
+  border-bottom:1px solid #eee;
+}
+
+.invoice-total{
+  display:flex;
+  justify-content:space-between;
+  font-size:20px;
+  font-weight:bold;
+  padding-top:18px;
+}
+
+.print-btn{
+  margin-top:20px;
+  padding:12px 18px;
+  border:0;
+  border-radius:9px;
+  background:#111827;
+  color:white;
+  cursor:pointer;
+}
+
+
+.history-item{
+  padding:15px 0;
+  border-bottom:1px solid #eee;
+}
+
+.history-item:last-child{
+  border-bottom:0;
+}
+
+.empty{
+  color:#9ca3af;
+  text-align:center;
+  padding:20px;
+}
+
+
+@media(max-width:1000px){
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .quick-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+
+@media(max-width:700px){
+
+  .topbar{
+    padding:0 15px;
+  }
+
+  .topbar h1{
+    font-size:19px;
+  }
+
+  .sidebar{
+    width:200px;
+  }
+
+  .main{
+    margin-left:200px;
+    width:calc(100% - 200px);
+    padding:20px 15px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+    gap:0;
+  }
+
+}
+
+
+@media(max-width:550px){
+
+  .topbar{
+    height:68px;
+  }
+
+  .sidebar{
+    position:relative;
+    top:0;
+    width:100%;
+    height:auto;
+    border-right:0;
+    border-bottom:1px solid #e5e7eb;
+    padding:10px;
+    display:flex;
+    overflow-x:auto;
+    gap:5px;
+  }
+
+  .menu-item{
+    min-width:max-content;
+    margin:0;
+    padding:10px 12px;
+  }
+
+  .menu-item span{
+    display:inline;
+  }
+
+  .app{
+    display:block;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+    padding:18px 12px 30px;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  .stat-card{
+    padding:14px;
+  }
+
+  .stat-card h3{
+    font-size:17px;
+  }
+
+  .quick-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .page-title h2{
+    font-size:24px;
+  }
+
+  .card{
+    padding:18px;
+  }
+
+                               }
