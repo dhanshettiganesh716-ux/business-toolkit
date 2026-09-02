@@ -1,189 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Business Toolkit</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-<header>
-  <h1>📊 Business Toolkit</h1>
-  <p>Manage your business easily</p>
-</header>
-
-<nav>
-  <button onclick="showSection('dashboard')">📊 Dashboard</button>
-  <button onclick="showSection('invoice')">🧾 Invoice</button>
-  <button onclick="showSection('sales')">💰 Sales</button>
-  <button onclick="showSection('expenses')">💸 Expenses</button>
-  <button onclick="showSection('customers')">👤 Customers</button>
-  <button onclick="showSection('stock')">📦 Stock</button>
-  <button onclick="showSection('gst')">🧮 GST</button>
-  <button onclick="showSection('profit')">📈 Profit</button>
-</nav>
-
-<main>
-
-<!-- DASHBOARD -->
-<section id="dashboard" class="section active">
-  <h2>📊 Dashboard</h2>
-
-  <div class="cards">
-    <div class="card">
-      <h3>Total Sales</h3>
-      <p id="totalSales">₹0</p>
-    </div>
-
-    <div class="card">
-      <h3>Total Expenses</h3>
-      <p id="totalExpenses">₹0</p>
-    </div>
-
-    <div class="card">
-      <h3>Profit</h3>
-      <p id="totalProfit">₹0</p>
-    </div>
-
-    <div class="card">
-      <h3>Customers</h3>
-      <p id="totalCustomers">0</p>
-    </div>
-  </div>
-</section>
-
-
-<!-- INVOICE -->
-<section id="invoice" class="section">
-  <h2>🧾 Create Invoice</h2>
-
-  <input id="customerName" placeholder="Customer Name">
-  <input id="customerPhone" placeholder="Mobile Number">
-
-  <input id="productName" placeholder="Product Name">
-  <input id="productQty" type="number" placeholder="Quantity">
-  <input id="productPrice" type="number" placeholder="Price">
-
-  <button onclick="addInvoice()">➕ Add Invoice</button>
-
-  <div id="invoiceList"></div>
-</section>
-
-
-<!-- SALES -->
-<section id="sales" class="section">
-  <h2>💰 Sales Records</h2>
-
-  <input id="saleAmount" type="number" placeholder="Sale Amount">
-  <input id="saleNote" placeholder="Sale Description">
-
-  <button onclick="addSale()">Add Sale</button>
-
-  <div id="salesList"></div>
-</section>
-
-
-<!-- EXPENSES -->
-<section id="expenses" class="section">
-  <h2>💸 Expenses</h2>
-
-  <input id="expenseAmount" type="number" placeholder="Expense Amount">
-  <input id="expenseNote" placeholder="Expense Description">
-
-  <button onclick="addExpense()">Add Expense</button>
-
-  <div id="expenseList"></div>
-</section>
-
-
-<!-- CUSTOMERS -->
-<section id="customers" class="section">
-  <h2>👤 Customer + Udhaar</h2>
-
-  <input id="custName" placeholder="Customer Name">
-  <input id="custPhone" placeholder="Phone Number">
-  <input id="custDue" type="number" placeholder="Udhaar Amount">
-
-  <button onclick="addCustomer()">Add Customer</button>
-
-  <div id="customerList"></div>
-</section>
-
-
-<!-- STOCK -->
-<section id="stock" class="section">
-  <h2>📦 Stock Manager</h2>
-
-  <input id="stockName" placeholder="Product Name">
-  <input id="stockQty" type="number" placeholder="Quantity">
-  <input id="stockPrice" type="number" placeholder="Price">
-
-  <button onclick="addStock()">Add Stock</button>
-
-  <div id="stockList"></div>
-</section>
-
-
-<!-- GST -->
-<section id="gst" class="section">
-  <h2>🧮 GST Calculator</h2>
-
-  <input id="gstAmount" type="number" placeholder="Amount">
-  <input id="gstRate" type="number" placeholder="GST %">
-
-  <button onclick="calculateGST()">Calculate GST</button>
-
-  <div class="result" id="gstResult"></div>
-</section>
-
-
-<!-- PROFIT -->
-<section id="profit" class="section">
-  <h2>📈 Profit / Loss Calculator</h2>
-
-  <input id="buyPrice" type="number" placeholder="Buying Price">
-  <input id="sellPrice" type="number" placeholder="Selling Price">
-  <input id="profitQty" type="number" placeholder="Quantity">
-
-  <button onclick="calculateProfit()">Calculate</button>
-
-  <div class="result" id="profitResult"></div>
-</section>
-
-</main>
-
-<footer>
-  <p>Business Toolkit © 2026</p>
-</footer>
-
-<script src="script.js"></script>
-
-<!-- GOOGLE FORM FEEDBACK BUTTON -->
-<button class="feedback-btn"
-onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSewOR2YdFto41kc7jZVnTLcCg5jWigSHig-rJOAgDoaL1lgCQ/viewform','_blank')">
+<!-- FEEDBACK BUTTON -->
+<button class="feedback-btn" onclick="openFeedback()">
   ⭐ Feedback
 </button>
 
-<!-- FEEDBACK BOX -->
+<!-- FEEDBACK POPUP -->
 <div id="feedbackBox" class="feedback-box">
-
   <div class="feedback-card">
 
-    <button class="close-btn" onclick="closeFeedback()">×</button>
+    <span class="feedback-close" onclick="closeFeedback()">×</span>
 
-    <h2 id="feedbackTitle">⭐ आपको Business Toolkit कैसा लगा?</h2>
+    <h2>⭐ Business Toolkit Feedback</h2>
+    <p>तुमचा feedback आमच्यासाठी खूप महत्त्वाचा आहे.</p>
 
-    <div id="feedbackOptions"></div>
+    <div class="feedback-option">
+      <label>1. Business Toolkit तुम्हाला किती आवडलं?</label>
 
-    <button id="nextBtn" class="next-btn" onclick="nextFeedback()">
-      आगे →
+      <select id="q1">
+        <option value="">Select</option>
+        <option>⭐ 1</option>
+        <option>⭐⭐ 2</option>
+        <option>⭐⭐⭐ 3</option>
+        <option>⭐⭐⭐⭐ 4</option>
+        <option>⭐⭐⭐⭐⭐ 5</option>
+      </select>
+    </div>
+
+    <div class="feedback-option">
+      <label>2. Business Toolkit मध्ये काय सुधारणा पाहिजे?</label>
+
+      <select id="q2">
+        <option value="">Select</option>
+        <option>📱 वापरणं आणखी सोपं हवं</option>
+        <option>⚡ Website आणखी fast हवी</option>
+        <option>🎨 Design आणखी चांगलं हवं</option>
+        <option>🧾 आणखी हिसाब-किताब features पाहिजेत</option>
+        <option>📊 Reports / Summary पाहिजे</option>
+        <option>📦 Stock Management सुधारायला हवं</option>
+        <option>👥 Udhaar Management सुधारायला हवं</option>
+        <option>🔔 Notifications पाहिजेत</option>
+        <option>✅ काही सुधारणा नको</option>
+      </select>
+    </div>
+
+    <div class="feedback-option">
+      <label>3. कोणता feature सर्वात उपयोगी वाटला?</label>
+
+      <select id="q3">
+        <option value="">Select</option>
+        <option>🧾 Invoice</option>
+        <option>💰 Sales</option>
+        <option>💸 Expenses</option>
+        <option>📈 Profit</option>
+        <option>👤 Customers / Udhaar</option>
+        <option>📦 Stock</option>
+        <option>🧮 GST Calculator</option>
+      </select>
+    </div>
+
+    <div class="feedback-option">
+      <label>4. तुम्ही Business Toolkit पुन्हा वापराल का?</label>
+
+      <select id="q4">
+        <option value="">Select</option>
+        <option>👍 हो</option>
+        <option>🤔 कदाचित</option>
+        <option>👎 नाही</option>
+      </select>
+    </div>
+
+    <button class="feedback-submit" onclick="submitFeedback()">
+      Submit Feedback
     </button>
 
   </div>
-
 </div>
-  
-</body>
-</html>
+
+<!-- JS FILE -->
+<script src="script.js"></script>
