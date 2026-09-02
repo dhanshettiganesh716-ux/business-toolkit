@@ -144,8 +144,9 @@ footer {
 .feedback-btn {
   position: fixed !important;
 
-  top: 50px !important;
-right: 20px !important;
+  top: 18px !important;
+right: 15px !important;
+transform: none !important;
 
   left: auto !important;
   bottom: auto !important;
