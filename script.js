@@ -1,283 +1,198 @@
-// ================================
-// SECTION CHANGE
-// ================================
+let totalSales = 0;
+let totalExpenses = 0;
+let totalStock = 0;
 
-function showSection(sectionId) {
 
-  // Hide all sections
-  const sections = document.querySelectorAll(".section");
+// OPEN TOOL
+function openTool(tool) {
 
-  sections.forEach(function(section) {
-    section.classList.remove("active-section");
+  document.getElementById("dashboard").style.display = "none";
+
+  document.querySelectorAll(".section").forEach(function(section) {
+    section.classList.remove("active");
   });
 
-
-  // Show selected section
-  document.getElementById(sectionId)
-    .classList.add("active-section");
-
-
-  // Remove active from buttons
-  const buttons = document.querySelectorAll(".nav-btn");
-
-  buttons.forEach(function(button) {
-    button.classList.remove("active");
-  });
-
-
-  // Active button
-  event.currentTarget.classList.add("active");
-
+  document.getElementById(tool).classList.add("active");
 }
 
 
-// ================================
-// SALES
-// ================================
+// GO HOME
+function goHome() {
 
-let totalSales = 0;
+  document.querySelectorAll(".section").forEach(function(section) {
+    section.classList.remove("active");
+  });
 
-function addSale() {
+  document.getElementById("dashboard").style.display = "block";
+}
 
-  const amount =
-    Number(document.getElementById("saleAmount").value);
 
-  if (amount <= 0) {
-    alert("कृपया Sales Amount टाका.");
+// BILLING
+function createBill() {
+
+  let product =
+    document.getElementById("billProduct").value;
+
+  let qty =
+    Number(document.getElementById("billQty").value);
+
+  let price =
+    Number(document.getElementById("billPrice").value);
+
+  if (!product || qty <= 0 || price <= 0) {
+    alert("Please enter valid details.");
     return;
   }
 
-  totalSales += amount;
+  let total = qty * price;
 
-  document.getElementById("salesList").innerHTML +=
-    `<p>💰 Sale: ₹${amount.toFixed(2)}</p>`;
+  totalSales += total;
 
-  document.getElementById("saleAmount").value = "";
+  document.getElementById("salesDisplay").innerText =
+    "₹" + totalSales.toLocaleString("en-IN");
 
-  updateDashboard();
+  updateProfit();
+
+  document.getElementById("billResult").innerHTML =
+    "Product: " + product +
+    "<br>Quantity: " + qty +
+    "<br>Total: ₹" + total.toLocaleString("en-IN");
 }
 
 
-// ================================
-// EXPENSES
-// ================================
+// STOCK
+function addStock() {
 
-let totalExpenses = 0;
+  let name =
+    document.getElementById("stockName").value;
 
+  let qty =
+    Number(document.getElementById("stockQty").value);
+
+  if (!name || qty <= 0) {
+    alert("Please enter valid stock details.");
+    return;
+  }
+
+  totalStock += qty;
+
+  document.getElementById("stockDisplay").innerText =
+    totalStock;
+
+  document.getElementById("stockResult").innerHTML =
+    "Product: " + name +
+    "<br>Added Quantity: " + qty +
+    "<br>Total Stock: " + totalStock;
+}
+
+
+// CUSTOMER KHATA
+function addCredit() {
+
+  let name =
+    document.getElementById("customerName").value;
+
+  let amount =
+    Number(document.getElementById("creditAmount").value);
+
+  if (!name || amount <= 0) {
+    alert("Please enter valid customer details.");
+    return;
+  }
+
+  document.getElementById("khataResult").innerHTML =
+    "Customer: " + name +
+    "<br>Credit Amount: ₹" +
+    amount.toLocaleString("en-IN");
+}
+
+
+// GST CALCULATOR
+function calculateGST() {
+
+  let amount =
+    Number(document.getElementById("gstAmount").value);
+
+  let rate =
+    Number(document.getElementById("gstRate").value);
+
+  if (amount <= 0) {
+    alert("Please enter amount.");
+    return;
+  }
+
+  let gst = amount * rate / 100;
+
+  let total = amount + gst;
+
+  document.getElementById("gstResult").innerHTML =
+    "GST (" + rate + "%): ₹" +
+    gst.toLocaleString("en-IN") +
+    "<br>Total Amount: ₹" +
+    total.toLocaleString("en-IN");
+}
+
+
+// PROFIT CALCULATOR
+function calculateProfit() {
+
+  let buy =
+    Number(document.getElementById("buyPrice").value);
+
+  let sell =
+    Number(document.getElementById("sellPrice").value);
+
+  let qty =
+    Number(document.getElementById("profitQty").value);
+
+  if (buy <= 0 || sell <= 0 || qty <= 0) {
+    alert("Please enter valid values.");
+    return;
+  }
+
+  let profit = (sell - buy) * qty;
+
+  document.getElementById("profitResult").innerHTML =
+    "Total Profit: ₹" +
+    profit.toLocaleString("en-IN");
+}
+
+
+// EXPENSE
 function addExpense() {
 
-  const name =
+  let name =
     document.getElementById("expenseName").value;
 
-  const amount =
+  let amount =
     Number(document.getElementById("expenseAmount").value);
 
   if (!name || amount <= 0) {
-    alert("Expense Name आणि Amount टाका.");
+    alert("Please enter valid expense details.");
     return;
   }
 
   totalExpenses += amount;
 
-  document.getElementById("expensesList").innerHTML +=
-    `<p>💸 ${name} — ₹${amount.toFixed(2)}</p>`;
+  document.getElementById("expenseDisplay").innerText =
+    "₹" + totalExpenses.toLocaleString("en-IN");
 
-  document.getElementById("expenseName").value = "";
+  updateProfit();
 
-  document.getElementById("expenseAmount").value = "";
-
-  updateDashboard();
+  document.getElementById("expenseResult").innerHTML =
+    "Expense: " + name +
+    "<br>Amount: ₹" +
+    amount.toLocaleString("en-IN") +
+    "<br>Total Expenses: ₹" +
+    totalExpenses.toLocaleString("en-IN");
 }
 
 
-// ================================
-// CUSTOMER
-// ================================
+// UPDATE PROFIT
+function updateProfit() {
 
-let totalCustomers = 0;
+  let profit = totalSales - totalExpenses;
 
-function addCustomer() {
-
-  const name =
-    document.getElementById("customerName").value;
-
-  const amount =
-    Number(document.getElementById("udhaarAmount").value);
-
-  if (!name) {
-    alert("Customer Name टाका.");
-    return;
-  }
-
-  totalCustomers++;
-
-  document.getElementById("customersList").innerHTML +=
-    `<p>👤 ${name} — Udhaar ₹${amount.toFixed(2)}</p>`;
-
-  document.getElementById("customerName").value = "";
-
-  document.getElementById("udhaarAmount").value = "";
-
-  updateDashboard();
-}
-
-
-// ================================
-// STOCK
-// ================================
-
-function addStock() {
-
-  const name =
-    document.getElementById("stockName").value;
-
-  const qty =
-    Number(document.getElementById("stockQty").value);
-
-  if (!name || qty <= 0) {
-    alert("Product आणि Quantity टाका.");
-    return;
-  }
-
-  document.getElementById("stockList").innerHTML +=
-    `<p>📦 ${name} — Quantity: ${qty}</p>`;
-
-  document.getElementById("stockName").value = "";
-
-  document.getElementById("stockQty").value = "";
-
-}
-
-
-// ================================
-// GST
-// ================================
-
-function calculateGST() {
-
-  const amount =
-    Number(document.getElementById("gstAmount").value);
-
-  const rate =
-    Number(document.getElementById("gstRate").value);
-
-  if (amount <= 0) {
-    alert("Amount टाका.");
-    return;
-  }
-
-  const gst = amount * rate / 100;
-
-  const total = amount + gst;
-
-  document.getElementById("gstResult").innerHTML = `
-
-    <div class="profit-card">
-
-      <p>Amount: ₹${amount.toFixed(2)}</p>
-
-      <p>GST (${rate}%): ₹${gst.toFixed(2)}</p>
-
-      <h3>Total: ₹${total.toFixed(2)}</h3>
-
-    </div>
-
-  `;
-}
-
-
-// ================================
-// INVOICE
-// ================================
-
-function createInvoice() {
-
-  const customer =
-    document.getElementById("invoiceCustomer").value;
-
-  const product =
-    document.getElementById("invoiceProduct").value;
-
-  const qty =
-    Number(document.getElementById("invoiceQty").value);
-
-  const price =
-    Number(document.getElementById("invoicePrice").value);
-
-  if (!customer || !product || qty <= 0 || price <= 0) {
-
-    alert("सर्व Invoice details भरा.");
-
-    return;
-  }
-
-  const total = qty * price;
-
-  document.getElementById("invoiceResult").innerHTML = `
-
-    <div class="profit-card">
-
-      <h3>🧾 Invoice</h3>
-
-      <p>Customer: ${customer}</p>
-
-      <p>Product: ${product}</p>
-
-      <p>Quantity: ${qty}</p>
-
-      <p>Price: ₹${price.toFixed(2)}</p>
-
-      <h2>Total: ₹${total.toFixed(2)}</h2>
-
-    </div>
-
-  `;
-}
-
-
-// ================================
-// DASHBOARD
-// ================================
-
-function updateDashboard() {
-
-  const profit = totalSales - totalExpenses;
-
-  document.getElementById("totalSales")
-    .innerText = "₹" + totalSales.toFixed(2);
-
-  document.getElementById("totalExpenses")
-    .innerText = "₹" + totalExpenses.toFixed(2);
-
-  document.getElementById("totalProfit")
-    .innerText = "₹" + profit.toFixed(2);
-
-  document.getElementById("totalCustomers")
-    .innerText = totalCustomers;
-
-
-  // Profit page
-
-  document.getElementById("profitSales")
-    .innerText = "₹" + totalSales.toFixed(2);
-
-  document.getElementById("profitExpenses")
-    .innerText = "₹" + totalExpenses.toFixed(2);
-
-  document.getElementById("profitValue")
-    .innerText = "₹" + profit.toFixed(2);
-}
-
-
-// ================================
-// FEEDBACK
-// ================================
-
-function openFeedback() {
-
-  window.open(
-    "https://docs.google.com/forms/d/e/1FAIpQLSewOR2YdFto41kc7jZVnTLcCg5jWigSHig-rJOAgDoaL1lgCQ/viewform",
-    "_blank"
-  );
-
-}
+  document.getElementById("profitDisplay").innerText =
+    "₹" + profit.toLocaleString("en-IN");
+    }
