@@ -201,7 +201,7 @@ footer {
 .feedback-box {
   .feedback-btn {
   position: fixed !important;
-  top: 18px !important;
+  top: 10px !important;
   right: 15px !important;
   left: auto !important;
   bottom: auto !important;
@@ -247,7 +247,7 @@ footer {
 .close-btn {
   position: absolute;
 
-  top: 20px;
+  top: 12px;
   right: 12px;
 
   background: transparent !important;
@@ -350,7 +350,7 @@ footer {
   }
 
   .feedback-btn {
-    top: 75px !important;
+    top: 55px !important;
     right: 10px !important;
 
     padding: 9px 14px !important;
