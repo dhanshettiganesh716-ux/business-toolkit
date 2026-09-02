@@ -2,197 +2,531 @@ let totalSales = 0;
 let totalExpenses = 0;
 let totalStock = 0;
 
+let salesRecords = [];
+let expenseRecords = [];
+let stockRecords = [];
 
-// OPEN TOOL
-function openTool(tool) {
 
-  document.getElementById("dashboard").style.display = "none";
+// PAGE SWITCH
+function showPage(pageId, button){
 
-  document.querySelectorAll(".section").forEach(function(section) {
-    section.classList.remove("active");
+  document.querySelectorAll(".page").forEach(page=>{
+    page.classList.remove("active");
   });
 
-  document.getElementById(tool).classList.add("active");
+  const page = document.getElementById(pageId);
+
+  if(page){
+    page.classList.add("active");
+  }
+
+
+  if(button){
+
+    document.querySelectorAll(".menu-item").forEach(item=>{
+      item.classList.remove("active");
+    });
+
+    button.classList.add("active");
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 }
 
 
-// GO HOME
-function goHome() {
 
-  document.querySelectorAll(".section").forEach(function(section) {
-    section.classList.remove("active");
-  });
+// FEEDBACK
+function openFeedback(){
 
-  document.getElementById("dashboard").style.display = "block";
+  window.open(
+    "https://docs.google.com/forms/d/e/1FAIpQLSewOR2YdFto41kc7jZVnTLcCg5jWigSHig-rJOAgDoaL1lgCQ/viewform?usp=dialog",
+    "_blank"
+  );
+
 }
 
 
-// BILLING
-function createBill() {
 
-  let product =
-    document.getElementById("billProduct").value;
+// CREATE INVOICE
+function createInvoice(){
 
-  let qty =
-    Number(document.getElementById("billQty").value);
+  const customer =
+    document.getElementById("customerName").value.trim();
 
-  let price =
-    Number(document.getElementById("billPrice").value);
+  const mobile =
+    document.getElementById("customerMobile").value.trim();
 
-  if (!product || qty <= 0 || price <= 0) {
-    alert("Please enter valid details.");
+  const product =
+    document.getElementById("productName").value.trim();
+
+  const quantity =
+    Number(document.getElementById("quantity").value);
+
+  const price =
+    Number(document.getElementById("price").value);
+
+
+  if(!customer || !mobile || !product || quantity <= 0 || price < 0){
+
+    alert("Please fill all invoice details correctly.");
+
     return;
   }
 
-  let total = qty * price;
+
+  const total = quantity * price;
+
 
   totalSales += total;
 
-  document.getElementById("salesDisplay").innerText =
-    "₹" + totalSales.toLocaleString("en-IN");
 
-  updateProfit();
+  salesRecords.push({
+    customer,
+    mobile,
+    product,
+    quantity,
+    price,
+    total
+  });
 
-  document.getElementById("billResult").innerHTML =
-    "Product: " + product +
-    "<br>Quantity: " + qty +
-    "<br>Total: ₹" + total.toLocaleString("en-IN");
+
+  updateDashboard();
+
+  displaySales();
+
+
+  document.getElementById("invoiceResult").innerHTML = `
+
+    <div class="invoice">
+
+      <h2>Business Invoice</h2>
+
+      <div class="invoice-row">
+        <span>Customer</span>
+        <strong>${customer}</strong>
+      </div>
+
+      <div class="invoice-row">
+        <span>Mobile</span>
+        <strong>${mobile}</strong>
+      </div>
+
+      <div class="invoice-row">
+        <span>Product</span>
+        <strong>${product}</strong>
+      </div>
+
+      <div class="invoice-row">
+        <span>Quantity</span>
+        <strong>${quantity}</strong>
+      </div>
+
+      <div class="invoice-row">
+        <span>Price</span>
+        <strong>₹${price.toFixed(2)}</strong>
+      </div>
+
+      <div class="invoice-total">
+        <span>Total</span>
+        <span>₹${total.toFixed(2)}</span>
+      </div>
+
+      <p style="margin-top:25px;text-align:center;">
+        Thank you for your business!
+      </p>
+
+      <button class="print-btn" onclick="window.print()">
+        🖨️ Print / Save PDF
+      </button>
+
+    </div>
+  `;
+
+
+  document.getElementById("customerName").value = "";
+  document.getElementById("customerMobile").value = "";
+  document.getElementById("productName").value = "";
+  document.getElementById("quantity").value = "";
+  document.getElementById("price").value = "";
+
 }
 
 
-// STOCK
-function addStock() {
 
-  let name =
-    document.getElementById("stockName").value;
+// SALES
+function displaySales(){
 
-  let qty =
-    Number(document.getElementById("stockQty").value);
+  const list =
+    document.getElementById("salesList");
 
-  if (!name || qty <= 0) {
-    alert("Please enter valid stock details.");
+
+  if(salesRecords.length === 0){
+
+    list.innerHTML =
+      `<p class="empty">No sales yet.</p>`;
+
     return;
   }
 
-  totalStock += qty;
 
-  document.getElementById("stockDisplay").innerText =
-    totalStock;
+  list.innerHTML =
+    salesRecords.map((sale,index)=>`
 
-  document.getElementById("stockResult").innerHTML =
-    "Product: " + name +
-    "<br>Added Quantity: " + qty +
-    "<br>Total Stock: " + totalStock;
+      <div class="history-item">
+
+        <strong>${index + 1}. ${sale.product}</strong>
+
+        <p>
+          Customer: ${sale.customer}
+        </p>
+
+        <p>
+          Quantity: ${sale.quantity}
+        </p>
+
+        <p>
+          Total: ₹${sale.total.toFixed(2)}
+        </p>
+
+      </div>
+
+    `).join("");
+
 }
 
 
-// CUSTOMER KHATA
-function addCredit() {
 
-  let name =
-    document.getElementById("customerName").value;
+// ADD EXPENSE
+function addExpense(){
 
-  let amount =
-    Number(document.getElementById("creditAmount").value);
+  const name =
+    document.getElementById("expenseName").value.trim();
 
-  if (!name || amount <= 0) {
-    alert("Please enter valid customer details.");
-    return;
-  }
-
-  document.getElementById("khataResult").innerHTML =
-    "Customer: " + name +
-    "<br>Credit Amount: ₹" +
-    amount.toLocaleString("en-IN");
-}
-
-
-// GST CALCULATOR
-function calculateGST() {
-
-  let amount =
-    Number(document.getElementById("gstAmount").value);
-
-  let rate =
-    Number(document.getElementById("gstRate").value);
-
-  if (amount <= 0) {
-    alert("Please enter amount.");
-    return;
-  }
-
-  let gst = amount * rate / 100;
-
-  let total = amount + gst;
-
-  document.getElementById("gstResult").innerHTML =
-    "GST (" + rate + "%): ₹" +
-    gst.toLocaleString("en-IN") +
-    "<br>Total Amount: ₹" +
-    total.toLocaleString("en-IN");
-}
-
-
-// PROFIT CALCULATOR
-function calculateProfit() {
-
-  let buy =
-    Number(document.getElementById("buyPrice").value);
-
-  let sell =
-    Number(document.getElementById("sellPrice").value);
-
-  let qty =
-    Number(document.getElementById("profitQty").value);
-
-  if (buy <= 0 || sell <= 0 || qty <= 0) {
-    alert("Please enter valid values.");
-    return;
-  }
-
-  let profit = (sell - buy) * qty;
-
-  document.getElementById("profitResult").innerHTML =
-    "Total Profit: ₹" +
-    profit.toLocaleString("en-IN");
-}
-
-
-// EXPENSE
-function addExpense() {
-
-  let name =
-    document.getElementById("expenseName").value;
-
-  let amount =
+  const amount =
     Number(document.getElementById("expenseAmount").value);
 
-  if (!name || amount <= 0) {
-    alert("Please enter valid expense details.");
+
+  if(!name || amount <= 0){
+
+    alert("Enter valid expense details.");
+
     return;
   }
+
 
   totalExpenses += amount;
 
-  document.getElementById("expenseDisplay").innerText =
-    "₹" + totalExpenses.toLocaleString("en-IN");
 
-  updateProfit();
+  expenseRecords.push({
+    name,
+    amount
+  });
 
-  document.getElementById("expenseResult").innerHTML =
-    "Expense: " + name +
-    "<br>Amount: ₹" +
-    amount.toLocaleString("en-IN") +
-    "<br>Total Expenses: ₹" +
-    totalExpenses.toLocaleString("en-IN");
+
+  updateDashboard();
+
+  displayExpenses();
+
+
+  document.getElementById("expenseResult").innerHTML = `
+
+    <div class="result">
+
+      Expense added successfully.
+
+      <strong>₹${amount.toFixed(2)}</strong>
+
+    </div>
+  `;
+
+
+  document.getElementById("expenseName").value = "";
+  document.getElementById("expenseAmount").value = "";
+
 }
 
 
-// UPDATE PROFIT
-function updateProfit() {
 
-  let profit = totalSales - totalExpenses;
+// DISPLAY EXPENSES
+function displayExpenses(){
 
-  document.getElementById("profitDisplay").innerText =
-    "₹" + profit.toLocaleString("en-IN");
-    }
+  const list =
+    document.getElementById("expenseList");
+
+
+  if(expenseRecords.length === 0){
+
+    list.innerHTML =
+      `<p class="empty">No expenses yet.</p>`;
+
+    return;
+  }
+
+
+  list.innerHTML =
+    expenseRecords.map((expense,index)=>`
+
+      <div class="history-item">
+
+        <strong>
+          ${index + 1}. ${expense.name}
+        </strong>
+
+        <p>
+          Amount: ₹${expense.amount.toFixed(2)}
+        </p>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+
+// ADD STOCK
+function addStock(){
+
+  const name =
+    document.getElementById("stockName").value.trim();
+
+  const qty =
+    Number(document.getElementById("stockQty").value);
+
+
+  if(!name || qty <= 0){
+
+    alert("Enter valid stock details.");
+
+    return;
+  }
+
+
+  totalStock += qty;
+
+
+  stockRecords.push({
+    name,
+    qty
+  });
+
+
+  updateDashboard();
+
+  displayStock();
+
+
+  document.getElementById("stockResult").innerHTML = `
+
+    <div class="result">
+
+      Stock added successfully.
+
+      <strong>${qty} units</strong>
+
+    </div>
+  `;
+
+
+  document.getElementById("stockName").value = "";
+  document.getElementById("stockQty").value = "";
+
+}
+
+
+
+// DISPLAY STOCK
+function displayStock(){
+
+  const list =
+    document.getElementById("stockList");
+
+
+  if(stockRecords.length === 0){
+
+    list.innerHTML =
+      `<p class="empty">No stock added.</p>`;
+
+    return;
+  }
+
+
+  list.innerHTML =
+    stockRecords.map((stock,index)=>`
+
+      <div class="history-item">
+
+        <strong>
+          ${index + 1}. ${stock.name}
+        </strong>
+
+        <p>
+          Quantity: ${stock.qty}
+        </p>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+
+// ADD CUSTOMER
+function addCustomer(){
+
+  const name =
+    document.getElementById("customer").value.trim();
+
+  const credit =
+    Number(document.getElementById("credit").value);
+
+
+  if(!name || credit < 0){
+
+    alert("Enter valid customer details.");
+
+    return;
+  }
+
+
+  document.getElementById("customerResult").innerHTML = `
+
+    <div class="result">
+
+      <strong>${name}</strong>
+
+      <p>
+        Credit / Khata: ₹${credit.toFixed(2)}
+      </p>
+
+    </div>
+
+  `;
+
+
+  document.getElementById("customer").value = "";
+  document.getElementById("credit").value = "";
+
+}
+
+
+
+// PROFIT CALCULATOR
+function calculateProfit(){
+
+  const buy =
+    Number(document.getElementById("buyPrice").value);
+
+  const sell =
+    Number(document.getElementById("sellPrice").value);
+
+  const qty =
+    Number(document.getElementById("profitQty").value);
+
+
+  if(buy < 0 || sell < 0 || qty <= 0){
+
+    alert("Enter valid values.");
+
+    return;
+  }
+
+
+  const profit =
+    (sell - buy) * qty;
+
+
+  const message =
+    profit >= 0
+      ? `Profit: ₹${profit.toFixed(2)}`
+      : `Loss: ₹${Math.abs(profit).toFixed(2)}`;
+
+
+  document.getElementById("profitResult").innerHTML = `
+
+    <div class="result">
+
+      <h3>${message}</h3>
+
+    </div>
+
+  `;
+
+}
+
+
+
+// GST CALCULATOR
+function calculateGST(){
+
+  const amount =
+    Number(document.getElementById("gstAmount").value);
+
+  const rate =
+    Number(document.getElementById("gstRate").value);
+
+
+  if(amount < 0 || rate < 0){
+
+    alert("Enter valid GST details.");
+
+    return;
+  }
+
+
+  const gst =
+    amount * rate / 100;
+
+  const total =
+    amount + gst;
+
+
+  document.getElementById("gstResult").innerHTML = `
+
+    <div class="result">
+
+      <p>Original Amount: ₹${amount.toFixed(2)}</p>
+
+      <p>GST: ₹${gst.toFixed(2)}</p>
+
+      <h3>Total: ₹${total.toFixed(2)}</h3>
+
+    </div>
+
+  `;
+
+}
+
+
+
+// DASHBOARD
+function updateDashboard(){
+
+  document.getElementById("dashboardSales").innerText =
+    "₹" + totalSales.toFixed(2);
+
+
+  document.getElementById("dashboardExpenses").innerText =
+    "₹" + totalExpenses.toFixed(2);
+
+
+  document.getElementById("dashboardProfit").innerText =
+    "₹" + (totalSales - totalExpenses).toFixed(2);
+
+
+  document.getElementById("dashboardStock").innerText =
+    totalStock;
+
+}
+
+
+
+// INITIAL LOAD
+displaySales();
+displayExpenses();
+displayStock();
+updateDashboard();
