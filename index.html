@@ -12,195 +12,164 @@
 <body>
 
 <header class="topbar">
-
-  <div class="brand">
-    <div class="logo">BT</div>
-
-    <div>
-      <h1>Business Toolkit</h1>
-      <p>Smart Business Management</p>
-    </div>
+  <div>
+    <h1>Business Toolkit</h1>
+    <p>Smart Business Management</p>
   </div>
 
-  <div class="profile">
-    <div class="profile-icon">G</div>
-    <span>Business Owner</span>
-  </div>
-
+  <div class="profile">G</div>
 </header>
 
 
-<div class="layout">
+<div class="app">
 
+  <!-- SIDEBAR -->
   <aside class="sidebar">
 
-    <button class="menu-item active" onclick="showPage('dashboard',this)">
+    <button class="menu-item active"
+      onclick="showPage('dashboard', this)">
       🏠 <span>Dashboard</span>
     </button>
 
-    <button class="menu-item" onclick="showPage('billing',this)">
-      🧾 <span>Billing</span>
+    <button class="menu-item"
+      onclick="showPage('billing', this)">
+      🧾 <span>Invoice</span>
     </button>
 
-    <button class="menu-item" onclick="showPage('stock',this)">
-      📦 <span>Stock</span>
-    </button>
-
-    <button class="menu-item" onclick="showPage('customers',this)">
-      👥 <span>Customers</span>
-    </button>
-
-    <button class="menu-item" onclick="showPage('sales',this)">
+    <button class="menu-item"
+      onclick="showPage('sales', this)">
       💰 <span>Sales</span>
     </button>
 
-    <button class="menu-item" onclick="showPage('expenses',this)">
+    <button class="menu-item"
+      onclick="showPage('expenses', this)">
       💸 <span>Expenses</span>
     </button>
 
-    <button class="menu-item" onclick="showPage('profit',this)">
+    <button class="menu-item"
+      onclick="showPage('customers', this)">
+      👥 <span>Customers</span>
+    </button>
+
+    <button class="menu-item"
+      onclick="showPage('stock', this)">
+      📦 <span>Stock</span>
+    </button>
+
+    <button class="menu-item"
+      onclick="showPage('gst', this)">
+      🧮 <span>GST</span>
+    </button>
+
+    <button class="menu-item"
+      onclick="showPage('profit', this)">
       📈 <span>Profit</span>
     </button>
 
-    <button class="menu-item" onclick="showPage('gst',this)">
-      🧮 <span>GST Calculator</span>
-    </button>
-
-    <button class="menu-item" onclick="showPage('reports',this)">
-      📊 <span>Reports</span>
-    </button>
-
-    <button class="menu-item" onclick="showPage('settings',this)">
-      ⚙️ <span>Settings</span>
+    <button class="menu-item"
+      onclick="openFeedback()">
+      💬 <span>Feedback</span>
     </button>
 
   </aside>
 
 
-  <main class="content">
+  <!-- MAIN CONTENT -->
+  <main class="main">
 
 
     <!-- DASHBOARD -->
+    <section id="dashboard" class="page active">
 
-    <section id="dashboard" class="page active-page">
-
-      <div class="page-heading">
-
-        <div>
-          <span class="welcome">BUSINESS OVERVIEW</span>
-          <h2>Good Morning 👋</h2>
-          <p>Manage your business smarter and faster.</p>
-        </div>
-
-        <button class="primary-btn" onclick="showPage('billing')">
-          + Create Invoice
-        </button>
-
+      <div class="page-title">
+        <h2>Dashboard</h2>
+        <p>Manage your business easily</p>
       </div>
 
 
-      <div class="stats-grid">
+      <div class="stats">
 
         <div class="stat-card">
-          <div class="stat-top">
-            <div class="stat-icon">💰</div>
-            <span class="badge">Sales</span>
+          <div class="icon">💰</div>
+          <div>
+            <p>Total Sales</p>
+            <h3 id="dashboardSales">₹0</h3>
           </div>
-
-          <p>Total Sales</p>
-          <h3 id="salesDisplay">₹0</h3>
-          <small>Today's sales</small>
         </div>
 
-
         <div class="stat-card">
-          <div class="stat-top">
-            <div class="stat-icon">💸</div>
-            <span class="badge">Expense</span>
+          <div class="icon">💸</div>
+          <div>
+            <p>Total Expenses</p>
+            <h3 id="dashboardExpenses">₹0</h3>
           </div>
-
-          <p>Total Expenses</p>
-          <h3 id="expenseDisplay">₹0</h3>
-          <small>Today's expenses</small>
         </div>
 
-
         <div class="stat-card">
-          <div class="stat-top">
-            <div class="stat-icon">📈</div>
-            <span class="badge">Profit</span>
+          <div class="icon">📈</div>
+          <div>
+            <p>Net Profit</p>
+            <h3 id="dashboardProfit">₹0</h3>
           </div>
-
-          <p>Net Profit</p>
-          <h3 id="profitDisplay">₹0</h3>
-          <small>Sales − Expenses</small>
         </div>
 
-
         <div class="stat-card">
-          <div class="stat-top">
-            <div class="stat-icon">📦</div>
-            <span class="badge">Stock</span>
+          <div class="icon">📦</div>
+          <div>
+            <p>Total Stock</p>
+            <h3 id="dashboardStock">0</h3>
           </div>
-
-          <p>Stock Items</p>
-          <h3 id="stockDisplay">0</h3>
-          <small>Total quantity</small>
         </div>
 
       </div>
 
 
-      <h3 class="section-title">Quick Tools</h3>
+      <div class="card">
 
+        <h3>Quick Tools</h3>
 
-      <div class="quick-grid">
+        <div class="quick-grid">
 
-        <div class="quick-card" onclick="showPage('billing')">
-          <div class="quick-icon">🧾</div>
-          <h3>New Invoice</h3>
-          <p>Create a professional bill</p>
-          <span>→</span>
-        </div>
+          <button onclick="showPage('billing')">
+            🧾
+            <span>Create Invoice</span>
+          </button>
 
+          <button onclick="showPage('sales')">
+            💰
+            <span>Sales</span>
+          </button>
 
-        <div class="quick-card" onclick="showPage('stock')">
-          <div class="quick-icon">📦</div>
-          <h3>Manage Stock</h3>
-          <p>Add and track products</p>
-          <span>→</span>
-        </div>
+          <button onclick="showPage('expenses')">
+            💸
+            <span>Expenses</span>
+          </button>
 
+          <button onclick="showPage('customers')">
+            👥
+            <span>Customers</span>
+          </button>
 
-        <div class="quick-card" onclick="showPage('customers')">
-          <div class="quick-icon">👥</div>
-          <h3>Customers</h3>
-          <p>Manage customer khata</p>
-          <span>→</span>
-        </div>
+          <button onclick="showPage('stock')">
+            📦
+            <span>Stock</span>
+          </button>
 
+          <button onclick="showPage('gst')">
+            🧮
+            <span>GST</span>
+          </button>
 
-        <div class="quick-card" onclick="showPage('expenses')">
-          <div class="quick-icon">💸</div>
-          <h3>Expenses</h3>
-          <p>Track business expenses</p>
-          <span>→</span>
-        </div>
+          <button onclick="showPage('profit')">
+            📈
+            <span>Profit</span>
+          </button>
 
+          <button onclick="openFeedback()">
+            💬
+            <span>Feedback</span>
+          </button>
 
-        <div class="quick-card" onclick="showPage('profit')">
-          <div class="quick-icon">📈</div>
-          <h3>Profit Calculator</h3>
-          <p>Calculate your profit</p>
-          <span>→</span>
-        </div>
-
-
-        <div class="quick-card" onclick="showPage('gst')">
-          <div class="quick-icon">🧮</div>
-          <h3>GST Calculator</h3>
-          <p>Calculate GST instantly</p>
-          <span>→</span>
         </div>
 
       </div>
@@ -209,35 +178,98 @@
 
 
 
-    <!-- BILLING -->
-
+    <!-- INVOICE -->
     <section id="billing" class="page">
 
-      <div class="page-heading">
-        <div>
-          <span class="welcome">BILLING</span>
-          <h2>🧾 Create Invoice</h2>
-          <p>Create and print your invoice.</p>
-        </div>
+      <div class="page-title">
+        <h2>Create Invoice</h2>
+        <p>Create a simple business invoice</p>
       </div>
 
 
-      <div class="form-card">
+      <div class="card">
 
-        <label>Product Name</label>
-        <input id="billProduct" type="text" placeholder="Enter product name">
+        <div class="form-grid">
 
-        <label>Quantity</label>
-        <input id="billQty" type="number" placeholder="Enter quantity">
+          <div class="input-group">
+            <label>Customer Name</label>
+            <input
+              id="customerName"
+              type="text"
+              placeholder="Enter customer name">
+          </div>
 
-        <label>Price</label>
-        <input id="billPrice" type="number" placeholder="Enter price">
 
-        <button class="primary-btn full" onclick="createBill()">
-          Create Invoice
+          <div class="input-group">
+            <label>Mobile Number</label>
+            <input
+              id="customerMobile"
+              type="tel"
+              placeholder="Enter mobile number">
+          </div>
+
+
+          <div class="input-group">
+            <label>Product Name</label>
+            <input
+              id="productName"
+              type="text"
+              placeholder="Enter product name">
+          </div>
+
+
+          <div class="input-group">
+            <label>Quantity</label>
+            <input
+              id="quantity"
+              type="number"
+              min="1"
+              placeholder="Quantity">
+          </div>
+
+
+          <div class="input-group">
+            <label>Price</label>
+            <input
+              id="price"
+              type="number"
+              min="0"
+              placeholder="Price">
+          </div>
+
+        </div>
+
+
+        <button class="primary-btn"
+          onclick="createInvoice()">
+          🧾 Create Invoice
         </button>
 
-        <div id="billResult" class="result"></div>
+      </div>
+
+
+      <div id="invoiceResult"></div>
+
+    </section>
+
+
+
+    <!-- SALES -->
+    <section id="sales" class="page">
+
+      <div class="page-title">
+        <h2>Sales</h2>
+        <p>Track your business sales</p>
+      </div>
+
+
+      <div class="card">
+
+        <h3>Sales History</h3>
+
+        <div id="salesList">
+          <p class="empty">No sales yet.</p>
+        </div>
 
       </div>
 
@@ -245,33 +277,52 @@
 
 
 
-    <!-- STOCK -->
+    <!-- EXPENSES -->
+    <section id="expenses" class="page">
 
-    <section id="stock" class="page">
-
-      <div class="page-heading">
-        <div>
-          <span class="welcome">INVENTORY</span>
-          <h2>📦 Stock Management</h2>
-          <p>Manage your products and inventory.</p>
-        </div>
+      <div class="page-title">
+        <h2>Expenses</h2>
+        <p>Track your business expenses</p>
       </div>
 
 
-      <div class="form-card">
+      <div class="card">
 
-        <label>Product Name</label>
-        <input id="stockName" type="text" placeholder="Example: Rice">
+        <div class="input-group">
+          <label>Expense Name</label>
+          <input
+            id="expenseName"
+            type="text"
+            placeholder="e.g. Electricity">
+        </div>
 
-        <label>Quantity</label>
-        <input id="stockQty" type="number" placeholder="Enter quantity">
 
-        <button class="primary-btn full" onclick="addStock()">
-          + Add Stock
+        <div class="input-group">
+          <label>Amount</label>
+          <input
+            id="expenseAmount"
+            type="number"
+            placeholder="Enter amount">
+        </div>
+
+
+        <button class="primary-btn"
+          onclick="addExpense()">
+          Add Expense
         </button>
 
-        <div id="stockResult" class="result">
-          Total Stock: 0
+
+        <div id="expenseResult"></div>
+
+      </div>
+
+
+      <div class="card">
+
+        <h3>Expense History</h3>
+
+        <div id="expenseList">
+          <p class="empty">No expenses yet.</p>
         </div>
 
       </div>
@@ -281,31 +332,41 @@
 
 
     <!-- CUSTOMERS -->
-
     <section id="customers" class="page">
 
-      <div class="page-heading">
-        <div>
-          <span class="welcome">CUSTOMERS</span>
-          <h2>👥 Customer Khata</h2>
-          <p>Manage customer credit records.</p>
-        </div>
+      <div class="page-title">
+        <h2>Customers</h2>
+        <p>Manage customer credit / khata</p>
       </div>
 
 
-      <div class="form-card">
+      <div class="card">
 
-        <label>Customer Name</label>
-        <input id="customerName" type="text" placeholder="Enter customer name">
+        <div class="input-group">
+          <label>Customer Name</label>
+          <input
+            id="customer"
+            type="text"
+            placeholder="Customer name">
+        </div>
 
-        <label>Credit Amount</label>
-        <input id="creditAmount" type="number" placeholder="₹ Amount">
 
-        <button class="primary-btn full" onclick="addCredit()">
-          + Add Credit
+        <div class="input-group">
+          <label>Credit Amount</label>
+          <input
+            id="credit"
+            type="number"
+            placeholder="₹ Amount">
+        </div>
+
+
+        <button class="primary-btn"
+          onclick="addCustomer()">
+          Add Customer
         </button>
 
-        <div id="khataResult" class="result"></div>
+
+        <div id="customerResult"></div>
 
       </div>
 
@@ -313,82 +374,53 @@
 
 
 
-    <!-- SALES -->
+    <!-- STOCK -->
+    <section id="stock" class="page">
 
-    <section id="sales" class="page">
-
-      <div class="empty-page">
-        <div class="big-icon">💰</div>
-        <h2>Sales</h2>
-        <p>Your sales records will appear here.</p>
+      <div class="page-title">
+        <h2>Stock</h2>
+        <p>Manage your inventory</p>
       </div>
 
-    </section>
 
+      <div class="card">
 
-
-    <!-- EXPENSE -->
-
-    <section id="expenses" class="page">
-
-      <div class="page-heading">
-        <div>
-          <span class="welcome">EXPENSES</span>
-          <h2>💸 Business Expenses</h2>
-          <p>Track your daily expenses.</p>
+        <div class="input-group">
+          <label>Product Name</label>
+          <input
+            id="stockName"
+            type="text"
+            placeholder="Product name">
         </div>
-      </div>
 
 
-      <div class="form-card">
+        <div class="input-group">
+          <label>Quantity</label>
+          <input
+            id="stockQty"
+            type="number"
+            placeholder="Quantity">
+        </div>
 
-        <label>Expense Name</label>
-        <input id="expenseName" type="text" placeholder="Example: Rent">
 
-        <label>Amount</label>
-        <input id="expenseAmount" type="number" placeholder="₹ Amount">
-
-        <button class="primary-btn full" onclick="addExpense()">
-          + Add Expense
+        <button class="primary-btn"
+          onclick="addStock()">
+          Add Stock
         </button>
 
-        <div id="expenseResult" class="result"></div>
+
+        <div id="stockResult"></div>
 
       </div>
 
-    </section>
 
+      <div class="card">
 
+        <h3>Stock List</h3>
 
-    <!-- PROFIT -->
-
-    <section id="profit" class="page">
-
-      <div class="page-heading">
-        <div>
-          <span class="welcome">CALCULATOR</span>
-          <h2>📈 Profit Calculator</h2>
-          <p>Calculate your product profit.</p>
+        <div id="stockList">
+          <p class="empty">No stock added.</p>
         </div>
-      </div>
-
-
-      <div class="form-card">
-
-        <label>Buying Price</label>
-        <input id="buyPrice" type="number" placeholder="₹ Buying price">
-
-        <label>Selling Price</label>
-        <input id="sellPrice" type="number" placeholder="₹ Selling price">
-
-        <label>Quantity</label>
-        <input id="profitQty" type="number" placeholder="Enter quantity">
-
-        <button class="primary-btn full" onclick="calculateProfit()">
-          Calculate Profit
-        </button>
-
-        <div id="profitResult" class="result"></div>
 
       </div>
 
@@ -397,39 +429,41 @@
 
 
     <!-- GST -->
-
     <section id="gst" class="page">
 
-      <div class="page-heading">
-        <div>
-          <span class="welcome">CALCULATOR</span>
-          <h2>🧮 GST Calculator</h2>
-          <p>Calculate GST quickly.</p>
-        </div>
+      <div class="page-title">
+        <h2>GST Calculator</h2>
+        <p>Calculate GST quickly</p>
       </div>
 
 
-      <div class="form-card">
+      <div class="card">
 
-        <label>Amount</label>
-        <input id="gstAmount" type="number" placeholder="Enter amount">
+        <div class="input-group">
+          <label>Amount</label>
+          <input
+            id="gstAmount"
+            type="number"
+            placeholder="Enter amount">
+        </div>
 
-        <label>GST Rate</label>
 
-        <select id="gstRate">
+        <div class="input-group">
+          <label>GST Rate (%)</label>
+          <input
+            id="gstRate"
+            type="number"
+            placeholder="e.g. 18">
+        </div>
 
-          <option value="5">5% GST</option>
-          <option value="12">12% GST</option>
-          <option value="18">18% GST</option>
-          <option value="28">28% GST</option>
 
-        </select>
-
-        <button class="primary-btn full" onclick="calculateGST()">
+        <button class="primary-btn"
+          onclick="calculateGST()">
           Calculate GST
         </button>
 
-        <div id="gstResult" class="result"></div>
+
+        <div id="gstResult"></div>
 
       </div>
 
@@ -437,28 +471,53 @@
 
 
 
-    <!-- REPORTS -->
+    <!-- PROFIT -->
+    <section id="profit" class="page">
 
-    <section id="reports" class="page">
-
-      <div class="empty-page">
-        <div class="big-icon">📊</div>
-        <h2>Business Reports</h2>
-        <p>Sales, expenses and profit reports.</p>
+      <div class="page-title">
+        <h2>Profit Calculator</h2>
+        <p>Calculate your business profit</p>
       </div>
 
-    </section>
+
+      <div class="card">
+
+        <div class="input-group">
+          <label>Buying Price</label>
+          <input
+            id="buyPrice"
+            type="number"
+            placeholder="₹ Buying price">
+        </div>
 
 
+        <div class="input-group">
+          <label>Selling Price</label>
+          <input
+            id="sellPrice"
+            type="number"
+            placeholder="₹ Selling price">
+        </div>
 
-    <!-- SETTINGS -->
 
-    <section id="settings" class="page">
+        <div class="input-group">
+          <label>Quantity</label>
+          <input
+            id="profitQty"
+            type="number"
+            value="1"
+            min="1">
+        </div>
 
-      <div class="empty-page">
-        <div class="big-icon">⚙️</div>
-        <h2>Settings</h2>
-        <p>Business settings will be available here.</p>
+
+        <button class="primary-btn"
+          onclick="calculateProfit()">
+          Calculate Profit
+        </button>
+
+
+        <div id="profitResult"></div>
+
       </div>
 
     </section>
@@ -469,37 +528,7 @@
 </div>
 
 
-<nav class="mobile-nav">
-
-  <button onclick="showPage('dashboard')">
-    🏠
-    <span>Home</span>
-  </button>
-
-  <button onclick="showPage('billing')">
-    🧾
-    <span>Bill</span>
-  </button>
-
-  <button onclick="showPage('stock')">
-    📦
-    <span>Stock</span>
-  </button>
-
-  <button onclick="showPage('customers')">
-    👥
-    <span>Customers</span>
-  </button>
-
-  <button onclick="showPage('settings')">
-    ⚙️
-    <span>More</span>
-  </button>
-
-</nav>
-
-
 <script src="script.js"></script>
 
 </body>
-      </html>
+</html>
