@@ -237,7 +237,28 @@ main {
 }
 
 
-/* MOBILE */
+/* --- 🆕 नवीन बदल: कॅल्क्युलेटर स्क्रीन आकडे मोठे करण्यासाठी --- */
+
+/* मुख्य उत्तर (उदा. 20120) एकदम मोठे आणि ठळक दिसण्यासाठी */
+.calculator-screen, .calc-display, .display-screen, #calc-display {
+  font-size: 42px !important;    /* आकड्यांचा आकार मोठा केला */
+  font-weight: 800 !important;   /* आकडे एकदम गडद (Extra Bold) केले */
+  color: #111827 !important;     /* स्पष्ट दिसणारा काळा रंग */
+  letter-spacing: 1px;           /* आकड्यांमधील योग्य अंतर */
+  text-align: right;             /* आकडे उजव्या बाजूला दिसतील */
+}
+
+/* वरचे छोटे आकडे जे फिकट दिसत होते (उदा. 16134+463+...) */
+.calculator-history, .calc-history, .history-screen, #calc-history {
+  font-size: 18px !important;    /* जुने आकडे वाचता येतील एवढे मोठे केले */
+  color: #6b7280 !important;     /* स्पष्ट राखाडी रंग */
+  font-weight: 600 !important;   /* मध्यम ठळक */
+  text-align: right;
+  margin-bottom: 6px;
+}
+
+
+/* MOBILE RESPONSIVE */
 
 @media (max-width: 600px) {
 
@@ -274,6 +295,11 @@ main {
 
   .invoice-paper {
     padding: 25px 18px;
+  }
+  
+  /* मोबईलवर आकडे जास्त मोठे होऊन स्क्रीनबाहेर जाऊ नयेत म्हणून */
+  .calculator-screen {
+    font-size: 38px !important;
   }
 
 }
