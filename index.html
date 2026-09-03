@@ -1,44 +1,127 @@
-<!-- CUSTOMERS -->
-<section id="customers" class="page">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <div class="page-title">
-    <h2>Customers</h2>
-    <p>Manage customer credit / khata</p>
-  </div>
+  <title>Business Toolkit</title>
 
-  <div class="card">
+  <link rel="stylesheet" href="style.css">
+</head>
 
-    <div class="input-group">
-      <label>Customer Name</label>
+<body>
 
-      <input
-        id="customer"
-        type="text"
-        placeholder="Customer name">
+  <!-- HEADER -->
+  <header class="header">
+    <div>
+      <h1>Business Toolkit</h1>
+      <p>Smart Business Management</p>
     </div>
 
-    <div class="input-group">
-      <label>Credit Amount</label>
+    <div class="profile">G</div>
+  </header>
 
-      <input
-        id="credit"
-        type="number"
-        placeholder="₹ Amount">
-    </div>
 
-    <button class="primary-btn"
-      onclick="addCustomer()">
-      Add Customer
-    </button>
+  <!-- MAIN -->
+  <main class="container">
 
-    <div id="customerResult"></div>
+    <!-- DASHBOARD CARDS -->
+    <section class="stats">
 
-    <!-- CUSTOMER PRINT BUTTON -->
-    <button class="print-btn"
-      onclick="printCustomers()">
-      🖨️ Print / Save PDF
-    </button>
+      <div class="stat-card">
+        <div class="icon">💰</div>
+        <div>
+          <p>Total Sales</p>
+          <h2>₹0.00</h2>
+        </div>
+      </div>
 
-  </div>
+      <div class="stat-card">
+        <div class="icon">💸</div>
+        <div>
+          <p>Total Expenses</p>
+          <h2>₹0.00</h2>
+        </div>
+      </div>
 
-</section>
+      <div class="stat-card">
+        <div class="icon">📈</div>
+        <div>
+          <p>Net Profit</p>
+          <h2>₹0.00</h2>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="icon">📦</div>
+        <div>
+          <p>Total Stock</p>
+          <h2>0</h2>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- QUICK TOOLS -->
+    <section class="quick-tools">
+
+      <h2>Quick Tools</h2>
+
+      <div class="tools-grid">
+
+        <button onclick="openPage('invoice')">
+          <span>🧾</span>
+          <b>Create Invoice</b>
+        </button>
+
+        <button onclick="openPage('sales')">
+          <span>💰</span>
+          <b>Sales</b>
+        </button>
+
+        <button onclick="openPage('expenses')">
+          <span>💸</span>
+          <b>Expenses</b>
+        </button>
+
+        <button onclick="openPage('customers')">
+          <span>👥</span>
+          <b>Customers</b>
+        </button>
+
+        <button onclick="openPage('stock')">
+          <span>📦</span>
+          <b>Stock</b>
+        </button>
+
+        <button onclick="openPage('gst')">
+          <span>🧮</span>
+          <b>GST</b>
+        </button>
+
+        <button onclick="openPage('profit')">
+          <span>📈</span>
+          <b>Profit</b>
+        </button>
+
+        <button onclick="openFeedback()">
+          <span>💬</span>
+          <b>Feedback</b>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- PAGE AREA -->
+    <section id="pageArea" class="page-area"></section>
+
+  </main>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
