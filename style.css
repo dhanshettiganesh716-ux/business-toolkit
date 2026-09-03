@@ -332,6 +332,12 @@ main {
   .print-btn,
   .main-btn {
     display: none !important;
+    .display{
+  background:#f0edff;
+  border-radius:20px;
+  padding:38px 30px;
+  min-height:170px;
+    }
   }
 
   .invoice-paper {
