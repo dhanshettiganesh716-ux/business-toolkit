@@ -69,16 +69,6 @@
     <button class="menu-item"
       onclick="openFeedback()">
       💬 <span>Feedback</span>
-     <button class="print-btn" onclick="printSales()">
-  🖨️ Print / Save PDF
-     </button>
-      <button class="print-btn" onclick="printExpenses()">
-  🖨️ Print / Save PDF
-      </button>
-      <button class="print-btn" onclick="printStock()">
-  🖨️ Print / Save PDF
-      </button>
-      
     </button>
 
   </aside>
@@ -281,6 +271,11 @@
           <p class="empty">No sales yet.</p>
         </div>
 
+        <!-- SALES PRINT -->
+        <button class="print-btn" onclick="printSales()">
+          🖨️ Print / Save PDF
+        </button>
+
       </div>
 
     </section>
@@ -335,6 +330,11 @@
           <p class="empty">No expenses yet.</p>
         </div>
 
+        <!-- EXPENSE PRINT -->
+        <button class="print-btn" onclick="printExpenses()">
+          🖨️ Print / Save PDF
+        </button>
+
       </div>
 
     </section>
@@ -378,6 +378,11 @@
 
         <div id="customerResult"></div>
 
+        <!-- CUSTOMER PRINT -->
+        <button class="print-btn" onclick="printCustomers()">
+          🖨️ Print / Save PDF
+        </button>
+
       </div>
 
     </section>
@@ -414,131 +419,4 @@
 
 
         <button class="primary-btn"
-          onclick="addStock()">
-          Add Stock
-        </button>
-
-
-        <div id="stockResult"></div>
-
-      </div>
-
-
-      <div class="card">
-
-        <h3>Stock List</h3>
-
-        <div id="stockList">
-          <p class="empty">No stock added.</p>
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- GST -->
-    <section id="gst" class="page">
-
-      <div class="page-title">
-        <h2>GST Calculator</h2>
-        <p>Calculate GST quickly</p>
-      </div>
-
-
-      <div class="card">
-
-        <div class="input-group">
-          <label>Amount</label>
-          <input
-            id="gstAmount"
-            type="number"
-            placeholder="Enter amount">
-        </div>
-
-
-        <div class="input-group">
-          <label>GST Rate (%)</label>
-          <input
-            id="gstRate"
-            type="number"
-            placeholder="e.g. 18">
-        </div>
-
-
-        <button class="primary-btn"
-          onclick="calculateGST()">
-          Calculate GST
-        </button>
-
-
-        <div id="gstResult"></div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- PROFIT -->
-    <section id="profit" class="page">
-
-      <div class="page-title">
-        <h2>Profit Calculator</h2>
-        <p>Calculate your business profit</p>
-      </div>
-
-
-      <div class="card">
-
-        <div class="input-group">
-          <label>Buying Price</label>
-          <input
-            id="buyPrice"
-            type="number"
-            placeholder="₹ Buying price">
-        </div>
-
-
-        <div class="input-group">
-          <label>Selling Price</label>
-          <input
-            id="sellPrice"
-            type="number"
-            placeholder="₹ Selling price">
-        </div>
-
-
-        <div class="input-group">
-          <label>Quantity</label>
-          <input
-            id="profitQty"
-            type="number"
-            value="1"
-            min="1">
-        </div>
-
-
-        <button class="primary-btn"
-          onclick="calculateProfit()">
-          Calculate Profit
-        </button>
-
-
-        <div id="profitResult"></div>
-
-      </div>
-
-    </section>
-
-
-  </main>
-
-</div>
-
-
-<script src="script.js"></script>
-
-</body>
-</html>
+          onclick
