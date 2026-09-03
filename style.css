@@ -1,5 +1,4 @@
-
-}* {
+* {
   box-sizing: border-box;
 }
 
@@ -10,9 +9,7 @@ body {
   color: #111827;
 }
 
-
 /* HEADER */
-
 .top-header {
   background: white;
   padding: 22px 26px;
@@ -46,9 +43,7 @@ body {
   font-weight: bold;
 }
 
-
 /* NAVIGATION */
-
 .navigation {
   background: white;
   display: flex;
@@ -75,11 +70,9 @@ body {
   color: white;
 }
 
-
 /* MAIN */
-
 main {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: auto;
   padding: 30px 20px;
 }
@@ -102,9 +95,7 @@ main {
   font-size: 18px;
 }
 
-
 /* FORM */
-
 .form-card {
   background: white;
   border: 1px solid #e1e4e8;
@@ -121,23 +112,30 @@ main {
   margin-bottom: 8px;
 }
 
-.form-card input {
+.form-card input,
+.form-card select,
+.form-card textarea {
   width: 100%;
-  height: 55px;
+  min-height: 55px;
   border: 1px solid #d1d5db;
   border-radius: 12px;
-  padding: 0 16px;
+  padding: 10px 16px;
   font-size: 17px;
   outline: none;
 }
 
-.form-card input:focus {
+.form-card textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-card input:focus,
+.form-card select:focus,
+.form-card textarea:focus {
   border-color: #111827;
 }
 
-
 /* BUTTONS */
-
 .main-btn {
   width: 100%;
   height: 56px;
@@ -163,9 +161,7 @@ main {
   font-weight: bold;
 }
 
-
 /* LIST */
-
 .list-card {
   background: white;
   border-radius: 16px;
@@ -182,97 +178,170 @@ main {
   margin: 5px 0;
 }
 
-
-/* INVOICE */
+/* =========================
+   INVOICE
+========================= */
 
 .invoice-paper {
   background: white;
-  max-width: 760px;
+  width: 100%;
+  max-width: 1050px;
   margin: 30px auto;
-  padding: 45px;
+  padding: 35px;
   border: 1px solid #ddd;
+  border-radius: 16px;
+  overflow-x: auto;
 }
 
 .invoice-paper h1 {
   text-align: center;
   margin-bottom: 35px;
+  font-size: 30px;
 }
 
+/* INVOICE TABLE */
 .invoice-table {
   width: 100%;
+  min-width: 900px;
   border-collapse: collapse;
   margin-top: 25px;
+  table-layout: auto;
 }
 
 .invoice-table th,
 .invoice-table td {
-  border: 1px solid #ddd;
-  padding: 12px;
+  border: 1px solid #d1d5db;
+  padding: 14px 12px;
+  vertical-align: middle;
 }
 
+/* HEADINGS */
 .invoice-table th {
   background: #f3f4f6;
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  height: 65px;
+  white-space: nowrap;
 }
 
+/* CELLS */
+.invoice-table td {
+  font-size: 18px !important;
+  font-weight: 600;
+  height: 65px;
+}
+
+/* INPUT BOXES */
+.invoice-table input,
+.invoice-table select {
+  width: 100%;
+  height: 52px !important;
+  min-height: 52px !important;
+  padding: 8px 12px !important;
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+  font-size: 18px !important;
+  font-weight: 600;
+  background: white;
+}
+
+/* PRODUCT BOX WIDER */
+.invoice-table th:first-child,
+.invoice-table td:first-child {
+  min-width: 280px;
+}
+
+/* QTY */
+.invoice-table th:nth-child(2),
+.invoice-table td:nth-child(2) {
+  min-width: 110px;
+}
+
+/* PRICE */
+.invoice-table th:nth-child(3),
+.invoice-table td:nth-child(3) {
+  min-width: 140px;
+}
+
+/* GST */
+.invoice-table th:nth-child(4),
+.invoice-table td:nth-child(4) {
+  min-width: 120px;
+}
+
+/* TOTAL */
+.invoice-table th:nth-child(5),
+.invoice-table td:nth-child(5) {
+  min-width: 150px;
+}
+
+/* ACTION */
+.invoice-table th:last-child,
+.invoice-table td:last-child {
+  min-width: 100px;
+  text-align: center;
+}
+
+/* INVOICE TOTAL */
 .invoice-total-box {
   margin-top: 25px;
   margin-left: auto;
-  max-width: 320px;
+  max-width: 350px;
 }
 
 .invoice-total-box div {
   display: flex;
   justify-content: space-between;
-  padding: 8px;
+  padding: 10px;
+  font-size: 18px;
 }
 
 .grand-total {
   border-top: 2px solid #111827;
-  font-size: 20px;
+  font-size: 22px !important;
   font-weight: bold;
 }
 
 .thank-you {
   text-align: center;
   margin-top: 70px;
+  font-size: 18px;
 }
 
+/* =========================
+   CALCULATOR
+========================= */
 
-/* --- 🆕 नवीन बदल: कॅल्क्युलेटर स्क्रीन आकडे मोठे करण्यासाठी --- */
-
-/* मुख्य उत्तर (उदा. 20120) एकदम मोठे आणि ठळक दिसण्यासाठी */
-.calculator-screen, .calc-display, .display-screen, #calc-display {
-  font-size: 42px !important;    /* आकड्यांचा आकार मोठा केला */
-  font-weight: 800 !important;   /* आकडे एकदम गडद (Extra Bold) केले */
-  color: #111827 !important;     /* स्पष्ट दिसणारा काळा रंग */
-  letter-spacing: 1px;           /* आकड्यांमधील योग्य अंतर */
-  text-align: right;             /* आकडे उजव्या बाजूला दिसतील */
-@media (max-width: 600px) {
-  #calcExpression {
-    font-size: 36px !important;
-    font-weight: 800 !important;
-  #calcExpression {
+.expression {
   font-size: 42px !important;
+  color: #111827;
   font-weight: 800 !important;
-  color: #111827 !important;
-  text-align: right !important;
-  line-height: 1.2;
   min-height: 55px;
   word-break: break-all;
-  }
-}
-
-/* वरचे छोटे आकडे जे फिकट दिसत होते (उदा. 16134+463+...) */
-.calculator-history, .calc-history, .history-screen, #calc-history {
-  font-size: 18px !important;    /* जुने आकडे वाचता येतील एवढे मोठे केले */
-  color: #6b7280 !important;     /* स्पष्ट राखाडी रंग */
-  font-weight: 600 !important;   /* मध्यम ठळक */
   text-align: right;
-  margin-bottom: 6px;
+  line-height: 1.2;
 }
 
+.result {
+  font-size: 48px !important;
+  font-weight: 800 !important;
+  text-align: right;
+  word-break: break-all;
+}
 
-/* MOBILE RESPONSIVE */
+.calculator-history,
+.calc-history,
+.history-screen,
+#calc-history {
+  font-size: 20px !important;
+  color: #6b7280 !important;
+  font-weight: 600 !important;
+  text-align: right;
+}
+
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 600px) {
 
@@ -296,7 +365,7 @@ main {
   }
 
   main {
-    padding: 25px 15px;
+    padding: 25px 12px;
   }
 
   .page h2 {
@@ -304,172 +373,79 @@ main {
   }
 
   .form-card {
-    padding: 20px;
+    padding: 18px;
   }
 
+  /* INVOICE MOBILE */
   .invoice-paper {
-    padding: 25px 18px;
-  }
-  
-  /* मोबईलवर आकडे जास्त मोठे होऊन स्क्रीनबाहेर जाऊ नयेत म्हणून */
-  .calculator-screen {
-    font-size: 80px !important;
-    font-weight:bold;
-  
+    padding: 20px 12px;
+    overflow-x: auto;
   }
 
-}
-@media (max-width: 600px) {
-  #calcExpression {
+  .invoice-table {
+    min-width: 900px;
+  }
+
+  .invoice-table th {
+    font-size: 20px !important;
+  }
+
+  .invoice-table td {
+    font-size: 18px !important;
+  }
+
+  .invoice-table input,
+  .invoice-table select {
+    height: 52px !important;
+    font-size: 18px !important;
+  }
+
+  /* CALCULATOR MOBILE */
+  .expression {
     font-size: 36px !important;
-    font-weight: 800 !important;
-  #calcExpression {
-  font-size: 42px !important;
-  font-weight: 800 !important;
-  color: #111827 !important;
-  text-align: right !important;
-  line-height: 1.2;
-  min-height: 55px;
-  word-break: break-all;
   }
+
+  .result {
+    font-size: 42px !important;
   }
 }
 
-/* PRINT */
-/* Calculator typing numbers BIG */
+/* =========================
+   PRINT / PDF
+========================= */
 
-.calculator-input,
-.calculator input,
-#calculator input,
-input[type="text"] {
-  font-size: 100px !important;
-  font-weight: 950 !important;
-  text-align: right !important;
-  height: 90px !important;
-  padding: 45px 85px !important;
-  letter-spacing: 8px;
-}
-
-/* Mobile */
-@media (max-width: 600px) {
-
-  .calculator-input,
-  .calculator input,
-  #calculator input,
-  input[type="text"] {
-    font-size: 36px !important;
-    height: 75px !important;
-  }
-
-}
 @media print {
+
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
+  }
 
   body * {
     visibility: hidden;
   }
 
-  .page.active-page,
-  .page.active-page * {
+  .invoice-paper,
+  .invoice-paper * {
     visibility: visible;
   }
 
-  .page.active-page {
+  .invoice-paper {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
-    padding: 20px;
+    max-width: none;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    overflow: visible;
   }
 
-  .form-card,
   .navigation,
   .top-header,
-  .print-btn,
-  .main-btn {
-    display:background:#f0edff;
-  border-radius:15px;
-  padding:35px 25px;
-  min-height:160px;
-    
-    }
-  }
-
-  .invoice-paper {
-    border: none;
-    margin: 0;
-    max-width: none;
-  }
-
-  @page {
-    size: A4;
-    margin: 10mm;
+  .main-btn,
+  .print-btn {
+    display: none !important;
   }
 }
-/* --- 🆕 कॅल्क्युलेटर डिस्प्लेचे आकडे मोठे करण्यासाठी --- */
-
-/* मुख्य मोठे आकडे (उदा. 20120 किंवा 0) */
-.calculator div[style*="font-size"], 
-[class*="display"], 
-[id*="display"],
-.calculator-screen {
-  font-size: 48px !important;    /* आकड्यांचा आकार दुप्पट मोठा केला */
-  font-weight: 800 !important;   /* आकडे एकदम ठळक आणि डार्क केले */
-  color: #111827 !important;     /* स्पष्ट दिसणारा गडद काळा रंग */
-  text-align: right !important;  /* आकडे उजव्या बाजूला दिसतील */
-  padding: 10px 15px !important;
-  word-break: break-all;         /* मोठे आकडे स्क्रीनबाहेर जाणार नाहीत */
-}
-
-/* वरचे छोटे हिशोबाचे आकडे (उदा. 16134+463+...) */
-.calculator div[style*="color: gray"],
-[class*="history"],
-[id*="history"] {
-  font-size: 20px !important;    /* हिशोबाचे आकडे स्पष्ट वाचता येतील */
-  color: #4b5563 !important;     /* मध्यम राखाडी रंग */
-  font-weight: 600 !important;
-  text-align: right !important;
-  margin-bottom: 8px;
-}
-.
-  }
-/* INVOICE TABLE - BIG & CLEAR */
-.invoice-table {
-  width: 100%;
-  min-width: 850px;
-  border-collapse: collapse;
-}
-
-.invoice-table th {
-  font-size: 19px !important;
-  font-weight: 800 !important;
-  padding: 18px 14px !important;
-  height: 60px;
-  white-space: nowrap;
-}
-
-.invoice-table td {
-  font-size: 18px !important;
-  padding: 14px 12px !important;
-  height: 58px;
-}
-
-.invoice-table input,
-.invoice-table select {
-  width: 100%;
-  min-height: 48px;
-  font-size: 18px !important;
-  padding: 10px 12px !important;
-  box-sizing: border-box;
-}
-
-.invoice-table th:first-child {
-  min-width: 250px;
-}
-
-.invoice-table th:nth-child(2),
-.invoice-table th:nth-child(3),
-.invoice-table th:nth-child(4),
-.invoice-table th:nth-child(5) {
-  min-width: 120px;
-}
-  </style>
