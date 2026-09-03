@@ -201,12 +201,12 @@ select{
 
 .print-btn{
   width:100%;
-  margin-top:18px;
+  margin-top:14px;
   padding:15px;
   background:#f1f2f5;
   border:1px solid #d9dadd;
-  border-radius:14px;
-  font-size:17px;
+  border-radius:10px;
+  font-size:15px;
   font-weight:bold;
   cursor:pointer;
 }
@@ -785,50 +785,83 @@ behavior:"smooth"
 
 function createInvoice(){
 
-let customer =
-document.getElementById("invCustomer").value;
+  let customer =
+    document.getElementById("invCustomer").value;
 
-let mobile =
-document.getElementById("invMobile").value;
+  let mobile =
+    document.getElementById("invMobile").value;
 
-let product =
-document.getElementById("invProduct").value;
+  let product =
+    document.getElementById("invProduct").value;
 
-let qty =
-Number(document.getElementById("invQty").value);
+  let qty =
+    Number(document.getElementById("invQty").value);
 
-let price =
-Number(document.getElementById("invPrice").value);
+  let price =
+    Number(document.getElementById("invPrice").value);
 
-let total=qty*price;
+  if(!customer || !product || qty <= 0 || price <= 0){
+    alert("Please fill all invoice details");
+    return;
+  }
 
+  let total = qty * price;
 
-document.getElementById("invoiceResult").innerHTML=`
+  document.getElementById("invoiceResult").innerHTML = `
 
-<div class="result">
+    <div class="invoice-paper">
 
-<h2>Business Invoice</h2>
+      <h1>Business Invoice</h1>
 
-<br>
+      <div class="invoice-section">
 
-<b>Customer:</b> ${customer}<br>
-<b>Mobile:</b> ${mobile}<br>
-<b>Product:</b> ${product}<br>
-<b>Quantity:</b> ${qty}<br>
-<b>Price:</b> ₹${price.toFixed(2)}<br>
-<b>Total:</b> ₹${total.toFixed(2)}
+        <h2>Business Invoice</h2>
 
-<br><br>
+        <p>
+          <b>Customer</b>
+          <span>${customer}</span>
+        </p>
 
-Thank you for your business!
+        <p>
+          <b>Mobile</b>
+          <span>${mobile}</span>
+        </p>
 
-<button class="print-btn" onclick="printPage()">
-🖨️ Print / Save PDF
-</button>
+        <p>
+          <b>Product</b>
+          <span>${product}</span>
+        </p>
 
-</div>
+        <p>
+          <b>Quantity</b>
+          <span>${qty}</span>
+        </p>
 
-`;
+        <p>
+          <b>Price</b>
+          <span>₹${price.toFixed(2)}</span>
+        </p>
+
+        <hr>
+
+        <p class="invoice-total">
+          <b>Total</b>
+          <span>₹${total.toFixed(2)}</span>
+        </p>
+
+      </div>
+
+      <div class="thank-you">
+        Thank you for your business!
+      </div>
+
+    </div>
+
+    <button class="print-btn no-print" onclick="printPage()">
+      🖨️ Print / Save PDF
+    </button>
+
+  `;
 
 }
 
