@@ -331,12 +331,11 @@ main {
   .top-header,
   .print-btn,
   .main-btn {
-    display: none !important;
-    .display{
-  background:#f0edff;
-  border-radius:20px;
-  padding:38px 30px;
-  min-height:170px;
+    display:background:#f0edff;
+  border-radius:15px;
+  padding:35px 25px;
+  min-height:160px;
+    
     }
   }
 
