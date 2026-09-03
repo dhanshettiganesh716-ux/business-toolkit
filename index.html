@@ -1,127 +1,545 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Business Toolkit</title>
+<title>Business Toolkit</title>
 
-  <link rel="stylesheet" href="style.css">
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f5f6fa;
+  color:#151a2b;
+}
+
+.header{
+  background:#fff;
+  padding:24px 26px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #e1e2e6;
+}
+
+.header h1{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.header p{
+  font-size:21px;
+  color:#747982;
+}
+
+.profile{
+  width:74px;
+  height:74px;
+  border-radius:50%;
+  background:#111827;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+  font-weight:bold;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.stat-card{
+  background:white;
+  border:1px solid #dedfe3;
+  border-radius:24px;
+  min-height:120px;
+  padding:20px;
+  display:flex;
+  align-items:center;
+  gap:17px;
+}
+
+.stat-icon{
+  font-size:45px;
+}
+
+.stat-card p{
+  color:#707680;
+  font-size:20px;
+  margin-bottom:6px;
+}
+
+.stat-card h2{
+  font-size:28px;
+}
+
+.quick-tools{
+  background:white;
+  border:1px solid #dedfe3;
+  border-radius:28px;
+  padding:30px;
+  margin-top:43px;
+}
+
+.quick-tools h2{
+  font-size:30px;
+  margin-bottom:32px;
+}
+
+.tools-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:25px;
+}
+
+.tool{
+  height:160px;
+  background:white;
+  border:1px solid #dedfe3;
+  border-radius:20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+  font-size:20px;
+  cursor:pointer;
+}
+
+.tool span{
+  font-size:45px;
+}
+
+.tool:active{
+  transform:scale(.98);
+}
+
+.page{
+  margin-top:25px;
+  background:white;
+  border:1px solid #dedfe3;
+  border-radius:24px;
+  padding:25px;
+  display:none;
+}
+
+.page h2{
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+.page p{
+  color:#707680;
+  margin-bottom:20px;
+}
+
+input{
+  width:100%;
+  padding:14px;
+  margin:8px 0 15px;
+  border:1px solid #ccc;
+  border-radius:10px;
+  font-size:16px;
+}
+
+.primary{
+  background:#111827;
+  color:white;
+  border:0;
+  padding:14px 22px;
+  border-radius:10px;
+  font-size:16px;
+}
+
+@media(max-width:600px){
+
+  .header{
+    padding:22px 26px;
+  }
+
+  .header h1{
+    font-size:30px;
+  }
+
+  .header p{
+    font-size:21px;
+  }
+
+  .container{
+    padding:18px 20px;
+  }
+
+  .stats{
+    gap:18px;
+  }
+
+  .stat-card{
+    padding:17px;
+    gap:12px;
+  }
+
+  .stat-icon{
+    font-size:38px;
+  }
+
+  .stat-card p{
+    font-size:18px;
+  }
+
+  .stat-card h2{
+    font-size:25px;
+  }
+
+  .quick-tools{
+    padding:30px;
+  }
+
+  .tools-grid{
+    gap:24px;
+  }
+
+  .tool{
+    height:160px;
+  }
+
+  .tool span{
+    font-size:43px;
+  }
+}
+
+@media(max-width:380px){
+
+  .header h1{
+    font-size:26px;
+  }
+
+  .header p{
+    font-size:18px;
+  }
+
+  .profile{
+    width:60px;
+    height:60px;
+  }
+
+  .stat-card{
+    padding:13px;
+  }
+
+  .stat-icon{
+    font-size:31px;
+  }
+
+  .stat-card p{
+    font-size:15px;
+  }
+
+  .stat-card h2{
+    font-size:20px;
+  }
+
+  .quick-tools{
+    padding:20px;
+  }
+
+  .tools-grid{
+    gap:15px;
+  }
+
+  .tool{
+    height:140px;
+  }
+
+  .tool span{
+    font-size:36px;
+  }
+
+  .tool{
+    font-size:17px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
+<header class="header">
+
+  <div>
+    <h1>Business Toolkit</h1>
+    <p>Smart Business Management</p>
+  </div>
+
+  <div class="profile">G</div>
+
+</header>
+
+
+<main class="container">
+
+<section class="stats">
+
+  <div class="stat-card">
+    <div class="stat-icon">💰</div>
     <div>
-      <h1>Business Toolkit</h1>
-      <p>Smart Business Management</p>
+      <p>Total Sales</p>
+      <h2>₹0.00</h2>
     </div>
+  </div>
 
-    <div class="profile">G</div>
-  </header>
+  <div class="stat-card">
+    <div class="stat-icon">💸</div>
+    <div>
+      <p>Total Expenses</p>
+      <h2>₹0.00</h2>
+    </div>
+  </div>
 
+  <div class="stat-card">
+    <div class="stat-icon">📈</div>
+    <div>
+      <p>Net Profit</p>
+      <h2>₹0.00</h2>
+    </div>
+  </div>
 
-  <!-- MAIN -->
-  <main class="container">
+  <div class="stat-card">
+    <div class="stat-icon">📦</div>
+    <div>
+      <p>Total Stock</p>
+      <h2>0</h2>
+    </div>
+  </div>
 
-    <!-- DASHBOARD CARDS -->
-    <section class="stats">
-
-      <div class="stat-card">
-        <div class="icon">💰</div>
-        <div>
-          <p>Total Sales</p>
-          <h2>₹0.00</h2>
-        </div>
-      </div>
-
-      <div class="stat-card">
-        <div class="icon">💸</div>
-        <div>
-          <p>Total Expenses</p>
-          <h2>₹0.00</h2>
-        </div>
-      </div>
-
-      <div class="stat-card">
-        <div class="icon">📈</div>
-        <div>
-          <p>Net Profit</p>
-          <h2>₹0.00</h2>
-        </div>
-      </div>
-
-      <div class="stat-card">
-        <div class="icon">📦</div>
-        <div>
-          <p>Total Stock</p>
-          <h2>0</h2>
-        </div>
-      </div>
-
-    </section>
+</section>
 
 
-    <!-- QUICK TOOLS -->
-    <section class="quick-tools">
+<section class="quick-tools">
 
-      <h2>Quick Tools</h2>
+<h2>Quick Tools</h2>
 
-      <div class="tools-grid">
+<div class="tools-grid">
 
-        <button onclick="openPage('invoice')">
-          <span>🧾</span>
-          <b>Create Invoice</b>
-        </button>
+<button class="tool" onclick="showPage('invoice')">
+<span>🧾</span>
+Create Invoice
+</button>
 
-        <button onclick="openPage('sales')">
-          <span>💰</span>
-          <b>Sales</b>
-        </button>
+<button class="tool" onclick="showPage('sales')">
+<span>💰</span>
+Sales
+</button>
 
-        <button onclick="openPage('expenses')">
-          <span>💸</span>
-          <b>Expenses</b>
-        </button>
+<button class="tool" onclick="showPage('expenses')">
+<span>💸</span>
+Expenses
+</button>
 
-        <button onclick="openPage('customers')">
-          <span>👥</span>
-          <b>Customers</b>
-        </button>
+<button class="tool" onclick="showPage('customers')">
+<span>👥</span>
+Customers
+</button>
 
-        <button onclick="openPage('stock')">
-          <span>📦</span>
-          <b>Stock</b>
-        </button>
+<button class="tool" onclick="showPage('stock')">
+<span>📦</span>
+Stock
+</button>
 
-        <button onclick="openPage('gst')">
-          <span>🧮</span>
-          <b>GST</b>
-        </button>
+<button class="tool" onclick="showPage('gst')">
+<span>🧮</span>
+GST
+</button>
 
-        <button onclick="openPage('profit')">
-          <span>📈</span>
-          <b>Profit</b>
-        </button>
+<button class="tool" onclick="showPage('profit')">
+<span>📈</span>
+Profit
+</button>
 
-        <button onclick="openFeedback()">
-          <span>💬</span>
-          <b>Feedback</b>
-        </button>
+<button class="tool" onclick="feedback()">
+<span>💬</span>
+Feedback
+</button>
 
-      </div>
+</div>
 
-    </section>
-
-
-    <!-- PAGE AREA -->
-    <section id="pageArea" class="page-area"></section>
-
-  </main>
+</section>
 
 
-  <script src="script.js"></script>
+<div id="page" class="page"></div>
+
+</main>
+
+
+<script>
+
+function showPage(type){
+
+let page=document.getElementById("page");
+
+page.style.display="block";
+
+if(type==="customers"){
+
+page.innerHTML=`
+<h2>👥 Customers</h2>
+<p>Manage customer credit / khata</p>
+
+<label>Customer Name</label>
+<input type="text" placeholder="Customer name">
+
+<label>Credit Amount</label>
+<input type="number" placeholder="₹ Amount">
+
+<button class="primary">Add Customer</button>
+`;
+
+}
+
+else if(type==="invoice"){
+
+page.innerHTML=`
+<h2>🧾 Create Invoice</h2>
+<p>Create a new invoice</p>
+
+<input type="text" placeholder="Customer name">
+<input type="text" placeholder="Product name">
+<input type="number" placeholder="₹ Amount">
+
+<button class="primary">Create Invoice</button>
+`;
+
+}
+
+else if(type==="sales"){
+
+page.innerHTML=`
+<h2>💰 Sales</h2>
+<p>Manage your sales</p>
+
+<input type="text" placeholder="Product name">
+<input type="number" placeholder="₹ Amount">
+
+<button class="primary">Add Sale</button>
+`;
+
+}
+
+else if(type==="expenses"){
+
+page.innerHTML=`
+<h2>💸 Expenses</h2>
+<p>Track your business expenses</p>
+
+<input type="text" placeholder="Expense name">
+<input type="number" placeholder="₹ Amount">
+
+<button class="primary">Add Expense</button>
+`;
+
+}
+
+else if(type==="stock"){
+
+page.innerHTML=`
+<h2>📦 Stock</h2>
+<p>Manage your stock</p>
+
+<input type="text" placeholder="Product name">
+<input type="number" placeholder="Quantity">
+
+<button class="primary">Add Stock</button>
+`;
+
+}
+
+else if(type==="gst"){
+
+page.innerHTML=`
+<h2>🧮 GST Calculator</h2>
+<p>Calculate GST</p>
+
+<input id="amount" type="number" placeholder="₹ Amount">
+<input id="gst" type="number" placeholder="GST %">
+
+<button class="primary" onclick="calculateGST()">Calculate</button>
+
+<h2 id="gstResult" style="margin-top:20px;"></h2>
+`;
+
+}
+
+else if(type==="profit"){
+
+page.innerHTML=`
+<h2>📈 Profit</h2>
+<p>Calculate business profit</p>
+
+<input id="sales" type="number" placeholder="Total Sales">
+<input id="expense" type="number" placeholder="Total Expenses">
+
+<button class="primary" onclick="calculateProfit()">Calculate</button>
+
+<h2 id="profitResult" style="margin-top:20px;"></h2>
+`;
+
+}
+
+page.scrollIntoView({behavior:"smooth"});
+
+}
+
+
+function calculateGST(){
+
+let amount=Number(document.getElementById("amount").value);
+let gst=Number(document.getElementById("gst").value);
+
+let result=amount+(amount*gst/100);
+
+document.getElementById("gstResult").innerText=
+"Total: ₹"+result.toFixed(2);
+
+}
+
+
+function calculateProfit(){
+
+let sales=Number(document.getElementById("sales").value);
+let expense=Number(document.getElementById("expense").value);
+
+let profit=sales-expense;
+
+document.getElementById("profitResult").innerText=
+"Profit: ₹"+profit.toFixed(2);
+
+}
+
+
+function feedback(){
+
+window.open(
+"https://docs.google.com/forms/",
+"_blank"
+);
+
+}
+
+</script>
 
 </body>
 </html>
