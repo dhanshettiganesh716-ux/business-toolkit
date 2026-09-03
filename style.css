@@ -432,5 +432,44 @@ input[type="text"] {
 }
 .
   }
+/* INVOICE TABLE - BIG & CLEAR */
+.invoice-table {
+  width: 100%;
+  min-width: 850px;
+  border-collapse: collapse;
+}
 
+.invoice-table th {
+  font-size: 19px !important;
+  font-weight: 800 !important;
+  padding: 18px 14px !important;
+  height: 60px;
+  white-space: nowrap;
+}
+
+.invoice-table td {
+  font-size: 18px !important;
+  padding: 14px 12px !important;
+  height: 58px;
+}
+
+.invoice-table input,
+.invoice-table select {
+  width: 100%;
+  min-height: 48px;
+  font-size: 18px !important;
+  padding: 10px 12px !important;
+  box-sizing: border-box;
+}
+
+.invoice-table th:first-child {
+  min-width: 250px;
+}
+
+.invoice-table th:nth-child(2),
+.invoice-table th:nth-child(3),
+.invoice-table th:nth-child(4),
+.invoice-table th:nth-child(5) {
+  min-width: 120px;
+}
   </style>
