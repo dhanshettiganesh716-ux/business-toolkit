@@ -404,3 +404,28 @@ input[type="text"] {
     margin: 10mm;
   }
 }
+/* --- 🆕 कॅल्क्युलेटर डिस्प्लेचे आकडे मोठे करण्यासाठी --- */
+
+/* मुख्य मोठे आकडे (उदा. 20120 किंवा 0) */
+.calculator div[style*="font-size"], 
+[class*="display"], 
+[id*="display"],
+.calculator-screen {
+  font-size: 48px !important;    /* आकड्यांचा आकार दुप्पट मोठा केला */
+  font-weight: 800 !important;   /* आकडे एकदम ठळक आणि डार्क केले */
+  color: #111827 !important;     /* स्पष्ट दिसणारा गडद काळा रंग */
+  text-align: right !important;  /* आकडे उजव्या बाजूला दिसतील */
+  padding: 10px 15px !important;
+  word-break: break-all;         /* मोठे आकडे स्क्रीनबाहेर जाणार नाहीत */
+}
+
+/* वरचे छोटे हिशोबाचे आकडे (उदा. 16134+463+...) */
+.calculator div[style*="color: gray"],
+[class*="history"],
+[id*="history"] {
+  font-size: 20px !important;    /* हिशोबाचे आकडे स्पष्ट वाचता येतील */
+  color: #4b5563 !important;     /* मध्यम राखाडी रंग */
+  font-weight: 600 !important;
+  text-align: right !important;
+  margin-bottom: 8px;
+}
