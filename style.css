@@ -300,6 +300,8 @@ main {
   /* मोबईलवर आकडे जास्त मोठे होऊन स्क्रीनबाहेर जाऊ नयेत म्हणून */
   .calculator-screen {
     font-size: 38px !important;
+    font-weight:bold;
+  
   }
 
 }
