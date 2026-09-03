@@ -288,7 +288,17 @@ body{
   color:white;
   cursor:pointer;
 }
+.invoice-print{
+  background:#ffffff;
+  border:1px solid #ddd;
+  border-radius:15px;
+  padding:25px;
+  margin-top:22px;
+}
 
+.no-print{
+  margin-top:20px;
+}
 
 .history-item{
   padding:15px 0;
