@@ -1,375 +1,682 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Business Toolkit</title>
+<title>Business Toolkit</title>
 
-  <link rel="stylesheet" href="style.css">
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f5f6fa;
+  color:#172033;
+}
+
+/* HEADER */
+.header{
+  background:white;
+  padding:22px 25px;
+  border-bottom:1px solid #ddd;
+}
+
+.header h1{
+  font-size:30px;
+}
+
+.header p{
+  color:#777;
+  font-size:18px;
+  margin-top:6px;
+}
+
+/* NAVIGATION */
+.nav{
+  display:flex;
+  overflow-x:auto;
+  background:white;
+  border-bottom:1px solid #ddd;
+}
+
+.nav button{
+  min-width:130px;
+  padding:22px 15px;
+  border:0;
+  background:white;
+  font-size:17px;
+  color:#555;
+  cursor:pointer;
+}
+
+.nav button.active{
+  background:#111827;
+  color:white;
+  border-radius:0;
+}
+
+/* CONTENT */
+.container{
+  padding:25px;
+  max-width:900px;
+  margin:auto;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.page h2{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.subtitle{
+  color:#777;
+  font-size:17px;
+  margin-bottom:25px;
+}
+
+/* CARD */
+.card{
+  background:white;
+  padding:25px;
+  border-radius:18px;
+  border:1px solid #ddd;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+}
+
+label{
+  display:block;
+  font-weight:bold;
+  margin-top:16px;
+  margin-bottom:8px;
+}
+
+input,select{
+  width:100%;
+  padding:15px;
+  border:1px solid #ccc;
+  border-radius:12px;
+  font-size:16px;
+  outline:none;
+}
+
+input:focus{
+  border-color:#111827;
+}
+
+/* BUTTON */
+.main-btn{
+  width:100%;
+  margin-top:20px;
+  padding:16px;
+  background:#111827;
+  color:white;
+  border:0;
+  border-radius:12px;
+  font-size:17px;
+  font-weight:bold;
+}
+
+.print-btn{
+  width:100%;
+  margin-top:12px;
+  padding:15px;
+  background:white;
+  color:#111827;
+  border:1px solid #bbb;
+  border-radius:12px;
+  font-size:16px;
+  font-weight:bold;
+}
+
+/* RESULT */
+.result{
+  margin-top:20px;
+  background:#f1f3f6;
+  padding:20px;
+  border-radius:14px;
+  font-size:18px;
+}
+
+.result strong{
+  font-size:22px;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .header h1{
+    font-size:26px;
+  }
+
+  .container{
+    padding:18px;
+  }
+
+  .page h2{
+    font-size:27px;
+  }
+
+  .nav button{
+    min-width:120px;
+    font-size:16px;
+  }
+}
+
+/* PRINT */
+@media print{
+  body{
+    background:white;
+  }
+
+  .header,
+  .nav,
+  .main-btn,
+  .print-btn{
+    display:none;
+  }
+
+  .container{
+    padding:20px;
+  }
+
+  .page{
+    display:none;
+  }
+
+  .page.active{
+    display:block;
+  }
+
+  .card{
+    box-shadow:none;
+    border:1px solid #ddd;
+  }
+}
+</style>
 </head>
 
 <body>
 
-<header class="top-header">
-  <div>
-    <h1>Business Toolkit</h1>
-    <p>Smart Business Management</p>
-  </div>
-
-  <div class="profile">G</div>
-</header>
-
+<!-- HEADER -->
+<div class="header">
+  <h1>Business Toolkit</h1>
+  <p>Smart Business Management</p>
+</div>
 
 <!-- NAVIGATION -->
+<div class="nav">
 
-<nav class="navigation">
-
-  <button onclick="showPage('invoice')" class="nav-btn active">
+  <button class="active" onclick="showPage('invoice',this)">
     🧾 Invoice
   </button>
 
-  <button onclick="showPage('sales')" class="nav-btn">
+  <button onclick="showPage('sales',this)">
     💰 Sales
   </button>
 
-  <button onclick="showPage('customers')" class="nav-btn">
+  <button onclick="showPage('customers',this)">
     👥 Customers
   </button>
 
-  <button onclick="showPage('profit')" class="nav-btn">
+  <button onclick="showPage('profit',this)">
     📈 Profit
   </button>
 
-  <button onclick="showPage('gst')" class="nav-btn">
+  <button onclick="showPage('gst',this)">
     🧮 GST
   </button>
 
-  <button onclick="showPage('stock')" class="nav-btn">
+  <button onclick="showPage('stock',this)">
     📦 Stock
   </button>
 
-  <button onclick="showPage('expenses')" class="nav-btn">
+  <button onclick="showPage('expenses',this)">
     💸 Expenses
   </button>
 
-</nav>
+</div>
 
 
-<main>
-
+<div class="container">
 
 <!-- ================= INVOICE ================= -->
 
-<section id="invoice" class="page active-page">
+<section id="invoice" class="page active">
 
-  <h2>Create Invoice</h2>
-  <p class="subtitle">Create your business invoice</p>
+<h2>Create Invoice</h2>
+<p class="subtitle">Create a simple business invoice</p>
 
-  <div class="form-card">
+<div class="card">
 
-    <label>Name Customer</label>
-    <input id="invoiceCustomer"
-           type="text"
-           placeholder="Customer name">
+<label>Customer Name</label>
+<input id="invCustomer" placeholder="Customer name">
 
-    <label>Mobile No.</label>
-    <input id="invoiceMobile"
-           type="text"
-           placeholder="Mobile No.">
+<label>Mobile No.</label>
+<input id="invMobile" placeholder="Mobile number" type="tel">
 
-    <label>Product</label>
-    <input id="invoiceProduct"
-           type="text"
-           placeholder="Product">
+<label>Product</label>
+<input id="invProduct" placeholder="Product name">
 
-    <label>Quantity</label>
-    <input id="invoiceQuantity"
-           type="number"
-           placeholder="Quantity">
+<label>Quantity</label>
+<input id="invQty" type="number" placeholder="Quantity">
 
-    <label>Price</label>
-    <input id="invoicePrice"
-           type="number"
-           placeholder="Price">
+<label>Price</label>
+<input id="invPrice" type="number" placeholder="₹ Price">
 
-    <label>Total</label>
-    <input id="invoiceTotal"
-           type="text"
-           value="₹0.00"
-           readonly>
+<label>GST %</label>
+<input id="invGST" type="number" placeholder="GST %" value="0">
 
-    <label>GST %</label>
-    <input id="invoiceGST"
-           type="number"
-           value="18">
+<button class="main-btn" onclick="createInvoice()">
+Create Invoice
+</button>
 
-    <button class="main-btn" onclick="generateInvoice()">
-      Create Invoice
-    </button>
+<div id="invoiceResult" class="result"></div>
 
-  </div>
+<button class="print-btn" onclick="window.print()">
+🖨️ Print / Save PDF
+</button>
 
-  <div id="invoiceOutput"></div>
-
+</div>
 </section>
-
 
 
 <!-- ================= SALES ================= -->
 
 <section id="sales" class="page">
 
-  <h2>Sales</h2>
-  <p class="subtitle">Manage your sales</p>
+<h2>Sales</h2>
+<p class="subtitle">Manage your sales</p>
 
-  <div class="form-card">
+<div class="card">
 
-    <label>Product</label>
-    <input id="salesProduct"
-           type="text"
-           placeholder="Product">
+<label>Product</label>
+<input id="salesProduct" placeholder="Product name">
 
-    <label>Quantity</label>
-    <input id="salesQuantity"
-           type="number"
-           placeholder="Quantity">
+<label>Quantity</label>
+<input id="salesQty" type="number" placeholder="Quantity">
 
-    <label>Price</label>
-    <input id="salesPrice"
-           type="number"
-           placeholder="Price">
+<label>Amount</label>
+<input id="salesAmount" type="number" placeholder="₹ Amount">
 
-    <label>Total Sales</label>
-    <input id="salesTotal"
-           type="text"
-           value="₹0.00"
-           readonly>
+<button class="main-btn" onclick="saveSales()">
+Save Sale
+</button>
 
-    <button class="main-btn" onclick="calculateSales()">
-      Save Sale
-    </button>
+<div id="salesResult" class="result">
+Total Sales: <strong>₹0.00</strong>
+</div>
 
-  </div>
+<button class="print-btn" onclick="window.print()">
+🖨️ Print / Save PDF
+</button>
 
-  <button class="print-btn" onclick="printSection('sales')">
-    🖨️ Print / Save PDF
-  </button>
-
+</div>
 </section>
-
 
 
 <!-- ================= CUSTOMERS ================= -->
 
 <section id="customers" class="page">
 
-  <h2>Customers</h2>
-  <p class="subtitle">Manage customer credit / khata</p>
+<h2>Customers</h2>
+<p class="subtitle">Manage customer credit / khata</p>
 
-  <div class="form-card">
+<div class="card">
 
-    <label>Customer Name</label>
-    <input id="customerName"
-           type="text"
-           placeholder="Customer name">
+<label>Customer Name</label>
+<input id="customerName" placeholder="Customer name">
 
-    <label>Mobile No.</label>
-    <input id="customerMobile"
-           type="text"
-           placeholder="Mobile No.">
+<label>Mobile No.</label>
+<input id="customerMobile" placeholder="Mobile number">
 
-    <label>Credit Amount</label>
-    <input id="customerCredit"
-           type="number"
-           placeholder="₹ Amount">
+<label>Credit Amount</label>
+<input id="creditAmount" type="number" placeholder="₹ Amount">
 
-    <button class="main-btn" onclick="saveCustomer()">
-      Add Customer
-    </button>
+<button class="main-btn" onclick="saveCustomer()">
+Add Customer
+</button>
 
-  </div>
+<div id="customerResult" class="result">
+No customer added
+</div>
 
-  <div id="customerList"></div>
+<button class="print-btn" onclick="window.print()">
+🖨️ Print / Save PDF
+</button>
 
-  <button class="print-btn" onclick="printSection('customers')">
-    🖨️ Print / Save PDF
-  </button>
-
+</div>
 </section>
-
 
 
 <!-- ================= PROFIT ================= -->
 
 <section id="profit" class="page">
 
-  <h2>Profit</h2>
-  <p class="subtitle">Calculate your business profit</p>
+<h2>Profit</h2>
+<p class="subtitle">Calculate your business profit</p>
 
-  <div class="form-card">
+<div class="card">
 
-    <label>Total Sales</label>
-    <input id="profitSales"
-           type="number"
-           placeholder="₹ Sales">
+<label>Total Sales</label>
+<input id="profitSales" type="number" placeholder="₹ Sales">
 
-    <label>Total Expenses</label>
-    <input id="profitExpenses"
-           type="number"
-           placeholder="₹ Expenses">
+<label>Total Expenses</label>
+<input id="profitExpenses" type="number" placeholder="₹ Expenses">
 
-    <label>Profit</label>
-    <input id="profitResult"
-           type="text"
-           value="₹0.00"
-           readonly>
+<button class="main-btn" onclick="calculateProfit()">
+Calculate Profit
+</button>
 
-    <button class="main-btn" onclick="calculateProfit()">
-      Calculate Profit
-    </button>
+<div id="profitResult" class="result">
+Net Profit: <strong>₹0.00</strong>
+</div>
 
-  </div>
+<button class="print-btn" onclick="window.print()">
+🖨️ Print / Save PDF
+</button>
 
-  <button class="print-btn" onclick="printSection('profit')">
-    🖨️ Print / Save PDF
-  </button>
-
+</div>
 </section>
-
 
 
 <!-- ================= GST ================= -->
 
 <section id="gst" class="page">
 
-  <h2>GST</h2>
-  <p class="subtitle">GST calculator</p>
+<h2>GST</h2>
+<p class="subtitle">GST calculator</p>
 
-  <div class="form-card">
+<div class="card">
 
-    <label>Amount</label>
-    <input id="gstAmount"
-           type="number"
-           placeholder="₹ Amount">
+<label>Amount</label>
+<input id="gstAmount" type="number" placeholder="₹ Amount">
 
-    <label>GST Rate %</label>
-    <input id="gstRate"
-           type="number"
-           value="18">
+<label>GST Rate</label>
 
-    <label>GST Amount</label>
-    <input id="gstResult"
-           type="text"
-           value="₹0.00"
-           readonly>
+<select id="gstRate">
+  <option value="5">5%</option>
+  <option value="12">12%</option>
+  <option value="18">18%</option>
+  <option value="28">28%</option>
+</select>
 
-    <label>Final Amount</label>
-    <input id="gstFinal"
-           type="text"
-           value="₹0.00"
-           readonly>
+<button class="main-btn" onclick="calculateGST()">
+Calculate GST
+</button>
 
-    <button class="main-btn" onclick="calculateGST()">
-      Calculate GST
-    </button>
+<div id="gstResult" class="result">
+GST: <strong>₹0.00</strong>
+</div>
 
-  </div>
+<button class="print-btn" onclick="window.print()">
+🖨️ Print / Save PDF
+</button>
 
-  <button class="print-btn" onclick="printSection('gst')">
-    🖨️ Print / Save PDF
-  </button>
-
+</div>
 </section>
-
 
 
 <!-- ================= STOCK ================= -->
 
 <section id="stock" class="page">
 
-  <h2>Stock</h2>
-  <p class="subtitle">Manage your inventory</p>
+<h2>Stock</h2>
+<p class="subtitle">Manage your products</p>
 
-  <div class="form-card">
+<div class="card">
 
-    <label>Product</label>
-    <input id="stockProduct"
-           type="text"
-           placeholder="Product">
+<label>Product Name</label>
+<input id="stockProduct" placeholder="Product name">
 
-    <label>Quantity</label>
-    <input id="stockQuantity"
-           type="number"
-           placeholder="Quantity">
+<label>Quantity</label>
+<input id="stockQty" type="number" placeholder="Quantity">
 
-    <label>Purchase Price</label>
-    <input id="purchasePrice"
-           type="number"
-           placeholder="₹ Purchase Price">
+<label>Price</label>
+<input id="stockPrice" type="number" placeholder="₹ Price">
 
-    <label>Selling Price</label>
-    <input id="sellingPrice"
-           type="number"
-           placeholder="₹ Selling Price">
+<button class="main-btn" onclick="saveStock()">
+Add Stock
+</button>
 
-    <button class="main-btn" onclick="saveStock()">
-      Add Stock
-    </button>
+<div id="stockResult" class="result">
+Total Stock: <strong>0</strong>
+</div>
 
-  </div>
+<button class="print-btn" onclick="window.print()">
+🖨️ Print / Save PDF
+</button>
 
-  <div id="stockList"></div>
-
-  <button class="print-btn" onclick="printSection('stock')">
-    🖨️ Print / Save PDF
-  </button>
-
+</div>
 </section>
-
 
 
 <!-- ================= EXPENSES ================= -->
 
 <section id="expenses" class="page">
 
-  <h2>Expenses</h2>
-  <p class="subtitle">Manage your business expenses</p>
+<h2>Expenses</h2>
+<p class="subtitle">Track your business expenses</p>
 
-  <div class="form-card">
+<div class="card">
 
-    <label>Expense Name</label>
-    <input id="expenseName"
-           type="text"
-           placeholder="Expense name">
+<label>Expense Name</label>
+<input id="expenseName" placeholder="Expense name">
 
-    <label>Amount</label>
-    <input id="expenseAmount"
-           type="number"
-           placeholder="₹ Amount">
+<label>Amount</label>
+<input id="expenseAmount" type="number" placeholder="₹ Amount">
 
-    <label>Date</label>
-    <input id="expenseDate"
-           type="date">
+<button class="main-btn" onclick="saveExpense()">
+Add Expense
+</button>
 
-    <button class="main-btn" onclick="saveExpense()">
-      Add Expense
-    </button>
+<div id="expenseResult" class="result">
+Total Expenses: <strong>₹0.00</strong>
+</div>
 
-  </div>
+<button class="print-btn" onclick="window.print()">
+🖨️ Print / Save PDF
+</button>
 
-  <div id="expenseList"></div>
-
-  <button class="print-btn" onclick="printSection('expenses')">
-    🖨️ Print / Save PDF
-  </button>
-
+</div>
 </section>
 
+</div>
 
-</main>
 
-<script src="script.js"></script>
+<script>
+
+/* PAGE CHANGE */
+
+function showPage(page,button){
+
+  document.querySelectorAll(".page")
+    .forEach(p => p.classList.remove("active"));
+
+  document.getElementById(page)
+    .classList.add("active");
+
+  document.querySelectorAll(".nav button")
+    .forEach(b => b.classList.remove("active"));
+
+  button.classList.add("active");
+}
+
+
+/* INVOICE */
+
+function createInvoice(){
+
+  let customer =
+    document.getElementById("invCustomer").value;
+
+  let mobile =
+    document.getElementById("invMobile").value;
+
+  let product =
+    document.getElementById("invProduct").value;
+
+  let qty =
+    Number(document.getElementById("invQty").value);
+
+  let price =
+    Number(document.getElementById("invPrice").value);
+
+  let gst =
+    Number(document.getElementById("invGST").value);
+
+  let subtotal = qty * price;
+
+  let gstAmount = subtotal * gst / 100;
+
+  let total = subtotal + gstAmount;
+
+  document.getElementById("invoiceResult").innerHTML = `
+    <b>Business Invoice</b><br><br>
+
+    Customer: ${customer || "—"}<br>
+    Mobile: ${mobile || "—"}<br>
+    Product: ${product || "—"}<br>
+    Quantity: ${qty || 0}<br>
+    Price: ₹${price.toFixed(2)}<br>
+    GST: ${gst}%<br><br>
+
+    <strong>Total: ₹${total.toFixed(2)}</strong>
+  `;
+}
+
+
+/* SALES */
+
+function saveSales(){
+
+  let amount =
+    Number(document.getElementById("salesAmount").value);
+
+  document.getElementById("salesResult").innerHTML = `
+    Total Sales:<br>
+    <strong>₹${amount.toFixed(2)}</strong>
+  `;
+}
+
+
+/* CUSTOMER */
+
+function saveCustomer(){
+
+  let name =
+    document.getElementById("customerName").value;
+
+  let mobile =
+    document.getElementById("customerMobile").value;
+
+  let credit =
+    Number(document.getElementById("creditAmount").value);
+
+  document.getElementById("customerResult").innerHTML = `
+    <b>${name || "Customer"}</b><br>
+    Mobile: ${mobile || "—"}<br>
+    Credit / Khata:<br>
+    <strong>₹${credit.toFixed(2)}</strong>
+  `;
+}
+
+
+/* PROFIT */
+
+function calculateProfit(){
+
+  let sales =
+    Number(document.getElementById("profitSales").value);
+
+  let expenses =
+    Number(document.getElementById("profitExpenses").value);
+
+  let profit = sales - expenses;
+
+  document.getElementById("profitResult").innerHTML = `
+    Net Profit:<br>
+    <strong>₹${profit.toFixed(2)}</strong>
+  `;
+}
+
+
+/* GST */
+
+function calculateGST(){
+
+  let amount =
+    Number(document.getElementById("gstAmount").value);
+
+  let rate =
+    Number(document.getElementById("gstRate").value);
+
+  let gst = amount * rate / 100;
+
+  let total = amount + gst;
+
+  document.getElementById("gstResult").innerHTML = `
+    GST Amount:<br>
+    <strong>₹${gst.toFixed(2)}</strong><br><br>
+
+    Total Amount:<br>
+    <strong>₹${total.toFixed(2)}</strong>
+  `;
+}
+
+
+/* STOCK */
+
+function saveStock(){
+
+  let product =
+    document.getElementById("stockProduct").value;
+
+  let qty =
+    Number(document.getElementById("stockQty").value);
+
+  let price =
+    Number(document.getElementById("stockPrice").value);
+
+  document.getElementById("stockResult").innerHTML = `
+    <b>${product || "Product"}</b><br>
+    Quantity: ${qty}<br>
+    Price: ₹${price.toFixed(2)}<br><br>
+
+    Total Stock:<br>
+    <strong>${qty}</strong>
+  `;
+}
+
+
+/* EXPENSE */
+
+function saveExpense(){
+
+  let name =
+    document.getElementById("expenseName").value;
+
+  let amount =
+    Number(document.getElementById("expenseAmount").value);
+
+  document.getElementById("expenseResult").innerHTML = `
+    <b>${name || "Expense"}</b><br><br>
+    Total Expenses:<br>
+    <strong>₹${amount.toFixed(2)}</strong>
+  `;
+}
+
+</script>
 
 </body>
 </html>
