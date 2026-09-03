@@ -23,45 +23,46 @@ body{
   min-height:100vh;
 }
 
-/* SIDEBAR */
 .sidebar{
   width:230px;
-  background:#211d3a;
+  background:#211b3a;
   color:white;
-  padding:20px 12px;
   position:fixed;
+  left:0;
   top:0;
   bottom:0;
-  left:0;
-  overflow-y:auto;
+  padding:20px 12px;
 }
 
 .logo{
-  font-size:24px;
+  font-size:23px;
   font-weight:bold;
   padding:10px 12px 25px;
 }
 
+.nav{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
 .nav-btn{
-  width:100%;
   border:0;
   background:transparent;
-  color:#ddd9f5;
+  color:#ddd;
+  padding:13px 14px;
   text-align:left;
-  padding:13px 15px;
-  margin:3px 0;
-  border-radius:10px;
+  border-radius:9px;
   cursor:pointer;
   font-size:15px;
 }
 
 .nav-btn:hover,
 .nav-btn.active{
-  background:#7467d9;
+  background:#7467d8;
   color:white;
 }
 
-/* MAIN */
 .main{
   margin-left:230px;
   width:calc(100% - 230px);
@@ -69,19 +70,13 @@ body{
 }
 
 .header{
-  margin-bottom:25px;
+  margin-bottom:20px;
 }
 
 .header h1{
   font-size:28px;
 }
 
-.header p{
-  color:#777;
-  margin-top:5px;
-}
-
-/* PAGES */
 .page{
   display:none;
 }
@@ -90,38 +85,35 @@ body{
   display:block;
 }
 
-/* CARDS */
 .cards{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:18px;
-  margin-bottom:25px;
+  gap:15px;
 }
 
 .card{
   background:white;
-  padding:22px;
-  border-radius:16px;
-  box-shadow:0 4px 15px rgba(0,0,0,.06);
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
 }
 
 .card h3{
+  font-size:15px;
   color:#777;
-  font-size:14px;
   margin-bottom:10px;
 }
 
 .card .number{
-  font-size:27px;
+  font-size:25px;
   font-weight:bold;
 }
 
-/* BOX */
 .box{
   background:white;
-  border-radius:16px;
   padding:22px;
-  box-shadow:0 4px 15px rgba(0,0,0,.06);
+  border-radius:12px;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
   margin-bottom:20px;
 }
 
@@ -129,19 +121,33 @@ body{
   margin-bottom:18px;
 }
 
-/* INPUTS */
 input,select{
   width:100%;
   padding:12px;
   border:1px solid #ddd;
   border-radius:9px;
   outline:none;
-  font-size:15px;
-  background:white;
+  font-size:20px;
 }
 
-input:focus,select:focus{
-  border-color:#7467d9;
+button{
+  border:0;
+  border-radius:9px;
+  cursor:pointer;
+}
+
+.primary{
+  background:#7467d8;
+  color:white;
+  padding:12px 18px;
+  font-size:15px;
+}
+
+.danger{
+  background:#ef4444;
+  color:white;
+  padding:10px 14px;
+  font-size:14px;
 }
 
 .form-grid{
@@ -150,76 +156,47 @@ input:focus,select:focus{
   gap:12px;
 }
 
-button{
-  border:0;
-  cursor:pointer;
-}
-
-.primary{
-  background:#7467d9;
-  color:white;
-  padding:12px 18px;
-  border-radius:9px;
-  font-weight:bold;
-}
-
-.primary:hover{
-  background:#6256c9;
-}
-
-.danger{
-  background:#ffe5e5;
-  color:#d33;
-  padding:8px 12px;
-  border-radius:7px;
-}
-
-/* TABLE */
-.table-wrap{
-  overflow-x:auto;
-}
-
 table{
   width:100%;
   border-collapse:collapse;
+  background:white;
 }
 
 th,td{
-  padding:12px;
   border-bottom:1px solid #eee;
+  padding:12px;
   text-align:left;
-  white-space:nowrap;
 }
 
 th{
-  color:#666;
-  font-size:14px;
+  background:#f5f3ff;
+  font-size:16px;
 }
 
-/* CALCULATOR */
+/* ================= CALCULATOR ================= */
+
 .calc-box{
-  width:100%;
-  max-width:700px;
-  padding:25px;
+  max-width:500px;
+  margin:auto;
 }
 
 .display{
-  background:#f0edff;
-  border-radius:15px;
-  padding:30px 25px;
-  min-height:130px;
+  background:#f3f1ff;
+  border-radius:12px;
+  padding:20px;
+  min-height:120px;
+  margin-bottom:15px;
   text-align:right;
-  margin-bottom:18px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+  overflow:hidden;
 }
 
 .expression{
-  font-size:20px;
-  color:#777;
-  min-height:28px;
+  font-size:36px;
+  color:#111827;
+  font-weight:800;
+  min-height:48px;
   word-break:break-all;
+  line-height:1.2;
 }
 
 .result{
@@ -232,43 +209,36 @@ th{
 .calc-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:14px;
+  gap:10px;
 }
 
 .calc-grid button{
-  min-height:75px;
-  padding:28px 10px;
-  font-size:25px;
-  border-radius:15px;
-  background:#f1efff;
-  color:#29253f;
-  font-weight:bold;
+  min-height:60px;
+  font-size:22px;
+  background:#f1effb;
+  color:#25233a;
 }
 
 .calc-grid button:hover{
-  background:#e3dfff;
+  background:#e5e1f8;
 }
 
 .calc-grid .operator{
-  background:#7467d9;
-  color:white;
-}
-
-.calc-grid .operator:hover{
-  background:#6256c9;
-}
-
-.calc-grid .clear{
-  background:#ffe4e4;
-  color:#d33;
+  background:#ded8ff;
 }
 
 .calc-grid .equal{
-  background:#211d3a;
+  background:#7467d8;
   color:white;
 }
 
-/* INVOICE */
+.calc-grid .clear{
+  background:#ef4444;
+  color:white;
+}
+
+/* ================= INVOICE ================= */
+
 .invoice-total{
   text-align:right;
   font-size:22px;
@@ -283,12 +253,40 @@ th{
   flex-wrap:wrap;
 }
 
-/* MOBILE */
-@media(max-width:900px){
-  .cards{
-    grid-template-columns:repeat(2,1fr);
-  }
+/* फक्त Invoice text मोठा */
+#invoiceTable th{
+  font-size:20px;
+  font-weight:800;
 }
+
+#invoiceTable td{
+  font-size:18px;
+  font-weight:600;
+}
+
+#invoiceTable td input{
+  font-size:18px;
+  font-weight:600;
+}
+
+/* ================= FEEDBACK ================= */
+
+.feedback-box{
+  max-width:600px;
+}
+
+.feedback-box textarea{
+  width:100%;
+  min-height:140px;
+  padding:14px;
+  border:1px solid #ddd;
+  border-radius:9px;
+  font-size:17px;
+  resize:vertical;
+  outline:none;
+}
+
+/* ================= MOBILE ================= */
 
 @media(max-width:650px){
 
@@ -311,6 +309,7 @@ th{
 
   .nav{
     display:flex;
+    flex-direction:row;
     overflow-x:auto;
     gap:5px;
   }
@@ -352,7 +351,6 @@ th{
     padding:16px;
   }
 
-  /* BIG MOBILE CALCULATOR */
   .calc-box{
     max-width:none;
     padding:18px;
@@ -364,7 +362,7 @@ th{
   }
 
   .expression{
-    font-size:18px;
+    font-size:32px;
   }
 
   .result{
@@ -380,6 +378,41 @@ th{
     padding:20px 5px;
     font-size:23px;
   }
+
+  #invoiceTable th{
+    font-size:20px;
+  }
+
+  #invoiceTable td{
+    font-size:18px;
+  }
+
+  #invoiceTable td input{
+    font-size:18px;
+  }
+}
+
+/* PRINT */
+@media print{
+  .sidebar,
+  .header,
+  .actions{
+    display:none !important;
+  }
+
+  .main{
+    margin:0;
+    width:100%;
+    padding:0;
+  }
+
+  .page{
+    display:none !important;
+  }
+
+  #invoice{
+    display:block !important;
+  }
 }
 </style>
 </head>
@@ -388,229 +421,256 @@ th{
 
 <div class="app">
 
-<!-- SIDEBAR -->
+<!-- ================= SIDEBAR ================= -->
+
 <aside class="sidebar">
 
-  <div class="logo">Business Toolkit</div>
+  <div class="logo">
+    Business Toolkit
+  </div>
 
   <div class="nav">
 
     <button class="nav-btn active" onclick="showPage('dashboard',this)">
-      🏠 Dashboard
+      Dashboard
     </button>
 
     <button class="nav-btn" onclick="showPage('calculator',this)">
-      🧮 Calculator
+      Calculator
     </button>
 
     <button class="nav-btn" onclick="showPage('invoice',this)">
-      🧾 Invoice
+      Invoice
     </button>
 
     <button class="nav-btn" onclick="showPage('sales',this)">
-      💰 Sales
+      Sales
     </button>
 
     <button class="nav-btn" onclick="showPage('customers',this)">
-      👥 Customers
+      Customers
     </button>
 
     <button class="nav-btn" onclick="showPage('profit',this)">
-      📈 Profit
+      Profit
     </button>
 
     <button class="nav-btn" onclick="showPage('gst',this)">
-      🧮 GST
+      GST
     </button>
 
     <button class="nav-btn" onclick="showPage('stock',this)">
-      📦 Stock
+      Stock
     </button>
 
     <button class="nav-btn" onclick="showPage('expenses',this)">
-      💸 Expenses
+      Expenses
+    </button>
+
+    <button class="nav-btn" onclick="showPage('feedback',this)">
+      Feedback
     </button>
 
   </div>
+
 </aside>
 
 
+<!-- ================= MAIN ================= -->
+
 <main class="main">
 
-<div class="header">
-  <h1 id="pageTitle">Dashboard</h1>
-  <p>Manage your business easily</p>
-</div>
-
-
-<!-- DASHBOARD -->
-<section id="dashboard" class="page active">
-
-  <div class="cards">
-
-    <div class="card">
-      <h3>Total Sales</h3>
-      <div class="number" id="dashSales">₹0</div>
-    </div>
-
-    <div class="card">
-      <h3>Total Expenses</h3>
-      <div class="number" id="dashExpenses">₹0</div>
-    </div>
-
-    <div class="card">
-      <h3>Total Profit</h3>
-      <div class="number" id="dashProfit">₹0</div>
-    </div>
-
-    <div class="card">
-      <h3>Customers</h3>
-      <div class="number" id="dashCustomers">0</div>
-    </div>
-
+  <div class="header">
+    <h1>Business Toolkit</h1>
   </div>
 
-  <div class="box">
-    <h2>Business Overview</h2>
-    <p>Use the menu to manage invoices, sales, customers, stock and expenses.</p>
-  </div>
 
-</section>
+  <!-- ================= DASHBOARD ================= -->
 
-
-<!-- CALCULATOR -->
-<section id="calculator" class="page">
-
-  <div class="box calc-box">
-
-    <h2>Calculator</h2>
-
-    <div class="display">
-      <div class="expression" id="calcExpression"></div>
-      <div class="result" id="calcResult">0</div>
-    </div>
-
-    <div class="calc-grid">
-
-      <button class="clear" onclick="clearCalc()">AC</button>
-      <button onclick="backspace()">⌫</button>
-      <button onclick="addCalc('%')">%</button>
-      <button class="operator" onclick="addCalc('/')">÷</button>
-
-      <button onclick="addCalc('7')">7</button>
-      <button onclick="addCalc('8')">8</button>
-      <button onclick="addCalc('9')">9</button>
-      <button class="operator" onclick="addCalc('*')">×</button>
-
-      <button onclick="addCalc('4')">4</button>
-      <button onclick="addCalc('5')">5</button>
-      <button onclick="addCalc('6')">6</button>
-      <button class="operator" onclick="addCalc('-')">−</button>
-
-      <button onclick="addCalc('1')">1</button>
-      <button onclick="addCalc('2')">2</button>
-      <button onclick="addCalc('3')">3</button>
-      <button class="operator" onclick="addCalc('+')">+</button>
-
-      <button onclick="addCalc('0')">0</button>
-      <button onclick="addCalc('00')">00</button>
-      <button onclick="addCalc('.')">.</button>
-      <button class="equal" onclick="calculate()">=</button>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- INVOICE -->
-<section id="invoice" class="page">
-
-  <div class="box">
-
-    <h2>Create Invoice</h2>
-
-    <div class="form-grid">
-
-      <input id="invoiceNo" placeholder="Invoice Number">
-
-      <input id="invoiceCustomer" placeholder="Customer Name">
-
-    </div>
-
-    <br>
-
-    <div class="table-wrap">
-
-      <table id="invoiceTable">
-
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Qty</th>
-            <th>Price</th>
-            <th>GST %</th>
-            <th>Total</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-
-        <tbody id="invoiceBody"></tbody>
-
-      </table>
-
-    </div>
-
-    <div class="actions">
-      <button class="primary" onclick="addProduct()">+ Add Product</button>
-    </div>
-
-    <div class="invoice-total">
-      Grand Total: ₹<span id="invoiceGrandTotal">0.00</span>
-    </div>
-
-    <div class="actions">
-      <button class="primary" onclick="saveInvoice()">Save Invoice</button>
-      <button class="primary" onclick="window.print()">Print</button>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- SALES -->
-<section id="sales" class="page">
-
-  <div class="box">
-
-    <h2>Sales</h2>
+  <section id="dashboard" class="page active">
 
     <div class="cards">
 
       <div class="card">
         <h3>Total Sales</h3>
-        <div class="number" id="salesTotal">₹0</div>
+        <div class="number">₹<span id="dashSales">0</span></div>
       </div>
 
       <div class="card">
-        <h3>Invoices</h3>
-        <div class="number" id="salesCount">0</div>
+        <h3>Total Expenses</h3>
+        <div class="number">₹<span id="dashExpenses">0</span></div>
+      </div>
+
+      <div class="card">
+        <h3>Profit</h3>
+        <div class="number">₹<span id="dashProfit">0</span></div>
+      </div>
+
+      <div class="card">
+        <h3>Customers</h3>
+        <div class="number" id="dashCustomers">0</div>
       </div>
 
     </div>
 
-    <div class="table-wrap">
+  </section>
+
+
+  <!-- ================= CALCULATOR ================= -->
+
+  <section id="calculator" class="page">
+
+    <div class="box calc-box">
+
+      <h2>Calculator</h2>
+
+      <div class="display">
+
+        <div class="expression" id="calcExpression"></div>
+
+        <div class="result" id="calcResult">0</div>
+
+      </div>
+
+      <div class="calc-grid">
+
+        <button class="clear" onclick="clearCalc()">AC</button>
+        <button onclick="backspace()">⌫</button>
+        <button onclick="addCalc('%')">%</button>
+        <button class="operator" onclick="addCalc('/')">÷</button>
+
+        <button onclick="addCalc('7')">7</button>
+        <button onclick="addCalc('8')">8</button>
+        <button onclick="addCalc('9')">9</button>
+        <button class="operator" onclick="addCalc('*')">×</button>
+
+        <button onclick="addCalc('4')">4</button>
+        <button onclick="addCalc('5')">5</button>
+        <button onclick="addCalc('6')">6</button>
+        <button class="operator" onclick="addCalc('-')">−</button>
+
+        <button onclick="addCalc('1')">1</button>
+        <button onclick="addCalc('2')">2</button>
+        <button onclick="addCalc('3')">3</button>
+        <button class="operator" onclick="addCalc('+')">+</button>
+
+        <button onclick="addCalc('0')">0</button>
+        <button onclick="addCalc('00')">00</button>
+        <button onclick="addCalc('.')">.</button>
+        <button class="equal" onclick="calculate()">=</button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= INVOICE ================= -->
+
+  <section id="invoice" class="page">
+
+    <div class="box">
+
+      <h2>Create Invoice</h2>
+
+      <div class="form-grid">
+
+        <input id="invoiceNo" placeholder="Invoice Number">
+
+        <input id="invoiceCustomer" placeholder="Customer Name">
+
+      </div>
+
+      <br>
+
+      <div class="table-wrap">
+
+        <table id="invoiceTable">
+
+          <thead>
+
+            <tr>
+              <th>Product</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>GST %</th>
+              <th>Total</th>
+              <th>Action</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="invoiceBody"></tbody>
+
+        </table>
+
+      </div>
+
+      <div class="actions">
+
+        <button class="primary" onclick="addProduct()">
+          + Add Product
+        </button>
+
+      </div>
+
+      <div class="invoice-total">
+
+        Grand Total:
+        ₹<span id="invoiceGrandTotal">0.00</span>
+
+      </div>
+
+      <div class="actions">
+
+        <button class="primary" onclick="saveInvoice()">
+          Save Invoice
+        </button>
+
+        <button class="primary" onclick="window.print()">
+          Print
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= SALES ================= -->
+
+  <section id="sales" class="page">
+
+    <div class="box">
+
+      <h2>Sales</h2>
+
+      <div class="form-grid">
+
+        <input id="saleProduct" placeholder="Product">
+
+        <input id="saleAmount" type="number" placeholder="Amount">
+
+      </div>
+
+      <div class="actions">
+
+        <button class="primary" onclick="addSale()">
+          Add Sale
+        </button>
+
+      </div>
+
+      <br>
 
       <table>
+
         <thead>
           <tr>
-            <th>Invoice</th>
-            <th>Customer</th>
+            <th>Product</th>
             <th>Amount</th>
-            <th>Date</th>
-            <th>Action</th>
           </tr>
         </thead>
 
@@ -620,38 +680,34 @@ th{
 
     </div>
 
-  </div>
-
-</section>
+  </section>
 
 
-<!-- CUSTOMERS -->
-<section id="customers" class="page">
+  <!-- ================= CUSTOMERS ================= -->
 
-  <div class="box">
+  <section id="customers" class="page">
 
-    <h2>Add Customer</h2>
+    <div class="box">
 
-    <div class="form-grid">
+      <h2>Customers</h2>
 
-      <input id="customerName" placeholder="Customer Name">
+      <div class="form-grid">
 
-      <input id="customerPhone" placeholder="Phone Number">
+        <input id="customerName" placeholder="Customer Name">
 
-    </div>
+        <input id="customerPhone" placeholder="Phone">
 
-    <br>
+      </div>
 
-    <button class="primary" onclick="addCustomer()">Add Customer</button>
+      <div class="actions">
 
-  </div>
+        <button class="primary" onclick="addCustomer()">
+          Add Customer
+        </button>
 
+      </div>
 
-  <div class="box">
-
-    <h2>Customers</h2>
-
-    <div class="table-wrap">
+      <br>
 
       <table>
 
@@ -659,8 +715,6 @@ th{
           <tr>
             <th>Name</th>
             <th>Phone</th>
-            <th>Total Purchase</th>
-            <th>Action</th>
           </tr>
         </thead>
 
@@ -670,115 +724,116 @@ th{
 
     </div>
 
-  </div>
-
-</section>
+  </section>
 
 
-<!-- PROFIT -->
-<section id="profit" class="page">
+  <!-- ================= PROFIT ================= -->
 
-  <div class="cards">
+  <section id="profit" class="page">
 
-    <div class="card">
-      <h3>Total Sales</h3>
-      <div class="number" id="profitSales">₹0</div>
-    </div>
+    <div class="box">
 
-    <div class="card">
-      <h3>Total Expenses</h3>
-      <div class="number" id="profitExpenses">₹0</div>
-    </div>
+      <h2>Profit</h2>
 
-    <div class="card">
-      <h3>Net Profit</h3>
-      <div class="number" id="profitNet">₹0</div>
-    </div>
+      <h3>
+        Total Sales:
+        ₹<span id="profitSales">0</span>
+      </h3>
 
-    <div class="card">
-      <h3>Profit Margin</h3>
-      <div class="number" id="profitMargin">0%</div>
-    </div>
+      <br>
 
-  </div>
+      <h3>
+        Total Expenses:
+        ₹<span id="profitExpenses">0</span>
+      </h3>
 
-</section>
+      <br>
 
-
-<!-- GST -->
-<section id="gst" class="page">
-
-  <div class="box">
-
-    <h2>GST Calculator</h2>
-
-    <div class="form-grid">
-
-      <input type="number" id="gstAmount" placeholder="Amount">
-
-      <select id="gstRate">
-        <option value="5">5%</option>
-        <option value="12">12%</option>
-        <option value="18" selected>18%</option>
-        <option value="28">28%</option>
-      </select>
+      <h2>
+        Profit:
+        ₹<span id="profitAmount">0</span>
+      </h2>
 
     </div>
 
-    <br>
-
-    <button class="primary" onclick="calculateGST()">Calculate GST</button>
-
-    <br><br>
-
-    <p>GST Amount: ₹<b id="gstValue">0.00</b></p>
-    <p>Total Amount: ₹<b id="gstTotal">0.00</b></p>
-
-  </div>
-
-</section>
+  </section>
 
 
-<!-- STOCK -->
-<section id="stock" class="page">
+  <!-- ================= GST ================= -->
 
-  <div class="box">
+  <section id="gst" class="page">
 
-    <h2>Add Stock</h2>
+    <div class="box">
 
-    <div class="form-grid">
+      <h2>GST Calculator</h2>
 
-      <input id="stockProduct" placeholder="Product Name">
+      <div class="form-grid">
 
-      <input type="number" id="stockQty" placeholder="Quantity">
+        <input id="gstAmount" type="number" placeholder="Amount">
 
-      <input type="number" id="stockPrice" placeholder="Price">
+        <input id="gstRate" type="number" placeholder="GST %">
+
+      </div>
+
+      <div class="actions">
+
+        <button class="primary" onclick="calculateGST()">
+          Calculate
+        </button>
+
+      </div>
+
+      <br>
+
+      <h3>
+        GST:
+        ₹<span id="gstResult">0.00</span>
+      </h3>
+
+      <br>
+
+      <h3>
+        Total:
+        ₹<span id="gstTotal">0.00</span>
+      </h3>
 
     </div>
 
-    <br>
-
-    <button class="primary" onclick="addStock()">Add Stock</button>
-
-  </div>
+  </section>
 
 
-  <div class="box">
+  <!-- ================= STOCK ================= -->
 
-    <h2>Stock</h2>
+  <section id="stock" class="page">
 
-    <div class="table-wrap">
+    <div class="box">
+
+      <h2>Stock</h2>
+
+      <div class="form-grid">
+
+        <input id="stockProduct" placeholder="Product">
+
+        <input id="stockQty" type="number" placeholder="Quantity">
+
+      </div>
+
+      <div class="actions">
+
+        <button class="primary" onclick="addStock()">
+          Add Stock
+        </button>
+
+      </div>
+
+      <br>
 
       <table>
 
         <thead>
           <tr>
             <th>Product</th>
-            <th>Qty</th>
-            <th>Price</th>
-            <th>Value</th>
-            <th>Status</th>
-            <th>Action</th>
+            <th>Quantity</th>
           </tr>
         </thead>
 
@@ -788,50 +843,41 @@ th{
 
     </div>
 
-  </div>
-
-</section>
+  </section>
 
 
-<!-- EXPENSES -->
-<section id="expenses" class="page">
+  <!-- ================= EXPENSES ================= -->
 
-  <div class="box">
+  <section id="expenses" class="page">
 
-    <h2>Add Expense</h2>
+    <div class="box">
 
-    <div class="form-grid">
+      <h2>Expenses</h2>
 
-      <input id="expenseName" placeholder="Expense Name">
+      <div class="form-grid">
 
-      <input type="number" id="expenseAmount" placeholder="Amount">
+        <input id="expenseName" placeholder="Expense">
 
-      <input id="expenseCategory" placeholder="Category">
+        <input id="expenseAmount" type="number" placeholder="Amount">
 
-    </div>
+      </div>
 
-    <br>
+      <div class="actions">
 
-    <button class="primary" onclick="addExpense()">Add Expense</button>
+        <button class="primary" onclick="addExpense()">
+          Add Expense
+        </button>
 
-  </div>
+      </div>
 
-
-  <div class="box">
-
-    <h2>Expenses</h2>
-
-    <div class="table-wrap">
+      <br>
 
       <table>
 
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Category</th>
+            <th>Expense</th>
             <th>Amount</th>
-            <th>Date</th>
-            <th>Action</th>
           </tr>
         </thead>
 
@@ -841,97 +887,97 @@ th{
 
     </div>
 
-  </div>
+  </section>
 
-</section>
+
+  <!-- ================= FEEDBACK ================= -->
+
+  <section id="feedback" class="page">
+
+    <div class="box feedback-box">
+
+      <h2>Feedback</h2>
+
+      <textarea
+        id="feedbackText"
+        placeholder="Write your feedback..."
+      ></textarea>
+
+      <div class="actions">
+
+        <button class="primary" onclick="sendFeedback()">
+          Submit Feedback
+        </button>
+
+      </div>
+
+      <p id="feedbackMessage" style="margin-top:15px;"></p>
+
+    </div>
+
+  </section>
 
 </main>
+
 </div>
 
 
 <script>
 
-/* DATA */
+/* ================= PAGE ================= */
 
-let sales = JSON.parse(localStorage.getItem("businessSales")) || [];
-let customers = JSON.parse(localStorage.getItem("businessCustomers")) || [];
-let stock = JSON.parse(localStorage.getItem("businessStock")) || [];
-let expenses = JSON.parse(localStorage.getItem("businessExpenses")) || [];
+function showPage(pageId,btn){
 
+  document.querySelectorAll('.page').forEach(function(page){
+    page.classList.remove('active');
+  });
 
-/* SAVE DATA */
+  document.getElementById(pageId).classList.add('active');
 
-function saveData(){
+  document.querySelectorAll('.nav-btn').forEach(function(button){
+    button.classList.remove('active');
+  });
 
-  localStorage.setItem("businessSales",JSON.stringify(sales));
-  localStorage.setItem("businessCustomers",JSON.stringify(customers));
-  localStorage.setItem("businessStock",JSON.stringify(stock));
-  localStorage.setItem("businessExpenses",JSON.stringify(expenses));
+  btn.classList.add('active');
 
 }
 
 
-/* NAVIGATION */
+/* ================= CALCULATOR ================= */
 
-function showPage(page,btn){
-
-  document.querySelectorAll(".page").forEach(p=>{
-    p.classList.remove("active");
-  });
-
-  document.getElementById(page).classList.add("active");
-
-  document.querySelectorAll(".nav-btn").forEach(b=>{
-    b.classList.remove("active");
-  });
-
-  btn.classList.add("active");
-
-  const titles={
-    dashboard:"Dashboard",
-    calculator:"Calculator",
-    invoice:"Invoice",
-    sales:"Sales",
-    customers:"Customers",
-    profit:"Profit",
-    gst:"GST Calculator",
-    stock:"Stock",
-    expenses:"Expenses"
-  };
-
-  document.getElementById("pageTitle").textContent=titles[page];
-
-}
-
-
-/* CALCULATOR */
-
-let calc="";
+let calcValue = "";
 
 function addCalc(value){
 
-  calc+=value;
+  calcValue += value;
 
-  document.getElementById("calcExpression").textContent=
-    calc.replace(/\*/g,"×").replace(/\//g,"÷");
+  document.getElementById("calcExpression").textContent =
+    calcValue;
+
+  document.getElementById("calcResult").textContent =
+    calcValue || "0";
 
 }
 
 function clearCalc(){
 
-  calc="";
+  calcValue = "";
 
-  document.getElementById("calcExpression").textContent="";
-  document.getElementById("calcResult").textContent="0";
+  document.getElementById("calcExpression").textContent = "";
+
+  document.getElementById("calcResult").textContent = "0";
 
 }
 
 function backspace(){
 
-  calc=calc.slice(0,-1);
+  calcValue = calcValue.slice(0,-1);
 
-  document.getElementById("calcExpression").textContent=
-    calc.replace(/\*/g,"×").replace(/\//g,"÷");
+  document.getElementById("calcExpression").textContent =
+    calcValue;
+
+  document.getElementById("calcResult").textContent =
+    calcValue || "0";
 
 }
 
@@ -939,66 +985,84 @@ function calculate(){
 
   try{
 
-    if(!calc) return;
+    let expression = calcValue.replace(/%/g,"/100");
 
-    let expression=calc.replace(/%/g,"/100");
+    let result = Function(
+      '"use strict";return (' + expression + ')'
+    )();
 
-    let result=Function('"use strict";return ('+expression+')')();
+    document.getElementById("calcResult").textContent =
+      Number(result).toLocaleString("en-IN");
 
-    if(!isFinite(result)) throw Error();
+  }catch(error){
 
-    document.getElementById("calcResult").textContent=
-      Number(result.toFixed(10));
-
-  }catch(e){
-
-    document.getElementById("calcResult").textContent="Error";
+    document.getElementById("calcResult").textContent =
+      "Error";
 
   }
 
 }
 
 
-/* INVOICE */
+/* ================= INVOICE ================= */
 
 function addProduct(){
 
-  const body=document.getElementById("invoiceBody");
+  let row = document.createElement("tr");
 
-  const row=document.createElement("tr");
-
-  row.innerHTML=`
+  row.innerHTML = `
 
     <td>
-      <input class="product-name" placeholder="Product">
+      <input
+        class="product-name"
+        placeholder="Product"
+      >
     </td>
 
     <td>
-      <input class="product-qty" type="number" value="1" min="1"
-      oninput="invoiceTotal()">
+      <input
+        class="product-qty"
+        type="number"
+        value="1"
+        min="1"
+        oninput="invoiceTotal()"
+      >
     </td>
 
     <td>
-      <input class="product-price" type="number" value="0"
-      oninput="invoiceTotal()">
+      <input
+        class="product-price"
+        type="number"
+        value="0"
+        oninput="invoiceTotal()"
+      >
     </td>
 
     <td>
-      <input class="product-gst" type="number" value="0"
-      oninput="invoiceTotal()">
+      <input
+        class="product-gst"
+        type="number"
+        value="0"
+        oninput="invoiceTotal()"
+      >
     </td>
 
-    <td class="row-total">₹0.00</td>
+    <td class="row-total">
+      ₹0.00
+    </td>
 
     <td>
-      <button class="danger" onclick="this.closest('tr').remove();invoiceTotal()">
+      <button
+        class="danger"
+        onclick="this.closest('tr').remove();invoiceTotal()"
+      >
         Delete
       </button>
     </td>
 
   `;
 
-  body.appendChild(row);
+  document.getElementById("invoiceBody").appendChild(row);
 
   invoiceTotal();
 
@@ -1007,531 +1071,490 @@ function addProduct(){
 
 function invoiceTotal(){
 
-  let total=0;
+  let rows =
+    document.querySelectorAll("#invoiceBody tr");
 
-  document.querySelectorAll("#invoiceBody tr").forEach(row=>{
+  let grandTotal = 0;
 
-    const qty=Number(row.querySelector(".product-qty").value)||0;
-    const price=Number(row.querySelector(".product-price").value)||0;
-    const gst=Number(row.querySelector(".product-gst").value)||0;
+  rows.forEach(function(row){
 
-    const base=qty*price;
-    const final=base+(base*gst/100);
+    let qty =
+      Number(row.querySelector(".product-qty").value) || 0;
 
-    row.querySelector(".row-total").textContent=
-      "₹"+final.toFixed(2);
+    let price =
+      Number(row.querySelector(".product-price").value) || 0;
 
-    total+=final;
+    let gst =
+      Number(row.querySelector(".product-gst").value) || 0;
+
+    let base = qty * price;
+
+    let gstAmount = base * gst / 100;
+
+    let total = base + gstAmount;
+
+    row.querySelector(".row-total").textContent =
+      "₹" + total.toFixed(2);
+
+    grandTotal += total;
 
   });
 
-  document.getElementById("invoiceGrandTotal").textContent=
-    total.toFixed(2);
+  document.getElementById("invoiceGrandTotal").textContent =
+    grandTotal.toFixed(2);
 
 }
 
 
 function saveInvoice(){
 
-  const customer=document.getElementById("invoiceCustomer").value.trim();
+  let invoice = {
 
-  if(!customer){
+    number:
+      document.getElementById("invoiceNo").value,
 
-    alert("Customer name enter करा.");
-    return;
+    customer:
+      document.getElementById("invoiceCustomer").value,
 
-  }
+    total:
+      document.getElementById("invoiceGrandTotal").textContent,
 
-  const rows=document.querySelectorAll("#invoiceBody tr");
+    date:
+      new Date().toLocaleDateString()
 
-  if(rows.length===0){
-
-    alert("किमान एक product add करा.");
-    return;
-
-  }
-
-  const amount=Number(
-    document.getElementById("invoiceGrandTotal").textContent
-  );
-
-  let invoiceNo=document.getElementById("invoiceNo").value.trim();
-
-  if(!invoiceNo){
-
-    invoiceNo="INV-"+String(sales.length+1).padStart(3,"0");
-
-  }
-
-  const sale={
-    id:Date.now(),
-    invoice:invoiceNo,
-    customer:customer,
-    amount:amount,
-    date:new Date().toLocaleDateString("en-IN")
   };
 
-  sales.push(sale);
-/* ONLY BIG TEXT — DESIGN SAME */
+  let invoices =
+    JSON.parse(localStorage.getItem("invoices") || "[]");
 
-#invoiceTable th{
-  font-size:18px;
-  font-weight:700;
-}
+  invoices.push(invoice);
 
-#invoiceTable td{
-  font-size:17px;
-}
-
-#invoiceTable td input{
-  font-size:17px;
-  font-weight:600;
-    }
-
-  /* CUSTOMER AUTO ADD */
-
-  const existing=customers.find(
-    c=>c.name.toLowerCase()===customer.toLowerCase()
+  localStorage.setItem(
+    "invoices",
+    JSON.stringify(invoices)
   );
 
-  if(existing){
+  let customerName =
+    document.getElementById("invoiceCustomer").value.trim();
 
-    existing.purchase=(existing.purchase||0)+amount;
+  if(customerName){
 
-  }else{
+    let customers =
+      JSON.parse(
+        localStorage.getItem("customers") || "[]"
+      );
 
-    customers.push({
-      id:Date.now(),
-      name:customer,
-      phone:"",
-      purchase:amount
-    });
+    let exists =
+      customers.some(function(c){
+        return c.name === customerName;
+      });
+
+    if(!exists){
+
+      customers.push({
+        name:customerName,
+        phone:""
+      });
+
+      localStorage.setItem(
+        "customers",
+        JSON.stringify(customers)
+      );
+
+    }
 
   }
 
+  alert("Invoice Saved!");
 
-  saveData();
-
-  renderSales();
-  renderCustomers();
-  renderDashboard();
-
-  alert("Invoice saved successfully!");
+  updateAll();
 
 }
 
 
-/* SALES */
+/* ================= SALES ================= */
 
-function renderSales(){
+function addSale(){
 
-  const body=document.getElementById("salesBody");
+  let product =
+    document.getElementById("saleProduct").value.trim();
 
-  body.innerHTML="";
+  let amount =
+    Number(document.getElementById("saleAmount").value) || 0;
 
-  let total=0;
+  if(!product || amount <= 0){
+    alert("Enter valid sale details");
+    return;
+  }
 
-  sales.forEach(sale=>{
+  let sales =
+    JSON.parse(localStorage.getItem("sales") || "[]");
 
-    total+=Number(sale.amount)||0;
-
-    const row=document.createElement("tr");
-
-    row.innerHTML=`
-
-      <td>${sale.invoice}</td>
-      <td>${sale.customer}</td>
-      <td>₹${Number(sale.amount).toFixed(2)}</td>
-      <td>${sale.date}</td>
-
-      <td>
-        <button class="danger"
-        onclick="deleteSale(${sale.id})">
-        Delete
-        </button>
-      </td>
-
-    `;
-
-    body.appendChild(row);
-
+  sales.push({
+    product:product,
+    amount:amount,
+    date:new Date().toLocaleDateString()
   });
 
-  document.getElementById("salesTotal").textContent=
-    "₹"+total.toFixed(2);
+  localStorage.setItem(
+    "sales",
+    JSON.stringify(sales)
+  );
 
-  document.getElementById("salesCount").textContent=
-    sales.length;
+  document.getElementById("saleProduct").value = "";
 
-}
+  document.getElementById("saleAmount").value = "";
 
-
-function deleteSale(id){
-
-  sales=sales.filter(s=>s.id!==id);
-
-  saveData();
-
-  renderSales();
-  renderDashboard();
-  renderProfit();
+  updateAll();
 
 }
 
 
-/* CUSTOMERS */
+/* ================= CUSTOMERS ================= */
 
 function addCustomer(){
 
-  const name=document.getElementById("customerName").value.trim();
-  const phone=document.getElementById("customerPhone").value.trim();
+  let name =
+    document.getElementById("customerName").value.trim();
+
+  let phone =
+    document.getElementById("customerPhone").value.trim();
 
   if(!name){
-
-    alert("Customer name enter करा.");
+    alert("Enter customer name");
     return;
-
   }
+
+  let customers =
+    JSON.parse(
+      localStorage.getItem("customers") || "[]"
+    );
 
   customers.push({
-    id:Date.now(),
     name:name,
-    phone:phone,
-    purchase:0
+    phone:phone
   });
 
-  saveData();
+  localStorage.setItem(
+    "customers",
+    JSON.stringify(customers)
+  );
 
-  document.getElementById("customerName").value="";
-  document.getElementById("customerPhone").value="";
+  document.getElementById("customerName").value = "";
 
-  renderCustomers();
-  renderDashboard();
+  document.getElementById("customerPhone").value = "";
 
-}
-
-
-function renderCustomers(){
-
-  const body=document.getElementById("customersBody");
-
-  body.innerHTML="";
-
-  customers.forEach(customer=>{
-
-    const row=document.createElement("tr");
-
-    row.innerHTML=`
-
-      <td>${customer.name}</td>
-
-      <td>${customer.phone||"-"}</td>
-
-      <td>₹${Number(customer.purchase||0).toFixed(2)}</td>
-
-      <td>
-        <button class="danger"
-        onclick="deleteCustomer(${customer.id})">
-        Delete
-        </button>
-      </td>
-
-    `;
-
-    body.appendChild(row);
-
-  });
+  updateAll();
 
 }
 
 
-function deleteCustomer(id){
-
-  customers=customers.filter(c=>c.id!==id);
-
-  saveData();
-
-  renderCustomers();
-  renderDashboard();
-
-}
-
-
-/* STOCK */
-
-function addStock(){
-
-  const product=document.getElementById("stockProduct").value.trim();
-  const qty=Number(document.getElementById("stockQty").value);
-  const price=Number(document.getElementById("stockPrice").value);
-
-  if(!product || qty<=0 || price<0){
-
-    alert("Stock details योग्यरित्या enter करा.");
-    return;
-
-  }
-
-  stock.push({
-    id:Date.now(),
-    product:product,
-    qty:qty,
-    price:price
-  });
-
-  saveData();
-
-  document.getElementById("stockProduct").value="";
-  document.getElementById("stockQty").value="";
-  document.getElementById("stockPrice").value="";
-
-  renderStock();
-
-}
-
-
-function renderStock(){
-
-  const body=document.getElementById("stockBody");
-
-  body.innerHTML="";
-
-  stock.forEach(item=>{
-
-    const value=item.qty*item.price;
-
-    const status=item.qty<=5
-      ? "Low Stock"
-      : "Available";
-
-    const row=document.createElement("tr");
-
-    row.innerHTML=`
-
-      <td>${item.product}</td>
-
-      <td>${item.qty}</td>
-
-      <td>₹${Number(item.price).toFixed(2)}</td>
-
-      <td>₹${value.toFixed(2)}</td>
-
-      <td>${status}</td>
-
-      <td>
-        <button class="danger"
-        onclick="deleteStock(${item.id})">
-        Delete
-        </button>
-      </td>
-
-    `;
-
-    body.appendChild(row);
-
-  });
-
-}
-
-
-function deleteStock(id){
-
-  stock=stock.filter(s=>s.id!==id);
-
-  saveData();
-
-  renderStock();
-
-}
-
-
-/* EXPENSES */
+/* ================= EXPENSES ================= */
 
 function addExpense(){
 
-  const name=document.getElementById("expenseName").value.trim();
-  const amount=Number(document.getElementById("expenseAmount").value);
-  const category=document.getElementById("expenseCategory").value.trim();
+  let name =
+    document.getElementById("expenseName").value.trim();
 
-  if(!name || amount<=0){
+  let amount =
+    Number(document.getElementById("expenseAmount").value) || 0;
 
-    alert("Expense details enter करा.");
+  if(!name || amount <= 0){
+    alert("Enter valid expense details");
+    return;
+  }
+
+  let expenses =
+    JSON.parse(
+      localStorage.getItem("expenses") || "[]"
+    );
+
+  expenses.push({
+    name:name,
+    amount:amount,
+    date:new Date().toLocaleDateString()
+  });
+
+  localStorage.setItem(
+    "expenses",
+    JSON.stringify(expenses)
+  );
+
+  document.getElementById("expenseName").value = "";
+
+  document.getElementById("expenseAmount").value = "";
+
+  updateAll();
+
+}
+
+
+/* ================= STOCK ================= */
+
+function addStock(){
+
+  let product =
+    document.getElementById("stockProduct").value.trim();
+
+  let qty =
+    Number(document.getElementById("stockQty").value) || 0;
+
+  if(!product || qty <= 0){
+    alert("Enter valid stock details");
+    return;
+  }
+
+  let stock =
+    JSON.parse(
+      localStorage.getItem("stock") || "[]"
+    );
+
+  stock.push({
+    product:product,
+    qty:qty
+  });
+
+  localStorage.setItem(
+    "stock",
+    JSON.stringify(stock)
+  );
+
+  document.getElementById("stockProduct").value = "";
+
+  document.getElementById("stockQty").value = "";
+
+  updateAll();
+
+}
+
+
+/* ================= GST ================= */
+
+function calculateGST(){
+
+  let amount =
+    Number(document.getElementById("gstAmount").value) || 0;
+
+  let rate =
+    Number(document.getElementById("gstRate").value) || 0;
+
+  let gst =
+    amount * rate / 100;
+
+  let total =
+    amount + gst;
+
+  document.getElementById("gstResult").textContent =
+    gst.toFixed(2);
+
+  document.getElementById("gstTotal").textContent =
+    total.toFixed(2);
+
+}
+
+
+/* ================= FEEDBACK ================= */
+
+function sendFeedback(){
+
+  let text =
+    document.getElementById("feedbackText").value.trim();
+
+  if(!text){
+
+    alert("Please write feedback");
+
     return;
 
   }
 
-  expenses.push({
-    id:Date.now(),
-    name:name,
-    amount:amount,
-    category:category||"Other",
-    date:new Date().toLocaleDateString("en-IN")
-  });
+  let feedbacks =
+    JSON.parse(
+      localStorage.getItem("feedbacks") || "[]"
+    );
 
-  saveData();
+  feedbacks.push({
 
-  document.getElementById("expenseName").value="";
-  document.getElementById("expenseAmount").value="";
-  document.getElementById("expenseCategory").value="";
+    text:text,
 
-  renderExpenses();
-  renderDashboard();
-  renderProfit();
-
-}
-
-
-function renderExpenses(){
-
-  const body=document.getElementById("expensesBody");
-
-  body.innerHTML="";
-
-  expenses.forEach(expense=>{
-
-    const row=document.createElement("tr");
-
-    row.innerHTML=`
-
-      <td>${expense.name}</td>
-      <td>${expense.category}</td>
-      <td>₹${Number(expense.amount).toFixed(2)}</td>
-      <td>${expense.date}</td>
-
-      <td>
-        <button class="danger"
-        onclick="deleteExpense(${expense.id})">
-        Delete
-        </button>
-      </td>
-
-    `;
-
-    body.appendChild(row);
+    date:new Date().toLocaleString()
 
   });
 
-}
-
-
-function deleteExpense(id){
-
-  expenses=expenses.filter(e=>e.id!==id);
-
-  saveData();
-
-  renderExpenses();
-  renderDashboard();
-  renderProfit();
-
-}
-
-
-/* PROFIT */
-
-function renderProfit(){
-
-  const salesTotal=sales.reduce(
-    (sum,s)=>sum+(Number(s.amount)||0),0
+  localStorage.setItem(
+    "feedbacks",
+    JSON.stringify(feedbacks)
   );
 
-  const expenseTotal=expenses.reduce(
-    (sum,e)=>sum+(Number(e.amount)||0),0
-  );
+  document.getElementById("feedbackText").value = "";
 
-  const profit=salesTotal-expenseTotal;
-
-  const margin=salesTotal>0
-    ? (profit/salesTotal)*100
-    : 0;
-
-  document.getElementById("profitSales").textContent=
-    "₹"+salesTotal.toFixed(2);
-
-  document.getElementById("profitExpenses").textContent=
-    "₹"+expenseTotal.toFixed(2);
-
-  document.getElementById("profitNet").textContent=
-    "₹"+profit.toFixed(2);
-
-  document.getElementById("profitMargin").textContent=
-    margin.toFixed(1)+"%";
+  document.getElementById("feedbackMessage").textContent =
+    "Thank you for your feedback!";
 
 }
 
 
-/* DASHBOARD */
-
-function renderDashboard(){
-
-  const salesTotal=sales.reduce(
-    (sum,s)=>sum+(Number(s.amount)||0),0
-  );
-
-  const expenseTotal=expenses.reduce(
-    (sum,e)=>sum+(Number(e.amount)||0),0
-  );
-
-  const profit=salesTotal-expenseTotal;
-
-  document.getElementById("dashSales").textContent=
-    "₹"+salesTotal.toFixed(2);
-
-  document.getElementById("dashExpenses").textContent=
-    "₹"+expenseTotal.toFixed(2);
-
-  document.getElementById("dashProfit").textContent=
-    "₹"+profit.toFixed(2);
-
-  document.getElementById("dashCustomers").textContent=
-    customers.length;
-
-}
-
-
-/* GST */
-
-function calculateGST(){
-
-  const amount=Number(
-    document.getElementById("gstAmount").value
-  )||0;
-
-  const rate=Number(
-    document.getElementById("gstRate").value
-  );
-
-  const gst=amount*rate/100;
-
-  document.getElementById("gstValue").textContent=
-    gst.toFixed(2);
-
-  document.getElementById("gstTotal").textContent=
-    (amount+gst).toFixed(2);
-
-}
-
-
-/* UPDATE ALL */
+/* ================= UPDATE ALL ================= */
 
 function updateAll(){
 
-  renderSales();
-  renderCustomers();
-  renderStock();
-  renderExpenses();
-  renderProfit();
-  renderDashboard();
+  let sales =
+    JSON.parse(
+      localStorage.getItem("sales") || "[]"
+    );
+
+  let expenses =
+    JSON.parse(
+      localStorage.getItem("expenses") || "[]"
+    );
+
+  let customers =
+    JSON.parse(
+      localStorage.getItem("customers") || "[]"
+    );
+
+
+  let totalSales =
+    sales.reduce(function(sum,item){
+
+      return sum + Number(item.amount || 0);
+
+    },0);
+
+
+  let totalExpenses =
+    expenses.reduce(function(sum,item){
+
+      return sum + Number(item.amount || 0);
+
+    },0);
+
+
+  let profit =
+    totalSales - totalExpenses;
+
+
+  document.getElementById("dashSales").textContent =
+    totalSales.toFixed(2);
+
+  document.getElementById("dashExpenses").textContent =
+    totalExpenses.toFixed(2);
+
+  document.getElementById("dashProfit").textContent =
+    profit.toFixed(2);
+
+  document.getElementById("dashCustomers").textContent =
+    customers.length;
+
+
+  document.getElementById("profitSales").textContent =
+    totalSales.toFixed(2);
+
+  document.getElementById("profitExpenses").textContent =
+    totalExpenses.toFixed(2);
+
+  document.getElementById("profitAmount").textContent =
+    profit.toFixed(2);
+
+
+  /* SALES TABLE */
+
+  let salesBody =
+    document.getElementById("salesBody");
+
+  salesBody.innerHTML = "";
+
+  sales.forEach(function(item){
+
+    salesBody.innerHTML += `
+
+      <tr>
+        <td>${item.product}</td>
+        <td>₹${Number(item.amount).toFixed(2)}</td>
+      </tr>
+
+    `;
+
+  });
+
+
+  /* CUSTOMERS TABLE */
+
+  let customersBody =
+    document.getElementById("customersBody");
+
+  customersBody.innerHTML = "";
+
+  customers.forEach(function(item){
+
+    customersBody.innerHTML += `
+
+      <tr>
+        <td>${item.name}</td>
+        <td>${item.phone || "-"}</td>
+      </tr>
+
+    `;
+
+  });
+
+
+  /* EXPENSE TABLE */
+
+  let expensesBody =
+    document.getElementById("expensesBody");
+
+  expensesBody.innerHTML = "";
+
+  expenses.forEach(function(item){
+
+    expensesBody.innerHTML += `
+
+      <tr>
+        <td>${item.name}</td>
+        <td>₹${Number(item.amount).toFixed(2)}</td>
+      </tr>
+
+    `;
+
+  });
+
+
+  /* STOCK TABLE */
+
+  let stock =
+    JSON.parse(
+      localStorage.getItem("stock") || "[]"
+    );
+
+  let stockBody =
+    document.getElementById("stockBody");
+
+  stockBody.innerHTML = "";
+
+  stock.forEach(function(item){
+
+    stockBody.innerHTML += `
+
+      <tr>
+        <td>${item.product}</td>
+        <td>${item.qty}</td>
+      </tr>
+
+    `;
+
+  });
 
 }
 
 
-/* START */
+/* ================= START ================= */
 
 addProduct();
+
 updateAll();
 
 </script>
 
 </body>
-</html>
+      </html>
