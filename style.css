@@ -449,3 +449,144 @@ main {
     display: none !important;
   }
 }
+.invoice-paper{
+  width:100%;
+  max-width:650px;
+  margin:20px auto;
+  padding:25px;
+  background:white;
+  border:1px solid #ddd;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+.invoice-title{
+  text-align:center;
+}
+
+.invoice-title h2{
+  margin:0;
+  font-size:24px;
+  font-weight:800;
+}
+
+.invoice-title h3{
+  margin:5px 0 20px;
+  font-size:16px;
+}
+
+.invoice-details{
+  font-size:14px;
+  line-height:1.8;
+}
+
+.invoice-line{
+  border-top:1px dashed #777;
+  margin:14px 0;
+}
+
+.invoice-columns,
+.invoice-row{
+  display:grid;
+  grid-template-columns:2fr .6fr .9fr 1fr;
+  gap:12px;
+  align-items:center;
+}
+
+.invoice-columns{
+  font-weight:800;
+  font-size:14px;
+  margin-bottom:10px;
+}
+
+.invoice-row{
+  margin:8px 0;
+}
+
+.invoice-row input{
+  width:100%;
+  box-sizing:border-box;
+  padding:7px;
+  border:1px solid #ccc;
+  border-radius:4px;
+  font-size:14px;
+}
+
+.invoice-amount{
+  text-align:right;
+  font-weight:700;
+}
+
+.invoice-delete{
+  grid-column:1 / -1;
+  justify-self:end;
+  font-size:11px;
+  padding:4px 8px;
+}
+
+.invoice-summary{
+  width:100%;
+  max-width:350px;
+  margin-left:auto;
+}
+
+.invoice-summary div{
+  display:flex;
+  justify-content:space-between;
+  padding:6px 0;
+  font-size:14px;
+}
+
+.invoice-grand{
+  font-size:18px !important;
+  font-weight:800;
+}
+
+.invoice-thank{
+  text-align:center;
+  font-weight:700;
+  font-size:15px;
+}
+
+.invoice-inputs{
+  max-width:650px;
+  margin:10px auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.invoice-inputs input{
+  width:100%;
+  box-sizing:border-box;
+}
+
+@media(max-width:600px){
+
+  .invoice-paper{
+    padding:15px;
+  }
+
+  .invoice-columns,
+  .invoice-row{
+    grid-template-columns:2fr .5fr .8fr 1fr;
+    gap:6px;
+  }
+
+  .invoice-columns{
+    font-size:12px;
+  }
+
+  .invoice-row input{
+    font-size:12px;
+    padding:6px 3px;
+  }
+
+  .invoice-summary{
+    max-width:100%;
+  }
+
+  .invoice-inputs{
+    grid-template-columns:1fr;
+  }
+}
