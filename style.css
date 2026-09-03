@@ -1,224 +1,239 @@
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  font-family: Arial, sans-serif;
   background: #f5f6fa;
-  color: #151a2b;
+  color: #111827;
 }
+
 
 /* HEADER */
 
-.header {
+.top-header {
   background: white;
-  padding: 24px 26px;
+  padding: 22px 26px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #e1e2e6;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.header h1 {
-  font-size: 32px;
-  font-weight: 700;
-  margin-bottom: 10px;
+.top-header h1 {
+  margin: 0;
+  font-size: 30px;
 }
 
-.header p {
-  font-size: 22px;
-  color: #737984;
+.top-header p {
+  margin: 8px 0 0;
+  color: #6b7280;
+  font-size: 18px;
 }
 
 .profile {
-  width: 74px;
-  height: 74px;
-  border-radius: 50%;
+  width: 62px;
+  height: 62px;
   background: #111827;
   color: white;
-
+  border-radius: 50%;
   display: flex;
-  align-items: center;
   justify-content: center;
-
-  font-size: 26px;
+  align-items: center;
+  font-size: 25px;
   font-weight: bold;
+}
+
+
+/* NAVIGATION */
+
+.navigation {
+  background: white;
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-btn {
+  min-width: 145px;
+  padding: 25px 20px;
+  border: none;
+  background: white;
+  border-radius: 15px;
+  font-size: 18px;
+  color: #4b5563;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.nav-btn.active {
+  background: #111827;
+  color: white;
 }
 
 
 /* MAIN */
 
-.container {
-  padding: 20px;
-  max-width: 900px;
+main {
+  max-width: 1000px;
   margin: auto;
+  padding: 30px 20px;
 }
 
-
-/* STAT CARDS */
-
-.stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
+.page {
+  display: none;
 }
 
-.stat-card {
-  background: white;
-  border: 1px solid #dedfe3;
-  border-radius: 24px;
-
-  min-height: 120px;
-
-  padding: 22px;
-
-  display: flex;
-  align-items: center;
-  gap: 20px;
-
-  box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+.active-page {
+  display: block;
 }
 
-.icon {
-  font-size: 48px;
+.page h2 {
+  font-size: 32px;
+  margin-bottom: 8px;
 }
 
-.stat-card p {
-  color: #707680;
-  font-size: 22px;
-  margin-bottom: 7px;
-}
-
-.stat-card h2 {
-  font-size: 29px;
-  font-weight: 700;
-}
-
-
-/* QUICK TOOLS */
-
-.quick-tools {
-  margin-top: 44px;
-
-  background: white;
-  border: 1px solid #dedfe3;
-  border-radius: 28px;
-
-  padding: 30px;
-}
-
-.quick-tools > h2 {
-  font-size: 30px;
-  margin-bottom: 32px;
-}
-
-
-/* GRID */
-
-.tools-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 26px;
-}
-
-
-/* TOOL BUTTON */
-
-.tools-grid button {
-  background: white;
-
-  border: 1px solid #dedfe3;
-  border-radius: 20px;
-
-  height: 160px;
-
-  cursor: pointer;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  gap: 15px;
-
-  transition: 0.2s;
-}
-
-.tools-grid button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-}
-
-.tools-grid button:active {
-  transform: scale(0.98);
-}
-
-.tools-grid span {
-  font-size: 48px;
-}
-
-.tools-grid b {
-  font-size: 22px;
-  font-weight: 400;
-  color: #111;
-}
-
-
-/* PAGE AREA */
-
-.page-area {
-  margin-top: 25px;
-}
-
-.page-card {
-  background: white;
-  border: 1px solid #dedfe3;
-  border-radius: 24px;
-  padding: 25px;
-}
-
-.page-card h2 {
-  font-size: 28px;
-  margin-bottom: 10px;
-}
-
-.page-card p {
-  color: #707680;
-  font-size: 17px;
+.subtitle {
+  color: #6b7280;
+  font-size: 18px;
 }
 
 
 /* FORM */
 
-.form-group {
-  margin-top: 20px;
+.form-card {
+  background: white;
+  border: 1px solid #e1e4e8;
+  border-radius: 20px;
+  padding: 28px;
+  margin-top: 25px;
 }
 
-.form-group label {
+.form-card label {
   display: block;
-  font-size: 17px;
-  margin-bottom: 7px;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 15px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  font-size: 16px;
-}
-
-.primary-btn {
+  font-size: 18px;
+  font-weight: 700;
   margin-top: 20px;
-  padding: 15px 25px;
+  margin-bottom: 8px;
+}
+
+.form-card input {
+  width: 100%;
+  height: 55px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  padding: 0 16px;
+  font-size: 17px;
+  outline: none;
+}
+
+.form-card input:focus {
+  border-color: #111827;
+}
+
+
+/* BUTTONS */
+
+.main-btn {
+  width: 100%;
+  height: 56px;
+  margin-top: 28px;
   border: none;
   border-radius: 12px;
   background: #111827;
   color: white;
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: bold;
   cursor: pointer;
+}
+
+.print-btn {
+  width: 100%;
+  height: 52px;
+  margin-top: 18px;
+  border: 1px solid #111827;
+  border-radius: 12px;
+  background: white;
+  color: #111827;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+
+/* LIST */
+
+.list-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 15px;
+  border: 1px solid #ddd;
+}
+
+.list-card h3 {
+  margin: 0 0 8px;
+}
+
+.list-card p {
+  margin: 5px 0;
+}
+
+
+/* INVOICE */
+
+.invoice-paper {
+  background: white;
+  max-width: 760px;
+  margin: 30px auto;
+  padding: 45px;
+  border: 1px solid #ddd;
+}
+
+.invoice-paper h1 {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 25px;
+}
+
+.invoice-table th,
+.invoice-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+}
+
+.invoice-table th {
+  background: #f3f4f6;
+}
+
+.invoice-total-box {
+  margin-top: 25px;
+  margin-left: auto;
+  max-width: 320px;
+}
+
+.invoice-total-box div {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+}
+
+.grand-total {
+  border-top: 2px solid #111827;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.thank-you {
+  text-align: center;
+  margin-top: 70px;
 }
 
 
@@ -226,129 +241,81 @@ body {
 
 @media (max-width: 600px) {
 
-  .header {
-    padding: 22px 26px;
+  .top-header h1 {
+    font-size: 25px;
   }
 
-  .header h1 {
-    font-size: 30px;
-  }
-
-  .header p {
-    font-size: 21px;
-  }
-
-  .profile {
-    width: 74px;
-    height: 74px;
-  }
-
-  .container {
-    padding: 18px 20px;
-  }
-
-  .stats {
-    gap: 18px;
-  }
-
-  .stat-card {
-    min-height: 118px;
-    padding: 18px;
-    gap: 13px;
-    border-radius: 22px;
-  }
-
-  .icon {
-    font-size: 40px;
-  }
-
-  .stat-card p {
-    font-size: 18px;
-  }
-
-  .stat-card h2 {
-    font-size: 26px;
-  }
-
-  .quick-tools {
-    margin-top: 43px;
-    padding: 30px;
-    border-radius: 28px;
-  }
-
-  .quick-tools > h2 {
-    font-size: 30px;
-  }
-
-  .tools-grid {
-    gap: 24px;
-  }
-
-  .tools-grid button {
-    height: 160px;
-    border-radius: 20px;
-  }
-
-  .tools-grid span {
-    font-size: 44px;
-  }
-
-  .tools-grid b {
-    font-size: 20px;
-  }
-}
-
-
-/* VERY SMALL MOBILE */
-
-@media (max-width: 380px) {
-
-  .header h1 {
-    font-size: 26px;
-  }
-
-  .header p {
-    font-size: 18px;
-  }
-
-  .profile {
-    width: 60px;
-    height: 60px;
-  }
-
-  .stat-card {
-    padding: 14px;
-  }
-
-  .icon {
-    font-size: 32px;
-  }
-
-  .stat-card p {
+  .top-header p {
     font-size: 16px;
   }
 
-  .stat-card h2 {
-    font-size: 21px;
+  .profile {
+    width: 55px;
+    height: 55px;
   }
 
-  .quick-tools {
+  .nav-btn {
+    min-width: 125px;
+    padding: 20px 15px;
+    font-size: 16px;
+  }
+
+  main {
+    padding: 25px 15px;
+  }
+
+  .page h2 {
+    font-size: 28px;
+  }
+
+  .form-card {
     padding: 20px;
   }
 
-  .tools-grid {
-    gap: 15px;
+  .invoice-paper {
+    padding: 25px 18px;
   }
 
-  .tools-grid button {
-    height: 140px;
+}
+
+
+/* PRINT */
+
+@media print {
+
+  body * {
+    visibility: hidden;
   }
 
-  .tools-grid span {
-    font-size: 38px;
+  .page.active-page,
+  .page.active-page * {
+    visibility: visible;
   }
 
-  .tools-grid b {
-    font-size: 17px;
+  .page.active-page {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 20px;
+  }
+
+  .form-card,
+  .navigation,
+  .top-header,
+  .print-btn,
+  .main-btn {
+    display: none !important;
+  }
+
+  .invoice-paper {
+    border: none;
+    margin: 0;
+    max-width: none;
+  }
+
+  @page {
+    size: A4;
+    margin: 10mm;
   }
 }
