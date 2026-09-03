@@ -11,60 +11,133 @@
   box-sizing:border-box;
   margin:0;
   padding:0;
+  font-family:Arial,sans-serif;
 }
 
 body{
-  font-family:Arial,sans-serif;
   background:#f5f6fa;
-  color:#172033;
+  color:#151a26;
 }
 
-/* HEADER */
 .header{
-  background:white;
-  padding:22px 25px;
-  border-bottom:1px solid #ddd;
+  background:#1b1c22;
+  color:white;
+  padding:22px 28px;
 }
 
 .header h1{
-  font-size:30px;
+  font-size:28px;
 }
 
 .header p{
-  color:#777;
+  color:#aaa;
   font-size:18px;
-  margin-top:6px;
+  margin-top:8px;
 }
 
-/* NAVIGATION */
-.nav{
+.container{
+  padding:22px;
+}
+
+.top{
   display:flex;
-  overflow-x:auto;
-  background:white;
-  border-bottom:1px solid #ddd;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:24px;
 }
 
-.nav button{
-  min-width:130px;
-  padding:22px 15px;
-  border:0;
+.top h2{
+  font-size:28px;
+}
+
+.top p{
+  color:#777;
+  font-size:20px;
+  margin-top:8px;
+}
+
+.profile{
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  background:#111827;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  font-weight:bold;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.card{
   background:white;
-  font-size:17px;
-  color:#555;
+  border:1px solid #ddd;
+  border-radius:22px;
+  padding:25px 20px;
+  min-height:115px;
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.icon{
+  font-size:42px;
+}
+
+.card span{
+  color:#777;
+  font-size:20px;
+}
+
+.card h3{
+  font-size:28px;
+  margin-top:8px;
+}
+
+.quick{
+  background:white;
+  border:1px solid #ddd;
+  border-radius:25px;
+  padding:30px;
+  margin-top:42px;
+}
+
+.quick h2{
+  font-size:28px;
+  margin-bottom:30px;
+}
+
+.tools{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.tool{
+  background:white;
+  border:1px solid #ddd;
+  border-radius:20px;
+  min-height:160px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
   cursor:pointer;
 }
 
-.nav button.active{
-  background:#111827;
-  color:white;
-  border-radius:0;
+.tool:hover{
+  background:#f5f5f5;
 }
 
-/* CONTENT */
-.container{
-  padding:25px;
-  max-width:900px;
-  margin:auto;
+.tool .icon{
+  margin-bottom:15px;
 }
 
 .page{
@@ -75,133 +148,71 @@ body{
   display:block;
 }
 
-.page h2{
-  font-size:30px;
-  margin-bottom:8px;
-}
-
-.subtitle{
-  color:#777;
-  font-size:17px;
-  margin-bottom:25px;
-}
-
-/* CARD */
-.card{
-  background:white;
-  padding:25px;
-  border-radius:18px;
-  border:1px solid #ddd;
-  box-shadow:0 2px 8px rgba(0,0,0,.04);
-}
-
-label{
-  display:block;
-  font-weight:bold;
-  margin-top:16px;
-  margin-bottom:8px;
-}
-
-input,select{
-  width:100%;
-  padding:15px;
-  border:1px solid #ccc;
-  border-radius:12px;
-  font-size:16px;
-  outline:none;
-}
-
-input:focus{
-  border-color:#111827;
-}
-
-/* BUTTON */
-.main-btn{
-  width:100%;
-  margin-top:20px;
-  padding:16px;
+.back{
   background:#111827;
   color:white;
   border:0;
-  border-radius:12px;
-  font-size:17px;
-  font-weight:bold;
-}
-
-.print-btn{
-  width:100%;
-  margin-top:12px;
-  padding:15px;
-  background:white;
-  color:#111827;
-  border:1px solid #bbb;
-  border-radius:12px;
+  padding:12px 20px;
+  border-radius:10px;
   font-size:16px;
-  font-weight:bold;
+  margin-bottom:20px;
 }
 
-/* RESULT */
-.result{
-  margin-top:20px;
-  background:#f1f3f6;
-  padding:20px;
-  border-radius:14px;
-  font-size:18px;
+.simple-box{
+  background:white;
+  border:1px solid #ddd;
+  border-radius:20px;
+  padding:25px;
 }
 
-.result strong{
-  font-size:22px;
+.simple-box h2{
+  margin-bottom:25px;
+  font-size:28px;
 }
 
-/* MOBILE */
-@media(max-width:600px){
-  .header h1{
-    font-size:26px;
-  }
-
-  .container{
-    padding:18px;
-  }
-
-  .page h2{
-    font-size:27px;
-  }
-
-  .nav button{
-    min-width:120px;
-    font-size:16px;
-  }
+.row{
+  padding:18px 0;
+  border-bottom:1px solid #eee;
+  font-size:19px;
 }
 
-/* PRINT */
-@media print{
-  body{
-    background:white;
-  }
+.print{
+  margin-top:25px;
+  padding:13px 22px;
+  border:0;
+  border-radius:10px;
+  background:#111827;
+  color:white;
+  font-size:17px;
+}
 
-  .header,
-  .nav,
-  .main-btn,
-  .print-btn{
-    display:none;
-  }
+@media(max-width:500px){
 
   .container{
     padding:20px;
   }
 
-  .page{
-    display:none;
-  }
-
-  .page.active{
-    display:block;
-  }
-
   .card{
-    box-shadow:none;
-    border:1px solid #ddd;
+    padding:18px 14px;
   }
+
+  .card h3{
+    font-size:24px;
+  }
+
+  .card span{
+    font-size:17px;
+  }
+
+  .quick{
+    padding:20px;
+  }
+
+  .tool{
+    min-height:145px;
+    font-size:19px;
+  }
+
 }
 </style>
 </head>
@@ -211,469 +222,223 @@ input:focus{
 <!-- HEADER -->
 <div class="header">
   <h1>Business Toolkit</h1>
-  <p>Smart Business Management</p>
+  <p>Preview</p>
 </div>
 
-<!-- NAVIGATION -->
-<div class="nav">
+<!-- DASHBOARD -->
+<div id="dashboard" class="container page active">
 
-  <button class="active" onclick="showPage('invoice',this)">
-    🧾 Invoice
-  </button>
+  <div class="top">
+    <div>
+      <h2>Business Toolkit</h2>
+      <p>Smart Business Management</p>
+    </div>
 
-  <button onclick="showPage('sales',this)">
-    💰 Sales
-  </button>
+    <div class="profile">G</div>
+  </div>
 
-  <button onclick="showPage('customers',this)">
-    👥 Customers
-  </button>
+  <!-- DASHBOARD CARDS -->
+  <div class="cards">
 
-  <button onclick="showPage('profit',this)">
-    📈 Profit
-  </button>
+    <div class="card">
+      <div class="icon">💰</div>
+      <div>
+        <span>Total Sales</span>
+        <h3>₹0.00</h3>
+      </div>
+    </div>
 
-  <button onclick="showPage('gst',this)">
-    🧮 GST
-  </button>
+    <div class="card">
+      <div class="icon">💸</div>
+      <div>
+        <span>Total Expenses</span>
+        <h3>₹0.00</h3>
+      </div>
+    </div>
 
-  <button onclick="showPage('stock',this)">
-    📦 Stock
-  </button>
+    <div class="card">
+      <div class="icon">📈</div>
+      <div>
+        <span>Net Profit</span>
+        <h3>₹0.00</h3>
+      </div>
+    </div>
 
-  <button onclick="showPage('expenses',this)">
-    💸 Expenses
-  </button>
+    <div class="card">
+      <div class="icon">📦</div>
+      <div>
+        <span>Total Stock</span>
+        <h3>0</h3>
+      </div>
+    </div>
 
-</div>
+  </div>
 
+  <!-- QUICK TOOLS -->
+  <div class="quick">
 
-<div class="container">
+    <h2>Quick Tools</h2>
 
-<!-- ================= INVOICE ================= -->
+    <div class="tools">
 
-<section id="invoice" class="page active">
+      <div class="tool" onclick="openPage('invoice')">
+        <div class="icon">🧾</div>
+        Create Invoice
+      </div>
 
-<h2>Create Invoice</h2>
-<p class="subtitle">Create a simple business invoice</p>
+      <div class="tool" onclick="openPage('sales')">
+        <div class="icon">💰</div>
+        Sales
+      </div>
 
-<div class="card">
+      <div class="tool" onclick="openPage('expenses')">
+        <div class="icon">💸</div>
+        Expenses
+      </div>
 
-<label>Customer Name</label>
-<input id="invCustomer" placeholder="Customer name">
+      <div class="tool" onclick="openPage('customers')">
+        <div class="icon">👥</div>
+        Customers
+      </div>
 
-<label>Mobile No.</label>
-<input id="invMobile" placeholder="Mobile number" type="tel">
+      <div class="tool" onclick="openPage('stock')">
+        <div class="icon">📦</div>
+        Stock
+      </div>
 
-<label>Product</label>
-<input id="invProduct" placeholder="Product name">
+      <div class="tool" onclick="openPage('gst')">
+        <div class="icon">🧮</div>
+        GST
+      </div>
 
-<label>Quantity</label>
-<input id="invQty" type="number" placeholder="Quantity">
+      <div class="tool" onclick="openPage('profit')">
+        <div class="icon">📈</div>
+        Profit
+      </div>
 
-<label>Price</label>
-<input id="invPrice" type="number" placeholder="₹ Price">
+      <div class="tool" onclick="openPage('feedback')">
+        <div class="icon">💬</div>
+        Feedback
+      </div>
 
-<label>GST %</label>
-<input id="invGST" type="number" placeholder="GST %" value="0">
-
-<button class="main-btn" onclick="createInvoice()">
-Create Invoice
-</button>
-
-<div id="invoiceResult" class="result"></div>
-
-<button class="print-btn" onclick="window.print()">
-🖨️ Print / Save PDF
-</button>
-
-</div>
-</section>
-
-
-<!-- ================= SALES ================= -->
-
-<section id="sales" class="page">
-
-<h2>Sales</h2>
-<p class="subtitle">Manage your sales</p>
-
-<div class="card">
-
-<label>Product</label>
-<input id="salesProduct" placeholder="Product name">
-
-<label>Quantity</label>
-<input id="salesQty" type="number" placeholder="Quantity">
-
-<label>Amount</label>
-<input id="salesAmount" type="number" placeholder="₹ Amount">
-
-<button class="main-btn" onclick="saveSales()">
-Save Sale
-</button>
-
-<div id="salesResult" class="result">
-Total Sales: <strong>₹0.00</strong>
-</div>
-
-<button class="print-btn" onclick="window.print()">
-🖨️ Print / Save PDF
-</button>
+    </div>
+  </div>
 
 </div>
-</section>
 
 
-<!-- ================= CUSTOMERS ================= -->
+<!-- PAGES -->
 
-<section id="customers" class="page">
-
-<h2>Customers</h2>
-<p class="subtitle">Manage customer credit / khata</p>
-
-<div class="card">
-
-<label>Customer Name</label>
-<input id="customerName" placeholder="Customer name">
-
-<label>Mobile No.</label>
-<input id="customerMobile" placeholder="Mobile number">
-
-<label>Credit Amount</label>
-<input id="creditAmount" type="number" placeholder="₹ Amount">
-
-<button class="main-btn" onclick="saveCustomer()">
-Add Customer
-</button>
-
-<div id="customerResult" class="result">
-No customer added
+<div id="invoice" class="container page">
+  <button class="back" onclick="home()">← Back</button>
+  <div class="simple-box">
+    <h2>🧾 Invoice</h2>
+    <div class="row">Customer : Infinity</div>
+    <div class="row">Product : Infinity</div>
+    <div class="row">Price : Infinity</div>
+    <button class="print" onclick="window.print()">🖨 Print / Save PDF</button>
+  </div>
 </div>
 
-<button class="print-btn" onclick="window.print()">
-🖨️ Print / Save PDF
-</button>
-
-</div>
-</section>
-
-
-<!-- ================= PROFIT ================= -->
-
-<section id="profit" class="page">
-
-<h2>Profit</h2>
-<p class="subtitle">Calculate your business profit</p>
-
-<div class="card">
-
-<label>Total Sales</label>
-<input id="profitSales" type="number" placeholder="₹ Sales">
-
-<label>Total Expenses</label>
-<input id="profitExpenses" type="number" placeholder="₹ Expenses">
-
-<button class="main-btn" onclick="calculateProfit()">
-Calculate Profit
-</button>
-
-<div id="profitResult" class="result">
-Net Profit: <strong>₹0.00</strong>
+<div id="sales" class="container page">
+  <button class="back" onclick="home()">← Back</button>
+  <div class="simple-box">
+    <h2>💰 Sales</h2>
+    <div class="row">Customer : Infinity</div>
+    <div class="row">Product : Infinity</div>
+    <div class="row">Amount : Infinity</div>
+    <button class="print" onclick="window.print()">🖨 Print / Save PDF</button>
+  </div>
 </div>
 
-<button class="print-btn" onclick="window.print()">
-🖨️ Print / Save PDF
-</button>
-
-</div>
-</section>
-
-
-<!-- ================= GST ================= -->
-
-<section id="gst" class="page">
-
-<h2>GST</h2>
-<p class="subtitle">GST calculator</p>
-
-<div class="card">
-
-<label>Amount</label>
-<input id="gstAmount" type="number" placeholder="₹ Amount">
-
-<label>GST Rate</label>
-
-<select id="gstRate">
-  <option value="5">5%</option>
-  <option value="12">12%</option>
-  <option value="18">18%</option>
-  <option value="28">28%</option>
-</select>
-
-<button class="main-btn" onclick="calculateGST()">
-Calculate GST
-</button>
-
-<div id="gstResult" class="result">
-GST: <strong>₹0.00</strong>
+<div id="expenses" class="container page">
+  <button class="back" onclick="home()">← Back</button>
+  <div class="simple-box">
+    <h2>💸 Expenses</h2>
+    <div class="row">Expense : Infinity</div>
+    <div class="row">Category : Infinity</div>
+    <div class="row">Amount : Infinity</div>
+    <button class="print" onclick="window.print()">🖨 Print / Save PDF</button>
+  </div>
 </div>
 
-<button class="print-btn" onclick="window.print()">
-🖨️ Print / Save PDF
-</button>
-
-</div>
-</section>
-
-
-<!-- ================= STOCK ================= -->
-
-<section id="stock" class="page">
-
-<h2>Stock</h2>
-<p class="subtitle">Manage your products</p>
-
-<div class="card">
-
-<label>Product Name</label>
-<input id="stockProduct" placeholder="Product name">
-
-<label>Quantity</label>
-<input id="stockQty" type="number" placeholder="Quantity">
-
-<label>Price</label>
-<input id="stockPrice" type="number" placeholder="₹ Price">
-
-<button class="main-btn" onclick="saveStock()">
-Add Stock
-</button>
-
-<div id="stockResult" class="result">
-Total Stock: <strong>0</strong>
+<div id="customers" class="container page">
+  <button class="back" onclick="home()">← Back</button>
+  <div class="simple-box">
+    <h2>👥 Customers</h2>
+    <div class="row">Customer Name : Infinity</div>
+    <div class="row">Mobile : Infinity</div>
+    <div class="row">Address : Infinity</div>
+    <button class="print" onclick="window.print()">🖨 Print / Save PDF</button>
+  </div>
 </div>
 
-<button class="print-btn" onclick="window.print()">
-🖨️ Print / Save PDF
-</button>
-
-</div>
-</section>
-
-
-<!-- ================= EXPENSES ================= -->
-
-<section id="expenses" class="page">
-
-<h2>Expenses</h2>
-<p class="subtitle">Track your business expenses</p>
-
-<div class="card">
-
-<label>Expense Name</label>
-<input id="expenseName" placeholder="Expense name">
-
-<label>Amount</label>
-<input id="expenseAmount" type="number" placeholder="₹ Amount">
-
-<button class="main-btn" onclick="saveExpense()">
-Add Expense
-</button>
-
-<div id="expenseResult" class="result">
-Total Expenses: <strong>₹0.00</strong>
+<div id="stock" class="container page">
+  <button class="back" onclick="home()">← Back</button>
+  <div class="simple-box">
+    <h2>📦 Stock</h2>
+    <div class="row">Product : Infinity</div>
+    <div class="row">Quantity : Infinity</div>
+    <div class="row">Price : Infinity</div>
+    <button class="print" onclick="window.print()">🖨 Print / Save PDF</button>
+  </div>
 </div>
 
-<button class="print-btn" onclick="window.print()">
-🖨️ Print / Save PDF
-</button>
-
+<div id="gst" class="container page">
+  <button class="back" onclick="home()">← Back</button>
+  <div class="simple-box">
+    <h2>🧮 GST</h2>
+    <div class="row">Product : Infinity</div>
+    <div class="row">GST Rate : Infinity</div>
+    <div class="row">GST Amount : Infinity</div>
+    <button class="print" onclick="window.print()">🖨 Print / Save PDF</button>
+  </div>
 </div>
-</section>
 
+<div id="profit" class="container page">
+  <button class="back" onclick="home()">← Back</button>
+  <div class="simple-box">
+    <h2>📈 Profit</h2>
+    <div class="row">Sales : Infinity</div>
+    <div class="row">Expenses : Infinity</div>
+    <div class="row">Profit : Infinity</div>
+    <button class="print" onclick="window.print()">🖨 Print / Save PDF</button>
+  </div>
+</div>
+
+<div id="feedback" class="container page">
+  <button class="back" onclick="home()">← Back</button>
+  <div class="simple-box">
+    <h2>💬 Feedback</h2>
+    <div class="row">Name : Infinity</div>
+    <div class="row">Feedback : Infinity</div>
+    <button class="print" onclick="window.print()">🖨 Print / Save PDF</button>
+  </div>
 </div>
 
 
 <script>
 
-/* PAGE CHANGE */
+function openPage(page){
 
-function showPage(page,button){
+  document.querySelectorAll(".page").forEach(function(p){
+    p.classList.remove("active");
+  });
 
-  document.querySelectorAll(".page")
-    .forEach(p => p.classList.remove("active"));
+  document.getElementById(page).classList.add("active");
 
-  document.getElementById(page)
-    .classList.add("active");
-
-  document.querySelectorAll(".nav button")
-    .forEach(b => b.classList.remove("active"));
-
-  button.classList.add("active");
+  window.scrollTo(0,0);
 }
 
+function home(){
 
-/* INVOICE */
+  document.querySelectorAll(".page").forEach(function(p){
+    p.classList.remove("active");
+  });
 
-function createInvoice(){
+  document.getElementById("dashboard").classList.add("active");
 
-  let customer =
-    document.getElementById("invCustomer").value;
-
-  let mobile =
-    document.getElementById("invMobile").value;
-
-  let product =
-    document.getElementById("invProduct").value;
-
-  let qty =
-    Number(document.getElementById("invQty").value);
-
-  let price =
-    Number(document.getElementById("invPrice").value);
-
-  let gst =
-    Number(document.getElementById("invGST").value);
-
-  let subtotal = qty * price;
-
-  let gstAmount = subtotal * gst / 100;
-
-  let total = subtotal + gstAmount;
-
-  document.getElementById("invoiceResult").innerHTML = `
-    <b>Business Invoice</b><br><br>
-
-    Customer: ${customer || "—"}<br>
-    Mobile: ${mobile || "—"}<br>
-    Product: ${product || "—"}<br>
-    Quantity: ${qty || 0}<br>
-    Price: ₹${price.toFixed(2)}<br>
-    GST: ${gst}%<br><br>
-
-    <strong>Total: ₹${total.toFixed(2)}</strong>
-  `;
-}
-
-
-/* SALES */
-
-function saveSales(){
-
-  let amount =
-    Number(document.getElementById("salesAmount").value);
-
-  document.getElementById("salesResult").innerHTML = `
-    Total Sales:<br>
-    <strong>₹${amount.toFixed(2)}</strong>
-  `;
-}
-
-
-/* CUSTOMER */
-
-function saveCustomer(){
-
-  let name =
-    document.getElementById("customerName").value;
-
-  let mobile =
-    document.getElementById("customerMobile").value;
-
-  let credit =
-    Number(document.getElementById("creditAmount").value);
-
-  document.getElementById("customerResult").innerHTML = `
-    <b>${name || "Customer"}</b><br>
-    Mobile: ${mobile || "—"}<br>
-    Credit / Khata:<br>
-    <strong>₹${credit.toFixed(2)}</strong>
-  `;
-}
-
-
-/* PROFIT */
-
-function calculateProfit(){
-
-  let sales =
-    Number(document.getElementById("profitSales").value);
-
-  let expenses =
-    Number(document.getElementById("profitExpenses").value);
-
-  let profit = sales - expenses;
-
-  document.getElementById("profitResult").innerHTML = `
-    Net Profit:<br>
-    <strong>₹${profit.toFixed(2)}</strong>
-  `;
-}
-
-
-/* GST */
-
-function calculateGST(){
-
-  let amount =
-    Number(document.getElementById("gstAmount").value);
-
-  let rate =
-    Number(document.getElementById("gstRate").value);
-
-  let gst = amount * rate / 100;
-
-  let total = amount + gst;
-
-  document.getElementById("gstResult").innerHTML = `
-    GST Amount:<br>
-    <strong>₹${gst.toFixed(2)}</strong><br><br>
-
-    Total Amount:<br>
-    <strong>₹${total.toFixed(2)}</strong>
-  `;
-}
-
-
-/* STOCK */
-
-function saveStock(){
-
-  let product =
-    document.getElementById("stockProduct").value;
-
-  let qty =
-    Number(document.getElementById("stockQty").value);
-
-  let price =
-    Number(document.getElementById("stockPrice").value);
-
-  document.getElementById("stockResult").innerHTML = `
-    <b>${product || "Product"}</b><br>
-    Quantity: ${qty}<br>
-    Price: ₹${price.toFixed(2)}<br><br>
-
-    Total Stock:<br>
-    <strong>${qty}</strong>
-  `;
-}
-
-
-/* EXPENSE */
-
-function saveExpense(){
-
-  let name =
-    document.getElementById("expenseName").value;
-
-  let amount =
-    Number(document.getElementById("expenseAmount").value);
-
-  document.getElementById("expenseResult").innerHTML = `
-    <b>${name || "Expense"}</b><br><br>
-    Total Expenses:<br>
-    <strong>₹${amount.toFixed(2)}</strong>
-  `;
+  window.scrollTo(0,0);
 }
 
 </script>
