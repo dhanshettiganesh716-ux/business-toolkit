@@ -1,454 +1,207 @@
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f5f6fa;
-  color: #111827;
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f5f7fb;
+  color:#111827;
 }
 
-/* HEADER */
-.top-header {
-  background: white;
-  padding: 22px 26px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #e5e7eb;
+.sidebar{
+  position:fixed;
+  left:0;
+  top:0;
+  width:230px;
+  height:100vh;
+  background:#111827;
+  padding:20px;
+  overflow-y:auto;
 }
 
-.top-header h1 {
-  margin: 0;
-  font-size: 30px;
+.sidebar h1{
+  color:white;
+  font-size:21px;
+  margin:0 0 25px;
 }
 
-.top-header p {
-  margin: 8px 0 0;
-  color: #6b7280;
-  font-size: 18px;
+.sidebar button{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:#d1d5db;
+  text-align:left;
+  padding:13px 12px;
+  margin:3px 0;
+  border-radius:7px;
+  font-size:15px;
+  cursor:pointer;
 }
 
-.profile {
-  width: 62px;
-  height: 62px;
-  background: #111827;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 25px;
-  font-weight: bold;
+.sidebar button:hover{
+  background:#374151;
+  color:white;
 }
 
-/* NAVIGATION */
-.navigation {
-  background: white;
-  display: flex;
-  gap: 5px;
-  overflow-x: auto;
-  padding: 15px;
-  border-bottom: 1px solid #ddd;
+main{
+  margin-left:230px;
+  padding:25px;
 }
 
-.nav-btn {
-  min-width: 145px;
-  padding: 25px 20px;
-  border: none;
-  background: white;
-  border-radius: 15px;
-  font-size: 18px;
-  color: #4b5563;
-  cursor: pointer;
-  white-space: nowrap;
+.page{
+  display:none;
 }
 
-.nav-btn.active {
-  background: #111827;
-  color: white;
+.page.active{
+  display:block;
 }
 
-/* MAIN */
-main {
-  max-width: 1100px;
-  margin: auto;
-  padding: 30px 20px;
+.box{
+  background:white;
+  border-radius:10px;
+  padding:22px;
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
 }
 
-.page {
-  display: none;
+.box h2{
+  margin-top:0;
 }
 
-.active-page {
-  display: block;
+.cards{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:15px;
 }
 
-.page h2 {
-  font-size: 32px;
-  margin-bottom: 8px;
+.card{
+  background:#f9fafb;
+  border:1px solid #e5e7eb;
+  padding:18px;
+  border-radius:8px;
 }
 
-.subtitle {
-  color: #6b7280;
-  font-size: 18px;
+.card h3{
+  margin:0 0 10px;
 }
 
-/* FORM */
-.form-card {
-  background: white;
-  border: 1px solid #e1e4e8;
-  border-radius: 20px;
-  padding: 28px;
-  margin-top: 25px;
+.card p{
+  font-size:22px;
+  font-weight:800;
+  margin:0;
 }
 
-.form-card label {
-  display: block;
-  font-size: 18px;
-  font-weight: 700;
-  margin-top: 20px;
-  margin-bottom: 8px;
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:15px;
 }
 
-.form-card input,
-.form-card select,
-.form-card textarea {
-  width: 100%;
-  min-height: 55px;
-  border: 1px solid #d1d5db;
-  border-radius: 12px;
-  padding: 10px 16px;
-  font-size: 17px;
-  outline: none;
+input,
+textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid #d1d5db;
+  border-radius:7px;
+  font-size:20px;
+  outline:none;
 }
 
-.form-card textarea {
-  min-height: 120px;
-  resize: vertical;
+textarea{
+  margin-bottom:12px;
+  resize:vertical;
 }
 
-.form-card input:focus,
-.form-card select:focus,
-.form-card textarea:focus {
-  border-color: #111827;
+button{
+  cursor:pointer;
 }
 
-/* BUTTONS */
-.main-btn {
-  width: 100%;
-  height: 56px;
-  margin-top: 28px;
-  border: none;
-  border-radius: 12px;
-  background: #111827;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
+.primary{
+  border:0;
+  background:#111827;
+  color:white;
+  padding:11px 16px;
+  border-radius:7px;
+  font-size:14px;
 }
 
-.print-btn {
-  width: 100%;
-  height: 52px;
-  margin-top: 18px;
-  border: 1px solid #111827;
-  border-radius: 12px;
-  background: white;
-  color: #111827;
-  font-size: 17px;
-  font-weight: bold;
+.danger{
+  border:0;
+  background:#dc2626;
+  color:white;
+  border-radius:5px;
 }
 
-/* LIST */
-.list-card {
-  background: white;
-  border-radius: 16px;
-  padding: 20px;
-  margin-top: 15px;
-  border: 1px solid #ddd;
+
+/* CALCULATOR */
+
+.calc-box{
+  max-width:500px;
 }
 
-.list-card h3 {
-  margin: 0 0 8px;
+.display{
+  background:#f3f4f6;
+  border-radius:8px;
+  padding:15px;
+  margin-bottom:15px;
+  text-align:right;
+  overflow:hidden;
 }
 
-.list-card p {
-  margin: 5px 0;
+.expression{
+  font-size:36px;
+  color:#111827;
+  font-weight:800;
+  min-height:48px;
+  word-break:break-all;
+  line-height:1.2;
 }
 
-/* =========================
-   INVOICE
-========================= */
-
-.invoice-paper {
-  background: white;
-  width: 100%;
-  max-width: 1050px;
-  margin: 30px auto;
-  padding: 35px;
-  border: 1px solid #ddd;
-  border-radius: 16px;
-  overflow-x: auto;
+.result{
+  font-size:42px;
+  font-weight:800;
+  word-break:break-all;
 }
 
-.invoice-paper h1 {
-  text-align: center;
-  margin-bottom: 35px;
-  font-size: 30px;
+.calc-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
 }
 
-/* INVOICE TABLE */
-.invoice-table {
-  width: 100%;
-  min-width: 900px;
-  border-collapse: collapse;
-  margin-top: 25px;
-  table-layout: auto;
+.calc-grid button{
+  height:60px;
+  border:0;
+  border-radius:8px;
+  font-size:20px;
+  background:#e5e7eb;
 }
 
-.invoice-table th,
-.invoice-table td {
-  border: 1px solid #d1d5db;
-  padding: 14px 12px;
-  vertical-align: middle;
+.calc-grid .operator{
+  background:#dbeafe;
 }
 
-/* HEADINGS */
-.invoice-table th {
-  background: #f3f4f6;
-  font-size: 20px !important;
-  font-weight: 800 !important;
-  height: 65px;
-  white-space: nowrap;
+.calc-grid .equal{
+  background:#111827;
+  color:white;
 }
 
-/* CELLS */
-.invoice-table td {
-  font-size: 18px !important;
-  font-weight: 600;
-  height: 65px;
+.calc-grid .clear{
+  background:#fee2e2;
 }
 
-/* INPUT BOXES */
-.invoice-table input,
-.invoice-table select {
-  width: 100%;
-  height: 52px !important;
-  min-height: 52px !important;
-  padding: 8px 12px !important;
-  border: 1px solid #cbd5e1;
-  border-radius: 9px;
-  font-size: 18px !important;
-  font-weight: 600;
-  background: white;
+
+/* INVOICE */
+
+.invoice-inputs{
+  max-width:650px;
+  margin:15px auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
 
-/* PRODUCT BOX WIDER */
-.invoice-table th:first-child,
-.invoice-table td:first-child {
-  min-width: 280px;
-}
-
-/* QTY */
-.invoice-table th:nth-child(2),
-.invoice-table td:nth-child(2) {
-  min-width: 110px;
-}
-
-/* PRICE */
-.invoice-table th:nth-child(3),
-.invoice-table td:nth-child(3) {
-  min-width: 140px;
-}
-
-/* GST */
-.invoice-table th:nth-child(4),
-.invoice-table td:nth-child(4) {
-  min-width: 120px;
-}
-
-/* TOTAL */
-.invoice-table th:nth-child(5),
-.invoice-table td:nth-child(5) {
-  min-width: 150px;
-}
-
-/* ACTION */
-.invoice-table th:last-child,
-.invoice-table td:last-child {
-  min-width: 100px;
-  text-align: center;
-}
-
-/* INVOICE TOTAL */
-.invoice-total-box {
-  margin-top: 25px;
-  margin-left: auto;
-  max-width: 350px;
-}
-
-.invoice-total-box div {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  font-size: 18px;
-}
-
-.grand-total {
-  border-top: 2px solid #111827;
-  font-size: 22px !important;
-  font-weight: bold;
-}
-
-.thank-you {
-  text-align: center;
-  margin-top: 70px;
-  font-size: 18px;
-}
-
-/* =========================
-   CALCULATOR
-========================= */
-
-.expression {
-  font-size: 42px !important;
-  color: #111827;
-  font-weight: 800 !important;
-  min-height: 55px;
-  word-break: break-all;
-  text-align: right;
-  line-height: 1.2;
-}
-
-.result {
-  font-size: 48px !important;
-  font-weight: 800 !important;
-  text-align: right;
-  word-break: break-all;
-}
-
-.calculator-history,
-.calc-history,
-.history-screen,
-#calc-history {
-  font-size: 20px !important;
-  color: #6b7280 !important;
-  font-weight: 600 !important;
-  text-align: right;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 600px) {
-
-  .top-header h1 {
-    font-size: 25px;
-  }
-
-  .top-header p {
-    font-size: 16px;
-  }
-
-  .profile {
-    width: 55px;
-    height: 55px;
-  }
-
-  .nav-btn {
-    min-width: 125px;
-    padding: 20px 15px;
-    font-size: 16px;
-  }
-
-  main {
-    padding: 25px 12px;
-  }
-
-  .page h2 {
-    font-size: 28px;
-  }
-
-  .form-card {
-    padding: 18px;
-  }
-
-  /* INVOICE MOBILE */
-  .invoice-paper {
-    padding: 20px 12px;
-    overflow-x: auto;
-  }
-
-  .invoice-table {
-    min-width: 900px;
-  }
-
-  .invoice-table th {
-    font-size: 20px !important;
-  }
-
-  .invoice-table td {
-    font-size: 18px !important;
-  }
-
-  .invoice-table input,
-  .invoice-table select {
-    height: 52px !important;
-    font-size: 18px !important;
-  }
-
-  /* CALCULATOR MOBILE */
-  .expression {
-    font-size: 36px !important;
-  }
-
-  .result {
-    font-size: 42px !important;
-  }
-}
-
-/* =========================
-   PRINT / PDF
-========================= */
-
-@media print {
-
-  @page {
-    size: A4 landscape;
-    margin: 10mm;
-  }
-
-  body * {
-    visibility: hidden;
-  }
-
-  .invoice-paper,
-  .invoice-paper * {
-    visibility: visible;
-  }
-
-  .invoice-paper {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    max-width: none;
-    margin: 0;
-    border: none;
-    border-radius: 0;
-    overflow: visible;
-  }
-
-  .navigation,
-  .top-header,
-  .main-btn,
-  .print-btn {
-    display: none !important;
-  }
-}
 .invoice-paper{
   width:100%;
   max-width:650px;
@@ -456,7 +209,6 @@ main {
   padding:25px;
   background:white;
   border:1px solid #ddd;
-  box-sizing:border-box;
   font-family:Arial,sans-serif;
 }
 
@@ -548,20 +300,83 @@ main {
   font-size:15px;
 }
 
-.invoice-inputs{
-  max-width:650px;
-  margin:10px auto;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
+
+/* OTHER */
+
+#salesList,
+#customersList,
+#expensesList,
+#stockList{
+  margin-top:20px;
 }
 
-.invoice-inputs input{
-  width:100%;
-  box-sizing:border-box;
+.list-item{
+  padding:12px;
+  border-bottom:1px solid #e5e7eb;
+  display:flex;
+  justify-content:space-between;
 }
 
-@media(max-width:600px){
+.profit-box{
+  max-width:500px;
+}
+
+.profit-box > div{
+  display:flex;
+  justify-content:space-between;
+  padding:15px;
+  border-bottom:1px solid #e5e7eb;
+}
+
+.profit-total{
+  font-size:22px;
+  font-weight:800;
+}
+
+.gst-result{
+  margin-top:20px;
+  font-size:18px;
+}
+
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+  .sidebar{
+    position:sticky;
+    top:0;
+    width:100%;
+    height:auto;
+    z-index:10;
+    padding:10px;
+    display:flex;
+    gap:5px;
+    overflow-x:auto;
+  }
+
+  .sidebar h1{
+    display:none;
+  }
+
+  .sidebar button{
+    width:auto;
+    min-width:max-content;
+    padding:10px 12px;
+  }
+
+  main{
+    margin-left:0;
+    padding:12px;
+  }
+
+  .cards{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
 
   .invoice-paper{
     padding:15px;
@@ -589,4 +404,21 @@ main {
   .invoice-inputs{
     grid-template-columns:1fr;
   }
+
 }
+
+@media(max-width:450px){
+
+  .cards{
+    grid-template-columns:1fr;
+  }
+
+  .box{
+    padding:15px;
+  }
+
+  .invoice-paper{
+    padding:10px;
+  }
+
+  }
