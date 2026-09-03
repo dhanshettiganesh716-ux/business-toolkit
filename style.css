@@ -429,15 +429,7 @@ input[type="text"] {
   text-align: right !important;
   margin-bottom: 8px;
 }
-.expression {
-  font-size: 42px;
-  color: #111827;
-  font-weight: 800;
-  min-height: 55px;
-  word-break: break-all;
-  text-align: right;
-  line-height: 1.2;
-}
+.
 
 @media (max-width: 600px) {
   .expression {
