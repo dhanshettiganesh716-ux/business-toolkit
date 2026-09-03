@@ -1,31 +1,148 @@
-<section id="invoice" class="page">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Toolkit</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="sidebar">
+  <h1>Business Toolkit</h1>
+
+  <button onclick="showPage('dashboard',this)">Dashboard</button>
+  <button onclick="showPage('calculator',this)">Calculator</button>
+  <button onclick="showPage('invoice',this)">Invoice</button>
+  <button onclick="showPage('sales',this)">Sales</button>
+  <button onclick="showPage('customers',this)">Customers</button>
+  <button onclick="showPage('profit',this)">Profit</button>
+  <button onclick="showPage('gst',this)">GST</button>
+  <button onclick="showPage('stock',this)">Stock</button>
+  <button onclick="showPage('expenses',this)">Expenses</button>
+  <button onclick="showPage('feedback',this)">Feedback</button>
+</div>
+
+<main>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="page active">
   <div class="box">
+    <h2>Dashboard</h2>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Sales</h3>
+        <p>₹<span id="dashSales">0.00</span></p>
+      </div>
+
+      <div class="card">
+        <h3>Expenses</h3>
+        <p>₹<span id="dashExpenses">0.00</span></p>
+      </div>
+
+      <div class="card">
+        <h3>Profit</h3>
+        <p>₹<span id="dashProfit">0.00</span></p>
+      </div>
+
+      <div class="card">
+        <h3>Customers</h3>
+        <p id="dashCustomers">0</p>
+      </div>
+
+      <div class="card">
+        <h3>Stock Items</h3>
+        <p id="dashStock">0</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CALCULATOR -->
+<section id="calculator" class="page">
+  <div class="box calc-box">
+
+    <h2>Calculator</h2>
+
+    <div class="display">
+      <div class="expression" id="calcExpression"></div>
+      <div class="result" id="calcResult">0</div>
+    </div>
+
+    <div class="calc-grid">
+
+      <button class="clear" onclick="clearCalc()">AC</button>
+      <button onclick="backspace()">⌫</button>
+      <button onclick="addCalc('%')">%</button>
+      <button class="operator" onclick="addCalc('/')">÷</button>
+
+      <button onclick="addCalc('7')">7</button>
+      <button onclick="addCalc('8')">8</button>
+      <button onclick="addCalc('9')">9</button>
+      <button class="operator" onclick="addCalc('*')">×</button>
+
+      <button onclick="addCalc('4')">4</button>
+      <button onclick="addCalc('5')">5</button>
+      <button onclick="addCalc('6')">6</button>
+      <button class="operator" onclick="addCalc('-')">−</button>
+
+      <button onclick="addCalc('1')">1</button>
+      <button onclick="addCalc('2')">2</button>
+      <button onclick="addCalc('3')">3</button>
+      <button class="operator" onclick="addCalc('+')">+</button>
+
+      <button onclick="addCalc('0')">0</button>
+      <button onclick="addCalc('00')">00</button>
+      <button onclick="addCalc('.')">.</button>
+      <button class="equal" onclick="calculate()">=</button>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- INVOICE -->
+<section id="invoice" class="page">
+
+  <div class="box">
+
     <h2>Create Invoice</h2>
 
-    <div class="form-grid">
+    <div class="invoice-inputs">
       <input id="invoiceNo" placeholder="Invoice Number">
       <input id="invoiceCustomer" placeholder="Customer Name">
     </div>
 
-    <div class="shop-receipt">
+    <div class="invoice-paper">
 
-      <div class="receipt-header">
-        <h3>BUSINESS TOOLKIT</h3>
-        <p>TAX INVOICE</p>
+      <div class="invoice-title">
+        <h2>BUSINESS TOOLKIT</h2>
+        <h3>TAX INVOICE</h3>
       </div>
 
-      <div class="receipt-info">
-        <span>Invoice: <b id="receiptInvoiceNo">---</b></span>
-        <span>Date: <b id="receiptDate"></b></span>
+      <div class="invoice-details">
+        <div>
+          Invoice No:
+          <b id="receiptInvoiceNo">001</b>
+        </div>
+
+        <div>
+          Customer:
+          <b id="receiptCustomer">---</b>
+        </div>
+
+        <div>
+          Date:
+          <b id="receiptDate"></b>
+        </div>
       </div>
 
-      <div class="receipt-customer">
-        Customer: <b id="receiptCustomer">---</b>
-      </div>
+      <div class="invoice-line"></div>
 
-      <div class="receipt-line"></div>
-
-      <div class="receipt-head">
+      <div class="invoice-columns">
         <span>Product</span>
         <span>Qty</span>
         <span>Rate</span>
@@ -34,13 +151,16 @@
 
       <div id="invoiceBody"></div>
 
-      <div class="receipt-line"></div>
+      <div class="invoice-line"></div>
 
-      <div class="receipt-actions">
-        <button class="primary" onclick="addProduct()">+ Add Product</button>
+      <div class="actions">
+        <button class="primary" onclick="addProduct()">
+          + Add Product
+        </button>
       </div>
 
-      <div class="receipt-summary">
+      <div class="invoice-summary">
+
         <div>
           <span>Subtotal</span>
           <b>₹<span id="invoiceSubtotal">0.00</span></b>
@@ -51,17 +171,17 @@
           <b>₹<span id="invoiceGST">0.00</span></b>
         </div>
 
-        <div class="grand-total">
+        <div class="invoice-grand">
           <span>GRAND TOTAL</span>
           <b>₹<span id="invoiceGrandTotal">0.00</span></b>
         </div>
+
       </div>
 
-      <div class="receipt-line"></div>
+      <div class="invoice-line"></div>
 
-      <div class="thank-you">
-        <b>Thank You!</b>
-        <small>Visit Again</small>
+      <div class="invoice-thank">
+        Thank You!
       </div>
 
     </div>
@@ -72,4 +192,161 @@
     </div>
 
   </div>
+
 </section>
+
+
+<!-- SALES -->
+<section id="sales" class="page">
+  <div class="box">
+    <h2>Sales</h2>
+
+    <div class="form-grid">
+      <input id="saleProduct" placeholder="Product">
+      <input id="saleAmount" type="number" placeholder="Amount">
+    </div>
+
+    <button class="primary" onclick="addSale()">Add Sale</button>
+
+    <div id="salesList"></div>
+  </div>
+</section>
+
+
+<!-- CUSTOMERS -->
+<section id="customers" class="page">
+  <div class="box">
+    <h2>Customers</h2>
+
+    <div class="form-grid">
+      <input id="customerName" placeholder="Customer Name">
+      <input id="customerPhone" placeholder="Phone Number">
+    </div>
+
+    <button class="primary" onclick="addCustomer()">Add Customer</button>
+
+    <div id="customersList"></div>
+  </div>
+</section>
+
+
+<!-- PROFIT -->
+<section id="profit" class="page">
+  <div class="box">
+
+    <h2>Profit</h2>
+
+    <div class="profit-box">
+
+      <div>
+        <span>Total Sales</span>
+        <b>₹<span id="profitSales">0.00</span></b>
+      </div>
+
+      <div>
+        <span>Total Expenses</span>
+        <b>₹<span id="profitExpenses">0.00</span></b>
+      </div>
+
+      <div class="profit-total">
+        <span>Net Profit</span>
+        <b>₹<span id="profitTotal">0.00</span></b>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- GST -->
+<section id="gst" class="page">
+  <div class="box">
+
+    <h2>GST Calculator</h2>
+
+    <input id="gstAmount" type="number" placeholder="Amount">
+
+    <input id="gstRate" type="number" placeholder="GST %">
+
+    <button class="primary" onclick="calculateGST()">
+      Calculate GST
+    </button>
+
+    <div class="gst-result">
+      <p>GST Amount: ₹<span id="gstValue">0.00</span></p>
+      <p>Total Amount: ₹<span id="gstTotal">0.00</span></p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- STOCK -->
+<section id="stock" class="page">
+  <div class="box">
+
+    <h2>Stock</h2>
+
+    <div class="form-grid">
+      <input id="stockProduct" placeholder="Product">
+      <input id="stockQty" type="number" placeholder="Quantity">
+    </div>
+
+    <button class="primary" onclick="addStock()">Add Stock</button>
+
+    <div id="stockList"></div>
+
+  </div>
+</section>
+
+
+<!-- EXPENSES -->
+<section id="expenses" class="page">
+  <div class="box">
+
+    <h2>Expenses</h2>
+
+    <div class="form-grid">
+      <input id="expenseName" placeholder="Expense Name">
+      <input id="expenseAmount" type="number" placeholder="Amount">
+    </div>
+
+    <button class="primary" onclick="addExpense()">
+      Add Expense
+    </button>
+
+    <div id="expensesList"></div>
+
+  </div>
+</section>
+
+
+<!-- FEEDBACK -->
+<section id="feedback" class="page">
+  <div class="box">
+
+    <h2>Feedback</h2>
+
+    <input id="feedbackName" placeholder="Your Name">
+
+    <textarea
+      id="feedbackMessage"
+      placeholder="Write your feedback..."
+      rows="5"></textarea>
+
+    <button class="primary" onclick="sendFeedback()">
+      Send Feedback
+    </button>
+
+    <div id="feedbackResult"></div>
+
+  </div>
+</section>
+
+</main>
+
+<script src="script.js"></script>
+
+</body>
+                                                                  </html>
