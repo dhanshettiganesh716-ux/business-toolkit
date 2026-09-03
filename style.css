@@ -246,6 +246,19 @@ main {
   color: #111827 !important;     /* स्पष्ट दिसणारा काळा रंग */
   letter-spacing: 1px;           /* आकड्यांमधील योग्य अंतर */
   text-align: right;             /* आकडे उजव्या बाजूला दिसतील */
+@media (max-width: 600px) {
+  #calcExpression {
+    font-size: 36px !important;
+    font-weight: 800 !important;
+  #calcExpression {
+  font-size: 42px !important;
+  font-weight: 800 !important;
+  color: #111827 !important;
+  text-align: right !important;
+  line-height: 1.2;
+  min-height: 55px;
+  word-break: break-all;
+  }
 }
 
 /* वरचे छोटे आकडे जे फिकट दिसत होते (उदा. 16134+463+...) */
