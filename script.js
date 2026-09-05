@@ -138,9 +138,9 @@ function invoiceTotal(){
 
   });
 
-  /* GST 5% */
+  /* GST  */
 
-  let gst = subtotal * 5 / 100;
+  let gst = subtotal *  / 100;
 
   let grandTotal = subtotal + gst;
 
@@ -444,17 +444,22 @@ function calculateGST(){
     .textContent = total.toFixed(2);
 
 }
+/* FEEDBACK → GOOGLE SHEETS */
+
+const GOOGLE_SHEETS_URL =
+  "YOUR_GOOGLE_SHEETS_WEB_APP_URL";
 
 
-/* FEEDBACK */
+async function sendFeedback(){
 
-function sendFeedback(){
+  const name =
+    document.getElementById("feedbackName")
+      .value.trim();
 
-  let name =
-    document.getElementById("feedbackName").value.trim();
+  const message =
+    document.getElementById("feedbackMessage")
+      .value.trim();
 
-  let message =
-    document.getElementById("feedbackMessage").value.trim();
 
   if(!message){
 
@@ -464,28 +469,63 @@ function sendFeedback(){
 
   }
 
-  let feedback =
-    JSON.parse(
-      localStorage.getItem("feedback") || "[]"
-    );
 
-  feedback.push({
-    name:name,
-    message:message,
-    date:new Date().toLocaleDateString()
-  });
+  const result =
+    document.getElementById("feedbackResult");
 
-  localStorage.setItem(
-    "feedback",
-    JSON.stringify(feedback)
-  );
+  result.innerHTML =
+    "<p>Sending feedback...</p>";
 
-  document.getElementById("feedbackName").value = "";
-  document.getElementById("feedbackMessage").value = "";
 
-  document.getElementById("feedbackResult")
-    .innerHTML =
-    "<p>Thank you for your feedback!</p>";
+  try{
+
+    await fetch(GOOGLE_SHEETS_URL, {
+
+      method: "POST",
+
+      mode: "no-cors",
+
+      headers: {
+        "Content-Type":
+          "application/json"
+      },
+
+      body: JSON.stringify({
+
+        name: name,
+
+        message: message,
+
+        date:
+          new Date().toLocaleString("en-IN")
+
+      })
+
+    });
+
+
+    document.getElementById("feedbackName")
+      .value = "";
+
+    document.getElementById("feedbackMessage")
+      .value = "";
+
+
+    result.innerHTML =
+      "<p>Thank you for your feedback!</p>";
+
+
+  }catch(error){
+
+    console.error(error);
+
+    result.innerHTML =
+      "<p>Failed to send feedback. Please try again.</p>";
+
+  }
+
+}
+
 
 }
 
