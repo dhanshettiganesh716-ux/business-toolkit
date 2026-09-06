@@ -1,286 +1,211 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="mr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>दुकान की पावती + बड़ा कैलकुलेटर</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @media print {
-            body * { visibility: hidden; }
-            #receipt-box, #receipt-box * { visibility: visible; }
-            #receipt-box { position: absolute; left: 0; top: 0; width: 100%; }
-            .no-print { display: none !important; }
-        }
-    </style>
+    <title>स्मार्ट बिलिंग आणि व्यवसाय टूलकिट</title>
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100 p-4 min-h-screen">
+<body>
 
-    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
-        <!-- 1. फॉर्म और बड़ा कैलकुलेटर (Left Panel) -->
-        <div class="lg:col-span-6 space-y-4 no-print">
-            
-            <!-- बिल फॉर्म -->
-            <div class="bg-white p-5 rounded-lg shadow space-y-3 text-sm">
-                <h2 class="text-lg font-bold border-b pb-2 text-gray-800">📝 बिल विवरण भरें</h2>
-                
-                <div class="space-y-2">
-                    <input type="text" id="shopName" value="मेरी दुकान" oninput="updateReceipt()" placeholder="दुकान का नाम" class="w-full border p-2 rounded">
-                    <input type="text" id="shopAddress" value="मेन रोड, शहर" oninput="updateReceipt()" placeholder="दुकान का पता व फोन" class="w-full border p-2 rounded">
-                    <input type="text" id="gstNo" placeholder="GST नंबर (यदि हो)" oninput="updateReceipt()" class="w-full border p-2 rounded">
-                </div>
-
-                <div class="grid grid-cols-2 gap-2 border-t pt-2">
-                    <input type="text" id="custName" placeholder="ग्राहक का नाम" oninput="updateReceipt()" class="border p-2 rounded">
-                    <input type="text" id="custPhone" placeholder="मोबाइल नंबर" oninput="updateReceipt()" class="border p-2 rounded">
-                    <input type="text" id="billNo" value="101" oninput="updateReceipt()" placeholder="पावती क्रमांक" class="border p-2 rounded">
-                    <input type="date" id="invDate" onchange="updateReceipt()" class="border p-2 rounded">
-                </div>
-
-                <div class="border-t pt-2">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="font-bold">सामान सूची</span>
-                        <button onclick="addItemRow()" class="bg-blue-600 text-white text-xs px-2.5 py-1 rounded hover:bg-blue-700">+ सामान जोड़ें</button>
-                    </div>
-                    <div id="items-container" class="space-y-2 max-h-48 overflow-y-auto pr-1"></div>
-                </div>
-
-                <div class="border-t pt-2 space-y-2">
-                    <div class="grid grid-cols-2 gap-2">
-                        <div>
-                            <label class="text-xs font-bold text-gray-600">सवलत / डिस्काउंट (₹)</label>
-                            <input type="number" id="discount" value="0" oninput="updateReceipt()" class="w-full border p-2 rounded">
-                        </div>
-                        <div>
-                            <label class="text-xs font-bold text-gray-600">अक्षरी रकम (Words)</label>
-                            <input type="text" id="wordsAmount" placeholder="उदा. पाँच सौ रुपये मात्र" oninput="updateReceipt()" class="w-full border p-2 rounded">
-                        </div>
-                    </div>
-                </div>
-
-                <button onclick="window.print()" class="w-full bg-green-600 text-white font-bold py-2.5 rounded shadow hover:bg-green-700 mt-2">
-                    🖨️ रसीद प्रिंट करें / PDF सेव करें
-                </button>
+    <!-- १. हेडर आणि नेव्हिगेशन -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-receipt"></i>
+                <span>बिझनेस टूलकिट</span>
             </div>
-
-            <!-- बड़ा कैलकुलेटर (Large Full-Width Calculator) -->
-            <div class="bg-slate-800 p-5 rounded-lg shadow text-white w-full">
-                <h3 class="text-sm font-bold uppercase tracking-wider mb-3 text-slate-300 flex items-center gap-2">
-                    <span>🧮</span> दुकान कैलकुलेटर (Large)
-                </h3>
-                
-                <!-- Display Screen -->
-                <input type="text" id="calcScreen" readonly class="w-full bg-slate-900 text-right text-3xl font-mono p-3 rounded-lg mb-4 border border-slate-700 text-green-400 focus:outline-none tracking-widest" value="0">
-                
-                <!-- Keypad -->
-                <div class="grid grid-cols-4 gap-2 text-lg font-bold">
-                    <button onclick="clearCalc()" class="bg-red-500 hover:bg-red-600 h-14 rounded-lg text-white col-span-2 shadow">C</button>
-                    <button onclick="pressCalc('/')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg text-amber-400 text-xl shadow">÷</button>
-                    <button onclick="pressCalc('*')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg text-amber-400 text-xl shadow">×</button>
-
-                    <button onclick="pressCalc('7')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg shadow">7</button>
-                    <button onclick="pressCalc('8')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg shadow">8</button>
-                    <button onclick="pressCalc('9')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg shadow">9</button>
-                    <button onclick="pressCalc('-')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg text-amber-400 text-2xl shadow">-</button>
-
-                    <button onclick="pressCalc('4')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg shadow">4</button>
-                    <button onclick="pressCalc('5')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg shadow">5</button>
-                    <button onclick="pressCalc('6')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg shadow">6</button>
-                    <button onclick="pressCalc('+')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg text-amber-400 text-2xl shadow">+</button>
-
-                    <button onclick="pressCalc('1')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg shadow">1</button>
-                    <button onclick="pressCalc('2')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg shadow">2</button>
-                    <button onclick="pressCalc('3')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg shadow">3</button>
-                    <button onclick="solveCalc()" class="bg-indigo-600 hover:bg-indigo-700 rounded-lg row-span-2 text-2xl flex items-center justify-center text-white shadow">=</button>
-
-                    <button onclick="pressCalc('0')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg col-span-2 shadow">0</button>
-                    <button onclick="pressCalc('.')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg shadow">.</button>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- 2. पावती का मुख्य आराखडा (Right Panel Preview) -->
-        <div class="lg:col-span-6 flex justify-center items-start">
-            <div id="receipt-box" class="bg-white p-6 rounded shadow border w-full text-gray-800 text-sm">
-                
-                <!-- 1. दुकानाचे नाव आणि पत्ता (Header) -->
-                <div class="text-center border-b pb-3 mb-3">
-                    <h1 class="text-2xl font-bold uppercase tracking-wide text-gray-900" id="viewShopName">मेरी दुकान</h1>
-                    <p class="text-xs text-gray-600" id="viewShopAddress">मेन रोड, शहर</p>
-                    <p class="text-xs font-semibold text-gray-700 mt-0.5" id="viewGstContainer">GSTIN: <span id="viewGstNo">N/A</span></p>
-                </div>
-
-                <!-- 2. ग्राहकाची माहिती (Customer Details) -->
-                <div class="grid grid-cols-2 text-xs mb-3 pb-2 border-b gap-y-1">
-                    <div><strong>ग्राहक का नाम:</strong> <span id="viewCustName">-</span></div>
-                    <div class="text-right"><strong>पावती क्रमांक:</strong> #<span id="viewBillNo">101</span></div>
-                    <div><strong>मोबाइल नंबर:</strong> <span id="viewCustPhone">-</span></div>
-                    <div class="text-right"><strong>तारीख:</strong> <span id="viewDate">-</span></div>
-                </div>
-
-                <!-- 3. सामान/सेवेचा तपशील (Product Table) -->
-                <table class="w-full text-xs text-left mb-3">
-                    <thead>
-                        <tr class="border-y bg-gray-50">
-                            <th class="py-1.5 px-1">अ.क्र.</th>
-                            <th class="py-1.5 px-1">तपशील (Description)</th>
-                            <th class="py-1.5 px-1 text-center">नग (Qty)</th>
-                            <th class="py-1.5 px-1 text-right">दर (Rate)</th>
-                            <th class="py-1.5 px-1 text-right">रक्कम (Amount)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="viewTableBody"></tbody>
-                </table>
-
-                <!-- 4. अंतिम हिशोब (Total & Sign) -->
-                <div class="border-t pt-2 space-y-1 text-xs">
-                    <div class="flex justify-between">
-                        <span>उप-कुल (Subtotal):</span>
-                        <span>₹<span id="viewSubtotal">0.00</span></span>
-                    </div>
-                    <div class="flex justify-between text-red-600">
-                        <span>सवलत (Discount):</span>
-                        <span>- ₹<span id="viewDiscount">0.00</span></span>
-                    </div>
-                    <div class="flex justify-between font-bold text-sm border-t border-b py-1.5 my-1 bg-gray-50">
-                        <span>कुल रकम (Total Amount):</span>
-                        <span>₹<span id="viewTotal">0.00</span></span>
-                    </div>
-                    <div class="pt-1 italic text-gray-700">
-                        <strong>अक्षरी रकम:</strong> <span id="viewWords">शून्य रुपये</span>
-                    </div>
-                </div>
-
-                <!-- हस्ताक्षर (Signature) -->
-                <div class="mt-12 flex justify-between items-end text-xs pt-4">
-                    <div class="text-gray-400 text-[10px]">धन्यवाद! फिर पधारें।</div>
-                    <div class="text-center">
-                        <div class="border-b border-gray-400 w-32 mb-1"></div>
-                        <span>सही (Signature)</span>
-                    </div>
-                </div>
-
+            <div class="nav-right">
+                <select id="langSelect" onchange="changeLanguage(this.value)">
+                    <option value="mr" selected>मराठी</option>
+                    <option value="hi">हिंदी</option>
+                    <option value="en">English</option>
+                </select>
+                <a href="#pricing" class="nav-link">प्लॅन्स</a>
+                <a href="#pricing" class="btn btn-primary btn-sm">सुरवात करा</a>
             </div>
         </div>
+    </header>
 
-    </div>
+    <!-- २. हिरो सेक्शन (Hero Section) -->
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1 id="heroHeadline">तुमचा व्यवसाय करा डिजिटल, <span class="highlight">फक्त एका क्लिकवर!</span></h1>
+            <p id="heroSubheadline">बिलिंग, उधारी आणि जीएसटी - आता सर्वकाही एकाच ठिकाणी अत्यंत सोप्या पद्धतीने व्यवस्थापित करा.</p>
 
-    <!-- Script Logic -->
-    <script>
-        document.getElementById('invDate').valueAsDate = new Date();
+            <div class="cta-group">
+                <a href="#pricing" id="ctaMain" class="btn btn-primary btn-lg">मोफत सुरू करा (Start For Free)</a>
+                <a href="#pricing" id="ctaSecondary" class="btn btn-secondary btn-lg">१४ दिवसांची फ्री ट्रायल घ्या</a>
+            </div>
+            <p class="sub-text"><i class="fa-solid fa-shield-check icon-green"></i> कोणत्याही क्रेडिट कार्डची गरज नाही.</p>
 
-        window.onload = function() {
-            addItemRow();
-            updateReceipt();
-        };
+            <!-- व्हिज्युअल डॅशबोर्ड मॉकअप -->
+            <div class="dashboard-mockup">
+                <div class="window-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="domain-text">dashboard.businesstoolkit.app</span>
+                </div>
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <p class="card-title">आजची एकूण विक्री</p>
+                        <p class="card-value text-green">₹ १२,४५०.००</p>
+                    </div>
+                    <div class="card">
+                        <p class="card-title">एकूण बाकी उधारी</p>
+                        <p class="card-value text-red">₹ ४,८००.००</p>
+                    </div>
+                    <div class="card">
+                        <p class="card-title">जीएसटी अहवाल (या महिन्याचा)</p>
+                        <p class="card-value text-purple">तयार आहे (GSTR-1)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        // Bill Logic
-        function addItemRow() {
-            const container = document.getElementById('items-container');
-            const rowId = Date.now();
-            const row = document.createElement('div');
-            row.className = 'flex gap-1 items-center item-row';
-            row.id = `row-${rowId}`;
-            row.innerHTML = `
-                <input type="text" placeholder="सामान का नाम" oninput="updateReceipt()" class="item-name border p-1 rounded w-1/2 text-xs">
-                <input type="number" placeholder="नग" value="1" oninput="updateReceipt()" class="item-qty border p-1 rounded w-1/5 text-xs text-center">
-                <input type="number" placeholder="दर" oninput="updateReceipt()" class="item-rate border p-1 rounded w-1/4 text-xs text-right">
-                <button onclick="removeRow('row-${rowId}')" class="text-red-500 font-bold px-1 text-xs">✕</button>
-            `;
-            container.appendChild(row);
-            updateReceipt();
-        }
+    <!-- ३. समस्या आणि उपाय (Problem & Solution) -->
+    <section class="problem-solution-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>व्यापाऱ्यांच्या रोजच्या अडचणींवर एकमेव उपाय</h2>
+                <p>कागदी बिलांची कटकट संपवा आणि उधारीचे पैसे वेळेवर मिळवा.</p>
+            </div>
 
-        function removeRow(id) {
-            const row = document.getElementById(id);
-            if(row) { row.remove(); updateReceipt(); }
-        }
+            <div class="grid-2">
+                <div class="box box-problem">
+                    <h3><i class="fa-solid fa-triangle-exclamation"></i> जुन्या पद्धतीतील समस्या</h3>
+                    <ul>
+                        <li><i class="fa-solid fa-xmark icon-red"></i> कागदी पुस्तकांमध्ये उधारीचा हिशोब हरवणे.</li>
+                        <li><i class="fa-solid fa-xmark icon-red"></i> ग्राहकांना वारंवार उधारीची आठवण करून देण्याची लाज वाटणे.</li>
+                        <li><i class="fa-solid fa-xmark icon-red"></i> महिन्याच्या शेवटी जीएसटी (GST) रिस्पॉर्ट बनवण्यात तासनतास वाया जाणे.</li>
+                    </ul>
+                </div>
 
-        function updateReceipt() {
-            document.getElementById('viewShopName').innerText = document.getElementById('shopName').value || 'मेरी दुकान';
-            document.getElementById('viewShopAddress').innerText = document.getElementById('shopAddress').value || '-';
-            
-            const gst = document.getElementById('gstNo').value;
-            document.getElementById('viewGstNo').innerText = gst || 'N/A';
-            
-            document.getElementById('viewCustName').innerText = document.getElementById('custName').value || 'नगद';
-            document.getElementById('viewCustPhone').innerText = document.getElementById('custPhone').value || '-';
-            document.getElementById('viewBillNo').innerText = document.getElementById('billNo').value || '101';
-            document.getElementById('viewDate').innerText = document.getElementById('invDate').value || '-';
+                <div class="box box-solution">
+                    <h3><i class="fa-solid fa-circle-check"></i> डिजिटल टूलकिटचा उपाय</h3>
+                    <ul>
+                        <li><i class="fa-solid fa-check icon-green"></i> एका क्लिकवर मोबाईलवर सुरक्षित उधारी खाते.</li>
+                        <li><i class="fa-solid fa-check icon-green"></i> व्हॉट्सॲपवर आपोआप पेमेंट रिमाइंडर्स पाठवा.</li>
+                        <li><i class="fa-solid fa-check icon-green"></i> सीए (CA) साठी एका मिनिटात GST रिपोर्ट्स डाऊनलोड करा.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            const tbody = document.getElementById('viewTableBody');
-            tbody.innerHTML = '';
+    <!-- ४. मुख्य फीचर्स (Key Features Grid) -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>तुमच्या व्यवसायासाठी स्मार्ट फीचर्स</h2>
+            </div>
 
-            let subtotal = 0;
-            let srNo = 1;
-            const rows = document.querySelectorAll('.item-row');
+            <div class="grid-4">
+                <div class="feature-card">
+                    <div class="icon-box icon-purple">📄</div>
+                    <h3>स्मार्ट बिलिंग (Smart Invoicing)</h3>
+                    <p>अवघ्या ५ सेकंदात प्रोफेशनल बिल तयार करा आणि ग्राहकांना प्रिंट किंवा डिजिटल बिल पाठवा.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box icon-green">📱</div>
+                    <h3>व्हॉट्सॲप रिमाइंडर्स (WhatsApp Reminders)</h3>
+                    <p>उधारी वसुली ३ पट वेगाने करण्यासाठी थेट व्हॉट्सॲपवर पेमेंट लिंक पाठवा.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box icon-purple">📊</div>
+                    <h3>जीएसटी आणि टॅक्स रिपोर्ट (GST Reports)</h3>
+                    <p>GSTR-1, GSTR-3B रिपोर्ट्स एक्सल किंवा पीडीएफ स्वरूपात सहज डाऊनलोड करा.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box icon-yellow">📦</div>
+                    <h3>स्टॉक मॅनेजमेंट (Inventory Control)</h3>
+                    <p>कोणता माल संपत आला आहे याचा आधीच अलर्ट मिळवा आणि स्टॉक ट्रॅक करा.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            rows.forEach(row => {
-                const name = row.querySelector('.item-name').value;
-                const qty = parseFloat(row.querySelector('.item-qty').value) || 0;
-                const rate = parseFloat(row.querySelector('.item-rate').value) || 0;
-                const amount = qty * rate;
+    <!-- ५. किंमत आणि प्लॅन्स (Pricing Page) -->
+    <section id="pricing" class="pricing-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>किंमत आणि प्लॅन्स (Pricing Plans)</h2>
+                <p>पारदर्शकता (Transparency) विश्वास निर्माण करते. कोणताही लपवलेला खर्च नाही.</p>
+            </div>
 
-                if (name.trim() !== '') {
-                    subtotal += amount;
-                    const tr = document.createElement('tr');
-                    tr.className = 'border-b';
-                    tr.innerHTML = `
-                        <td class="py-1 px-1">${srNo++}</td>
-                        <td class="py-1 px-1 font-medium">${name}</td>
-                        <td class="py-1 px-1 text-center">${qty}</td>
-                        <td class="py-1 px-1 text-right">${rate.toFixed(2)}</td>
-                        <td class="py-1 px-1 text-right font-semibold">${amount.toFixed(2)}</td>
-                    `;
-                    tbody.appendChild(tr);
-                }
-            });
+            <div class="grid-3">
+                <div class="price-card">
+                    <h3>Free (बेसिक)</h3>
+                    <p class="plan-desc">लहान दुकानांसाठी सुरुवातीचा प्लॅन</p>
+                    <div class="price">₹० <span>/ कायमस्वरूपी</span></div>
+                    <ul>
+                        <li><i class="fa-solid fa-check icon-green"></i> दरमहा ५० बिलांची मर्यादा</li>
+                        <li><i class="fa-solid fa-check icon-green"></i> मूलभूत ग्राहक खाते (Khata)</li>
+                        <li><i class="fa-solid fa-check icon-green"></i> १ युझर सपोर्ट</li>
+                    </ul>
+                    <button class="btn btn-outline">शुरू करा</button>
+                </div>
 
-            if (tbody.children.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-2 text-gray-400">सामान जोड़ें...</td></tr>`;
-            }
+                <div class="price-card featured">
+                    <span class="badge">सर्वात लोकप्रिय</span>
+                    <h3>Pro (मासिक प्लॅन)</h3>
+                    <p class="plan-desc">वेगाने वाढणाऱ्या व्यवसायासाठी</p>
+                    <div class="price">₹२९९ <span>/ महिना</span></div>
+                    <ul>
+                        <li><i class="fa-solid fa-check icon-green"></i> अमर्यादित (Unlimited) बिलिंग</li>
+                        <li><i class="fa-solid fa-check icon-green"></i> ऑटोमॅटिक व्हॉट्सॲप रिमाइंडर्स</li>
+                        <li><i class="fa-solid fa-check icon-green"></i> GST रिपोर्ट्स आणि इन्व्हेंटरी</li>
+                    </ul>
+                    <button class="btn btn-primary">फ्री ट्रायल सुरू करा</button>
+                </div>
 
-            const discount = parseFloat(document.getElementById('discount').value) || 0;
-            const grandTotal = Math.max(0, subtotal - discount);
+                <div class="price-card">
+                    <h3>Enterprise / Premium</h3>
+                    <p class="plan-desc">वार्षिक सवलतीसह पूर्ण सुविधा</p>
+                    <div class="price">₹२,४९९ <span>/ वर्ष (३०% सूट)</span></div>
+                    <ul>
+                        <li><i class="fa-solid fa-check icon-green"></i> Pro प्लॅनच्या सर्व सुविधा</li>
+                        <li><i class="fa-solid fa-check icon-green"></i> एकाधिक स्टोअर सपोर्ट</li>
+                        <li><i class="fa-solid fa-check icon-green"></i> २४/७ व्हॉट्सॲप सपोर्ट</li>
+                    </ul>
+                    <button class="btn btn-outline">संपर्क करा</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            document.getElementById('viewSubtotal').innerText = subtotal.toFixed(2);
-            document.getElementById('viewDiscount').innerText = discount.toFixed(2);
-            document.getElementById('viewTotal').innerText = grandTotal.toFixed(2);
-            
-            const words = document.getElementById('wordsAmount').value;
-            document.getElementById('viewWords').innerText = words || (grandTotal + " रुपये मात्र");
-        }
+    <!-- ६. विश्वास निर्माण करणारे घटक (Trust Elements) -->
+    <section class="trust-section">
+        <div class="container text-center">
+            <div class="trust-badge">
+                <span class="text-green"><i class="fa-solid fa-lock"></i> 100% Safe & Secure</span>
+                <span class="divider">|</span>
+                <span class="text-purple"><i class="fa-solid fa-shield-halved"></i> Data Encrypted</span>
+            </div>
 
-        // Calculator Logic
-        let calcVal = "0";
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="quote">"या टूलमुळे माझी उधारी वसूल करणे खूप सोपे झाले. आधी प्रत्येक महिन्याला ५ ते १० हजार रुपये अडकून पडायचे, आता व्हॉट्सॲप रिमाइंडर्समुळे वेळेवर पैसे मिळतात!"</p>
+                <div class="author">राहुल देशपांडे</div>
+                <div class="role">मालक, किराणा स्टोअर (पुणे)</div>
+            </div>
+        </div>
+    </section>
 
-        function pressCalc(val) {
-            const screen = document.getElementById('calcScreen');
-            if (screen.value === "0" || screen.value === "Error") {
-                calcVal = val;
-            } else {
-                calcVal += val;
-            }
-            screen.value = calcVal;
-        }
+    <!-- ७. फुटर -->
+    <footer>
+        <div class="container text-center">
+            <p>© 2026 बिझनेस टूलकिट. सर्व हक्क सुरक्षित.</p>
+            <p class="sub-footer">मोबाईल रिस्पॉन्सिव्ह आणि सुरक्षित क्लाउड तंत्रज्ञानावर आधारित.</p>
+        </div>
+    </footer>
 
-        function clearCalc() {
-            calcVal = "0";
-            document.getElementById('calcScreen').value = "0";
-        }
-
-        function solveCalc() {
-            const screen = document.getElementById('calcScreen');
-            try {
-                calcVal = eval(calcVal).toString();
-                screen.value = calcVal;
-            } catch (e) {
-                screen.value = "Error";
-                calcVal = "0";
-            }
-        }
-    </script>
+    <!-- JS Link -->
+    <script src="script.js"></script>
 </body>
 </html>
