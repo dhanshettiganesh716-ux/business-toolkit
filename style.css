@@ -1,165 +1,117 @@
-* {
-    box-sizing: border-box;
+document.getElementById('invDate').valueAsDate = new Date();
+
+function showTool(toolId) {
+    document.querySelectorAll('.tool-content').forEach(el => el.classList.add('hidden'));
+    document.getElementById(toolId + '-tool').classList.remove('hidden');
 }
 
-body {
-    margin: 0;
-    padding: 20px;
-    background: #eeeeee;
-    font-family: Arial, sans-serif;
+function addItemRow() {
+    const container = document.getElementById('items-container');
+    const row = document.createElement('div');
+    row.className = 'flex gap-2 item-row';
+    row.innerHTML = `
+        <input type="text" placeholder="वस्तूचे नाव" class="item-name border p-2 rounded w-1/2">
+        <input type="number" placeholder="प्रमाण" class="item-qty border p-2 rounded w-1/4" oninput="calculateTotal()">
+        <input type="number" placeholder="दर ₹" class="item-rate border p-2 rounded w-1/4" oninput="calculateTotal()">
+    `;
+    container.appendChild(row);
 }
 
-.container {
-    max-width: 600px;
-    margin: auto;
+function calculateTotal() {
+    let total = 0;
+    document.querySelectorAll('.item-row').forEach(row => {
+        const qty = parseFloat(row.querySelector('.item-qty').value) || 0;
+        const rate = parseFloat(row.querySelector('.item-rate').value) || 0;
+        total += qty * rate;
+    });
+    document.getElementById('grandTotal').innerText = total;
 }
 
-.receipt {
-    background: white;
-    padding: 25px;
-    border-radius: 10px;
+function downloadPDF() {
+    document.getElementById('pdfShopName').innerText = document.getElementById('shopName').value;
+    document.getElementById('pdfShopContact').innerText = document.getElementById('shopContact').value;
+    document.getElementById('pdfCustName').innerText = document.getElementById('custName').value || 'ग्राहक';
+    document.getElementById('pdfDate').innerText = document.getElementById('invDate').value;
+    document.getElementById('pdfTotal').innerText = document.getElementById('grandTotal').innerText;
+
+    const tbody = document.getElementById('pdfTableBody');
+    tbody.innerHTML = '';
+    
+    document.querySelectorAll('.item-row').forEach(row => {
+        const name = row.querySelector('.item-name').value;
+        const qty = parseFloat(row.querySelector('.item-qty').value) || 0;
+        const rate = parseFloat(row.querySelector('.item-rate').value) || 0;
+        if(name) {
+            tbody.innerHTML += `<tr>
+                <td class="border p-2">${name}</td>
+                <td class="border p-2">${qty}</td>
+                <td class="border p-2">₹${rate}</td>
+                <td class="border p-2">₹${qty * rate}</td>
+            </tr>`;
+        }
+    });
+
+    const element = document.getElementById('invoice-preview');
+    element.parentElement.classList.remove('hidden');
+    html2pdf().from(element).save('Invoice.pdf').then(() => {
+        element.parentElement.classList.add('hidden');
+    });
 }
 
-.shop-header {
-    text-align: center;
-    border-bottom: 1px dashed #000;
-    padding-bottom: 15px;
+function calculateGST() {
+    const amount = parseFloat(document.getElementById('gstAmount').value) || 0;
+    const rate = parseFloat(document.getElementById('gstRate').value) || 0;
+    const tax = (amount * rate) / 100;
+    
+    document.getElementById('baseAmt').innerText = amount;
+    document.getElementById('taxAmt').innerText = tax.toFixed(2);
+    document.getElementById('totalGstAmt').innerText = (amount + tax).toFixed(2);
+    document.getElementById('gstResult').classList.remove('hidden');
 }
 
-.shop-header h1 {
-    margin: 0 0 8px;
-}
+function calculateProfit() {
+    const cp = parseFloat(document.getElementById('costPrice').value) || 0;
+    const sp = parseFloat(document.getElementById('sellingPrice').value) || 0;
+    const profit = sp - cp;
+    const margin = cp > 0 ? (profit / cp) * 100 : 0;
 
-.shop-header p {
-    margin: 4px 0;
-}
-
-.receipt-info {
-    display: flex;
-    justify-content: space-between;
-    margin: 15px 0;
-}
-
-.customer {
-    margin-bottom: 15px;
-}
-
-.customer label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: bold;
-}
-
-.customer input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th,
-td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: center;
-}
-
-th {
-    background: #f2f2f2;
-}
-
-td input {
-    width: 100%;
-    padding: 6px;
-    border: 1px solid #ccc;
-}
-
-.add-btn,
-.print-btn {
-    width: 100%;
-    padding: 12px;
-    margin-top: 15px;
-    border: none;
-    border-radius: 7px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.add-btn {
-    background: #eeeeee;
-}
-
-.print-btn {
-    background: #111111;
-    color: white;
-}
-
-.delete-btn {
-    border: none;
-    background: none;
-    color: red;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.total-section {
-    margin-top: 20px;
-    border-top: 1px dashed #000;
-    padding-top: 10px;
-}
-
-.total-section p {
-    display: flex;
-    justify-content: space-between;
-}
-
-select {
-    padding: 6px;
-}
-
-.thanks {
-    text-align: center;
-    margin-top: 25px;
-    border-top: 1px dashed #000;
-    padding-top: 10px;
-}
-
-@media (max-width: 500px) {
-
-    body {
-        padding: 5px;
+    const status = document.getElementById('profitStatus');
+    if(profit >= 0) {
+        status.innerText = `नफा: ₹${profit}`;
+        status.className = "font-bold text-lg text-green-600";
+    } else {
+        status.innerText = `तोटा: ₹${Math.abs(profit)}`;
+        status.className = "font-bold text-lg text-red-600";
     }
-
-    .receipt {
-        padding: 15px;
-    }
-
-    th,
-    td {
-        padding: 5px;
-        font-size: 13px;
-    }
-
+    
+    document.getElementById('profitMargin').innerText = margin.toFixed(2);
+    document.getElementById('profitResult').classList.remove('hidden');
 }
 
-@media print {
+function submitFeedback(e) {
+    e.preventDefault();
+    const btn = document.getElementById('fbBtn');
+    btn.innerText = "पाठवत आहे...";
+    
+    // Google Web App URL येथे टाका
+    const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE"; 
 
-    body {
-        background: white;
-        padding: 0;
-    }
+    const data = {
+        name: document.getElementById('fbName').value,
+        message: document.getElementById('fbMessage').value
+    };
 
-    .receipt {
-        box-shadow: none;
-        width: 100%;
-    }
-
-    .no-print {
-        display: none !important;
-    }
+    fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    }).then(() => {
+        btn.innerText = "सबमिट करा";
+        document.getElementById('fbSuccess').classList.remove('hidden');
+        document.getElementById('feedbackForm').reset();
+    }).catch(err => {
+        btn.innerText = "सबमिट करा";
+        alert("त्रुटी आली, पुन्हा प्रयत्न करा.");
+    });
 }
