@@ -1,86 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Toolkit</title>
+    <title>Business Toolkit - Receipt</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <header>
-        <h1>Business Toolkit</h1>
-        <p>Manage Your Business</p>
-    </header>
+<div class="container">
 
-    <main>
+    <div class="receipt">
 
-        <h2>Dashboard</h2>
+        <div class="shop-header">
+            <h1 id="shopName">माझे दुकान</h1>
+            <p id="shopAddress">दुकानाचा पत्ता</p>
+            <p>मोबाईल: 0000000000</p>
+        </div>
 
-        <div class="dashboard">
-
-            <div class="card">
-                <h3>Total Sales</h3>
-                <p id="sales">₹0</p>
+        <div class="receipt-info">
+            <div>
+                पावती नं.: <strong id="receiptNo">00001</strong>
             </div>
 
-            <div class="card">
-                <h3>Total Expenses</h3>
-                <p id="expenses">₹0</p>
+            <div>
+                तारीख: <strong id="receiptDate"></strong>
             </div>
+        </div>
 
-            <div class="card">
-                <h3>Profit</h3>
-                <p id="profit">₹0</p>
-            </div>
+        <div class="customer">
+            <label>ग्राहकाचे नाव</label>
+            <input type="text" id="customerName" placeholder="नाव लिहा">
+        </div>
 
-            <div class="card">
-                <h3>Customers</h3>
-                <p id="customers">0</p>
-            </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>वस्तू</th>
+                    <th>Qty</th>
+                    <th>दर</th>
+                    <th>रक्कम</th>
+                    <th class="no-print">X</th>
+                </tr>
+            </thead>
+
+            <tbody id="items"></tbody>
+        </table>
+
+        <button class="add-btn no-print" onclick="addItem()">
+            + वस्तू जोडा
+        </button>
+
+        <div class="total-section">
+
+            <p>
+                एकूण:
+                <strong>₹<span id="total">0.00</span></strong>
+            </p>
+
+            <p>
+                पेमेंट:
+                <select id="payment">
+                    <option>Cash</option>
+                    <option>UPI</option>
+                    <option>Card</option>
+                </select>
+            </p>
 
         </div>
 
-        <section class="box">
+        <div class="thanks">
+            <p>धन्यवाद! पुन्हा भेट द्या 🙏</p>
+        </div>
 
-            <h2>Add Sale</h2>
+        <button class="print-btn no-print" onclick="printReceipt()">
+            🖨️ पावती Print करा
+        </button>
 
-            <input
-                type="number"
-                id="saleAmount"
-                placeholder="Enter sale amount"
-            >
+    </div>
 
-            <button onclick="addSale()">Add Sale</button>
+</div>
 
-        </section>
-
-        <section class="box">
-
-            <h2>Add Expense</h2>
-
-            <input
-                type="number"
-                id="expenseAmount"
-                placeholder="Enter expense amount"
-            >
-
-            <button onclick="addExpense()">Add Expense</button>
-
-        </section>
-
-        <section class="box">
-
-            <h2>Customers</h2>
-
-            <button onclick="addCustomer()">Add Customer</button>
-
-        </section>
-
-    </main>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>
