@@ -124,3 +124,18 @@ function printReceipt() {
 showReceiptNumber();
 showDate();
 addItem();
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = JSON.parse(e.postData.contents);
+    
+    // तारीख, नाम और मैसेज शीट में सेव होगा
+    sheet.appendRow([new Date(), data.name, data.message]);
+    
+    return ContentService.createTextOutput(JSON.stringify({"result": "success"}))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch(error) {
+    return ContentService.createTextOutput(JSON.stringify({"result": "error", "error": error}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
