@@ -4,14 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>स्मार्ट बिलिंग आणि व्यवसाय टूलकिट</title>
-    <!-- CSS Link -->
-    <link rel="stylesheet" href="style.css">
-    <!-- FontAwesome for Icons -->
+    <!-- FontAwesome Icons CDN -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* General Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
+        body { background-color: #f8fafc; color: #1e293b; line-height: 1.5; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .text-center { text-align: center; }
+
+        /* Buttons */
+        .btn { display: inline-block; padding: 10px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; cursor: pointer; border: none; transition: 0.3s; }
+        .btn-primary { background-color: #4f46e5; color: white; }
+        .btn-primary:hover { background-color: #4338ca; }
+        .btn-secondary { background-color: white; color: #334155; border: 1px solid #cbd5e1; }
+        .btn-secondary:hover { background-color: #f1f5f9; }
+        .btn-outline { background-color: transparent; color: #4f46e5; border: 1px solid #4f46e5; width: 100%; }
+        .btn-outline:hover { background-color: #eef2ff; }
+        .btn-lg { padding: 14px 28px; font-size: 1.1rem; }
+        .btn-sm { padding: 8px 16px; font-size: 0.9rem; }
+
+        /* Navbar */
+        .navbar { position: sticky; top: 0; background-color: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px); border-bottom: 1px solid #e2e8f0; z-index: 100; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 64px; }
+        .logo { display: flex; items-center; gap: 8px; font-size: 1.25rem; font-weight: 800; color: #4f46e5; }
+        .nav-right { display: flex; align-items: center; gap: 15px; }
+        .nav-link { color: #475569; text-decoration: none; font-weight: 500; }
+        select { padding: 6px 12px; border-radius: 6px; border: 1px solid #cbd5e1; background-color: #f1f5f9; font-weight: 600; }
+
+        /* Hero Section */
+        .hero-section { padding: 60px 0; background: linear-gradient(to bottom, #eef2ff, #f8fafc); }
+        .hero-section h1 { font-size: 2.8rem; color: #0f172a; max-width: 800px; margin: 0 auto; }
+        .highlight { color: #4f46e5; }
+        .hero-section p { font-size: 1.1rem; color: #475569; max-width: 650px; margin: 15px auto; }
+        .cta-group { display: flex; justify-content: center; gap: 15px; margin-top: 25px; flex-wrap: wrap; }
+        .sub-text { font-size: 0.85rem; color: #64748b; margin-top: 10px; }
+
+        /* Dashboard Mockup */
+        .dashboard-mockup { background-color: #0f172a; border-radius: 16px; padding: 15px; margin-top: 40px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); }
+        .window-dots { display: flex; align-items: center; gap: 6px; margin-bottom: 12px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .red { background-color: #ef4444; } .yellow { background-color: #f59e0b; } .green { background-color: #10b981; }
+        .domain-text { color: #64748b; font-size: 0.75rem; margin-left: 10px; }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .card { background-color: #1e293b; padding: 20px; border-radius: 8px; text-align: left; }
+        .card-title { color: #94a3b8; font-size: 0.8rem; }
+        .card-value { font-size: 1.4rem; font-weight: bold; margin-top: 5px; }
+        .text-green { color: #34d399; } .text-red { color: #f87171; } .text-purple { color: #a78bfa; }
+
+        /* Problem & Solution */
+        .problem-solution-section { padding: 60px 0; background: white; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; }
+        .section-title { text-align: center; margin-bottom: 40px; }
+        .section-title h2 { font-size: 2rem; color: #0f172a; }
+        .section-title p { color: #64748b; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .box { padding: 25px; border-radius: 16px; }
+        .box-problem { background-color: #fff1f2; border: 1px solid #ffe4e6; }
+        .box-solution { background-color: #ecfdf5; border: 1px solid #d1fae5; }
+        .box h3 { font-size: 1.2rem; margin-bottom: 15px; }
+        .box-problem h3 { color: #be123c; } .box-solution h3 { color: #047857; }
+        .box ul { list-style: none; }
+        .box li { margin-bottom: 12px; font-size: 0.95rem; display: flex; gap: 10px; }
+        .icon-red { color: #f43f5e; } .icon-green { color: #10b981; }
+
+        /* Features Section */
+        .features-section { padding: 60px 0; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+        .feature-card { background: white; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; }
+        .icon-box { width: 45px; height: 45px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 15px; }
+        .icon-purple { background-color: #eef2ff; } .icon-yellow { background-color: #fef3c7; }
+
+        /* Pricing Section */
+        .pricing-section { padding: 60px 0; background: white; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .price-card { border: 1px solid #e2e8f0; border-radius: 16px; padding: 30px; position: relative; }
+        .price-card.featured { border: 2px solid #4f46e5; box-shadow: 0 10px 20px rgba(79, 70, 229, 0.1); }
+        .badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #4f46e5; color: white; font-size: 0.7rem; padding: 4px 12px; border-radius: 20px; font-weight: bold; }
+        .plan-desc { font-size: 0.8rem; color: #64748b; margin-bottom: 15px; }
+        .price { font-size: 2rem; font-weight: 800; color: #0f172a; margin-bottom: 20px; }
+        .price span { font-size: 0.8rem; color: #64748b; font-weight: normal; }
+        .price-card ul { list-style: none; margin-bottom: 25px; border-top: 1px solid #f1f5f9; padding-top: 15px; }
+        .price-card li { font-size: 0.85rem; margin-bottom: 8px; }
+
+        /* Trust & Footer */
+        .trust-section { padding: 60px 0; }
+        .trust-badge { display: inline-flex; gap: 15px; background: white; padding: 10px 20px; border-radius: 30px; border: 1px solid #e2e8f0; font-size: 0.85rem; font-weight: 600; margin-bottom: 30px; }
+        .testimonial-card { background: white; padding: 30px; border-radius: 16px; border: 1px solid #e2e8f0; max-width: 600px; margin: 0 auto; }
+        .stars { color: #f59e0b; margin-bottom: 10px; }
+        .quote { font-style: italic; font-size: 0.95rem; color: #334155; margin-bottom: 15px; }
+        .author { font-weight: bold; }
+        .role { font-size: 0.8rem; color: #64748b; }
+        footer { background-color: #0f172a; color: #94a3b8; padding: 30px 0; font-size: 0.85rem; }
+        .sub-footer { color: #475569; font-size: 0.75rem; margin-top: 5px; }
+
+        @media (max-width: 768px) {
+            .hero-section h1 { font-size: 2rem; }
+            .hero-section p { font-size: 0.95rem; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- १. हेडर आणि नेव्हिगेशन -->
     <header class="navbar">
         <div class="container nav-container">
             <div class="logo">
@@ -30,19 +123,16 @@
         </div>
     </header>
 
-    <!-- २. हिरो सेक्शन (Hero Section) -->
     <section class="hero-section">
         <div class="container text-center">
             <h1 id="heroHeadline">तुमचा व्यवसाय करा डिजिटल, <span class="highlight">फक्त एका क्लिकवर!</span></h1>
             <p id="heroSubheadline">बिलिंग, उधारी आणि जीएसटी - आता सर्वकाही एकाच ठिकाणी अत्यंत सोप्या पद्धतीने व्यवस्थापित करा.</p>
-
             <div class="cta-group">
                 <a href="#pricing" id="ctaMain" class="btn btn-primary btn-lg">मोफत सुरू करा (Start For Free)</a>
                 <a href="#pricing" id="ctaSecondary" class="btn btn-secondary btn-lg">१४ दिवसांची फ्री ट्रायल घ्या</a>
             </div>
             <p class="sub-text"><i class="fa-solid fa-shield-check icon-green"></i> कोणत्याही क्रेडिट कार्डची गरज नाही.</p>
 
-            <!-- व्हिज्युअल डॅशबोर्ड मॉकअप -->
             <div class="dashboard-mockup">
                 <div class="window-dots">
                     <span class="dot red"></span>
@@ -68,43 +158,38 @@
         </div>
     </section>
 
-    <!-- ३. समस्या आणि उपाय (Problem & Solution) -->
     <section class="problem-solution-section">
         <div class="container">
             <div class="section-title">
                 <h2>व्यापाऱ्यांच्या रोजच्या अडचणींवर एकमेव उपाय</h2>
                 <p>कागदी बिलांची कटकट संपवा आणि उधारीचे पैसे वेळेवर मिळवा.</p>
             </div>
-
             <div class="grid-2">
                 <div class="box box-problem">
                     <h3><i class="fa-solid fa-triangle-exclamation"></i> जुन्या पद्धतीतील समस्या</h3>
                     <ul>
                         <li><i class="fa-solid fa-xmark icon-red"></i> कागदी पुस्तकांमध्ये उधारीचा हिशोब हरवणे.</li>
                         <li><i class="fa-solid fa-xmark icon-red"></i> ग्राहकांना वारंवार उधारीची आठवण करून देण्याची लाज वाटणे.</li>
-                        <li><i class="fa-solid fa-xmark icon-red"></i> महिन्याच्या शेवटी जीएसटी (GST) रिस्पॉर्ट बनवण्यात तासनतास वाया जाणे.</li>
+                        <li><i class="fa-solid fa-xmark icon-red"></i> महिन्याच्या शेवटी जीएसटी रिस्पॉर्ट बनवण्यात तासनतास वाया जाणे.</li>
                     </ul>
                 </div>
-
                 <div class="box box-solution">
                     <h3><i class="fa-solid fa-circle-check"></i> डिजिटल टूलकिटचा उपाय</h3>
                     <ul>
                         <li><i class="fa-solid fa-check icon-green"></i> एका क्लिकवर मोबाईलवर सुरक्षित उधारी खाते.</li>
                         <li><i class="fa-solid fa-check icon-green"></i> व्हॉट्सॲपवर आपोआप पेमेंट रिमाइंडर्स पाठवा.</li>
-                        <li><i class="fa-solid fa-check icon-green"></i> सीए (CA) साठी एका मिनिटात GST रिपोर्ट्स डाऊनलोड करा.</li>
+                        <li><i class="fa-solid fa-check icon-green"></i> सीए साठी एका मिनिटात GST रिपोर्ट्स डाऊनलोड करा.</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ४. मुख्य फीचर्स (Key Features Grid) -->
     <section class="features-section">
         <div class="container">
             <div class="section-title">
                 <h2>तुमच्या व्यवसायासाठी स्मार्ट फीचर्स</h2>
             </div>
-
             <div class="grid-4">
                 <div class="feature-card">
                     <div class="icon-box icon-purple">📄</div>
@@ -130,14 +215,12 @@
         </div>
     </section>
 
-    <!-- ५. किंमत आणि प्लॅन्स (Pricing Page) -->
     <section id="pricing" class="pricing-section">
         <div class="container">
             <div class="section-title">
                 <h2>किंमत आणि प्लॅन्स (Pricing Plans)</h2>
-                <p>पारदर्शकता (Transparency) विश्वास निर्माण करते. कोणताही लपवलेला खर्च नाही.</p>
+                <p>पारदर्शकता (Transparency) विश्वास निर्माण करते.</p>
             </div>
-
             <div class="grid-3">
                 <div class="price-card">
                     <h3>Free (बेसिक)</h3>
@@ -145,25 +228,23 @@
                     <div class="price">₹० <span>/ कायमस्वरूपी</span></div>
                     <ul>
                         <li><i class="fa-solid fa-check icon-green"></i> दरमहा ५० बिलांची मर्यादा</li>
-                        <li><i class="fa-solid fa-check icon-green"></i> मूलभूत ग्राहक खाते (Khata)</li>
+                        <li><i class="fa-solid fa-check icon-green"></i> मूलभूत ग्राहक खाते</li>
                         <li><i class="fa-solid fa-check icon-green"></i> १ युझर सपोर्ट</li>
                     </ul>
                     <button class="btn btn-outline">शुरू करा</button>
                 </div>
-
                 <div class="price-card featured">
                     <span class="badge">सर्वात लोकप्रिय</span>
                     <h3>Pro (मासिक प्लॅन)</h3>
                     <p class="plan-desc">वेगाने वाढणाऱ्या व्यवसायासाठी</p>
                     <div class="price">₹२९९ <span>/ महिना</span></div>
                     <ul>
-                        <li><i class="fa-solid fa-check icon-green"></i> अमर्यादित (Unlimited) बिलिंग</li>
+                        <li><i class="fa-solid fa-check icon-green"></i> अमर्यादित बिलिंग</li>
                         <li><i class="fa-solid fa-check icon-green"></i> ऑटोमॅटिक व्हॉट्सॲप रिमाइंडर्स</li>
                         <li><i class="fa-solid fa-check icon-green"></i> GST रिपोर्ट्स आणि इन्व्हेंटरी</li>
                     </ul>
                     <button class="btn btn-primary">फ्री ट्रायल सुरू करा</button>
                 </div>
-
                 <div class="price-card">
                     <h3>Enterprise / Premium</h3>
                     <p class="plan-desc">वार्षिक सवलतीसह पूर्ण सुविधा</p>
@@ -179,7 +260,6 @@
         </div>
     </section>
 
-    <!-- ६. विश्वास निर्माण करणारे घटक (Trust Elements) -->
     <section class="trust-section">
         <div class="container text-center">
             <div class="trust-badge">
@@ -187,7 +267,6 @@
                 <span class="divider">|</span>
                 <span class="text-purple"><i class="fa-solid fa-shield-halved"></i> Data Encrypted</span>
             </div>
-
             <div class="testimonial-card">
                 <div class="stars">★★★★★</div>
                 <p class="quote">"या टूलमुळे माझी उधारी वसूल करणे खूप सोपे झाले. आधी प्रत्येक महिन्याला ५ ते १० हजार रुपये अडकून पडायचे, आता व्हॉट्सॲप रिमाइंडर्समुळे वेळेवर पैसे मिळतात!"</p>
@@ -197,7 +276,6 @@
         </div>
     </section>
 
-    <!-- ७. फुटर -->
     <footer>
         <div class="container text-center">
             <p>© 2026 बिझनेस टूलकिट. सर्व हक्क सुरक्षित.</p>
@@ -205,7 +283,36 @@
         </div>
     </footer>
 
-    <!-- JS Link -->
-    <script src="script.js"></script>
+    <script>
+        const translations = {
+            mr: {
+                headline: 'तुमचा व्यवसाय करा डिजिटल, <span class="highlight">फक्त एका क्लिकवर!</span>',
+                subheadline: 'बिलिंग, उधारी आणि जीएसटी - आता सर्वकाही एकाच ठिकाणी अत्यंत सोप्या पद्धतीने व्यवस्थापित करा.',
+                ctaMain: 'मोफत सुरू करा (Start For Free)',
+                ctaSecondary: '१४ दिवसांची फ्री ट्रायल घ्या'
+            },
+            hi: {
+                headline: 'अपना व्यवसाय डिजिटल करें, <span class="highlight">सिर्फ एक क्लिक पर!</span>',
+                subheadline: 'बिलिंग, उधारी और जीएसटी - अब सब कुछ एक ही जगह पर आसानी से प्रबंधित करें।',
+                ctaMain: 'मुफ्त शुरू करें (Start For Free)',
+                ctaSecondary: '14 दिनों का फ्री ट्रायल लें'
+            },
+            en: {
+                headline: 'Digitize Your Business, <span class="highlight">Just in One Click!</span>',
+                subheadline: 'Invoicing, Credit Management & GST - Manage everything easily in one place.',
+                ctaMain: 'Start For Free',
+                ctaSecondary: 'Take 14 Days Free Trial'
+            }
+        };
+
+        function changeLanguage(lang) {
+            if (translations[lang]) {
+                document.getElementById('heroHeadline').innerHTML = translations[lang].headline;
+                document.getElementById('heroSubheadline').innerText = translations[lang].subheadline;
+                document.getElementById('ctaMain').innerText = translations[lang].ctaMain;
+                document.getElementById('ctaSecondary').innerText = translations[lang].ctaSecondary;
+            }
+        }
+    </script>
 </body>
 </html>
