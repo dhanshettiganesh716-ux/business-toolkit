@@ -1,492 +1,326 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Toolkit - Invoice Generator</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
+        body { background-color: #f1f5f9; color: #1e293b; display: flex; height: 100vh; overflow: hidden; }
 
-  <title>Business Toolkit</title>
+        /* Left Sidebar */
+        .sidebar { width: 220px; background-color: #0f172a; color: #94a3b8; display: flex; flex-direction: column; justify-content: space-between; padding: 20px 10px; }
+        .logo { color: white; font-weight: bold; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; padding: 0 10px 20px 10px; border-bottom: 1px solid #1e293b; }
+        .nav-menu { list-style: none; margin-top: 15px; }
+        .nav-item { padding: 10px 12px; margin-bottom: 4px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; transition: 0.2s; }
+        .nav-item:hover, .nav-item.active { background-color: #2563eb; color: white; }
 
-  <link rel="stylesheet" href="style.css">
+        /* Main Content Container */
+        .main-content { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
+        
+        /* Top Navigation Header */
+        .top-header { background: white; padding: 12px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; }
+        .top-header h2 { font-size: 1.2rem; color: #0f172a; display: flex; align-items: center; gap: 8px; }
+
+        /* Workspace Grid (Form + Live Receipt) */
+        .workspace { display: grid; grid-template-columns: 1fr 420px; gap: 20px; padding: 20px; }
+
+        /* Form Card */
+        .form-card { background: white; border-radius: 10px; padding: 20px; border: 1px solid #e2e8f0; }
+        .section-title { font-size: 0.9rem; font-weight: bold; color: #475569; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; text-transform: uppercase; }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 0.75rem; color: #64748b; font-weight: bold; margin-bottom: 4px; }
+        .form-control { width: 100%; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.85rem; outline: none; }
+        .form-control:focus { border-color: #2563eb; }
+
+        /* Items Table Form */
+        .item-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 8px; margin-bottom: 8px; align-items: center; }
+        .btn-delete { color: #ef4444; border: none; background: none; cursor: pointer; font-size: 1rem; }
+
+        /* Receipt Preview Card */
+        .receipt-card { background: white; padding: 25px; border-radius: 10px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); text-align: center; }
+        .receipt-header h3 { font-size: 1.2rem; color: #0f172a; margin-top: 5px; text-transform: uppercase; }
+        .receipt-header p { font-size: 0.8rem; color: #64748b; }
+        .receipt-divider { border-top: 1px dashed #cbd5e1; margin: 15px 0; }
+        
+        .receipt-details { font-size: 0.8rem; text-align: left; display: flex; justify-content: space-between; margin-bottom: 10px; color: #334155; }
+        
+        /* Table in Receipt */
+        .receipt-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; text-align: left; margin-bottom: 10px; }
+        .receipt-table th { border-bottom: 1px solid #cbd5e1; padding-bottom: 5px; color: #475569; }
+        .receipt-table td { padding: 6px 0; color: #1e293b; }
+
+        /* Buttons */
+        .btn { padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; border: none; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; }
+        .btn-blue { background: #2563eb; color: white; }
+        .btn-green { background: #10b981; color: white; width: 100%; justify-content: center; padding: 12px; font-size: 1rem; }
+        .btn-outline { background: transparent; border: 1px solid #cbd5e1; color: #475569; }
+
+        /* Quick Widgets Section */
+        .widgets-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; padding: 0 20px 20px 20px; }
+        .widget-card { background: white; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .widget-icon { width: 35px; height: 35px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.9rem; }
+
+        @media (max-width: 1024px) {
+            body { flex-direction: column; overflow: auto; }
+            .sidebar { width: 100%; height: auto; }
+            .workspace { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="layout">
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-
-    <div class="logo">
-      🏪
-      <b>Business</b>
-      <b>Toolkit</b>
-    </div>
-
-    <button onclick="openPage('dashboard')">🏠 Dashboard</button>
-    <button onclick="openPage('invoice')">🧾 Invoice / Bill</button>
-    <button onclick="openPage('calculator')">🧮 Calculator</button>
-    <button onclick="openPage('profit')">📈 Profit</button>
-    <button onclick="openPage('gst')">％ GST</button>
-    <button onclick="openPage('stocks')">📦 Stocks</button>
-    <button onclick="openPage('sales')">📊 Sales</button>
-    <button onclick="openPage('udhar')">👥 Udhar Customers</button>
-
-    <div class="side-bottom">
-      ⚙️ Settings
-    </div>
-
-  </aside>
-
-
-  <!-- MAIN -->
-  <main class="main">
-
-    <header class="topbar">
-
-      <div>
-        <h1>Business Toolkit</h1>
-        <p>Smart Business. Better Growth. 🚀</p>
-      </div>
-
-      <div class="shop-title">
-        🏪 GANESH GENERAL STORES
-      </div>
-
-    </header>
-
-
-    <!-- DASHBOARD -->
-    <section id="dashboard" class="page">
-
-      <h2>📊 Dashboard</h2>
-
-      <div class="dashboard-grid">
-
-        <div class="stat">
-          <span>Today's Sales</span>
-          <b id="dashToday">₹0</b>
-        </div>
-
-        <div class="stat">
-          <span>Total Sales</span>
-          <b id="dashSales">₹0</b>
-        </div>
-
-        <div class="stat">
-          <span>Total Expenses</span>
-          <b id="dashExpenses">₹0</b>
-        </div>
-
-        <div class="stat">
-          <span>Profit</span>
-          <b id="dashProfit">₹0</b>
-        </div>
-
-      </div>
-
-      <div class="quick-grid">
-
-        <button onclick="openPage('calculator')">🧮 Calculator</button>
-        <button onclick="openPage('invoice')">🧾 Invoice</button>
-        <button onclick="openPage('profit')">📈 Profit</button>
-        <button onclick="openPage('gst')">％ GST</button>
-        <button onclick="openPage('stocks')">📦 Stocks</button>
-        <button onclick="openPage('sales')">📊 Sales</button>
-        <button onclick="openPage('udhar')">👥 Udhar Customers</button>
-
-      </div>
-
-    </section>
-
-
-    <!-- INVOICE -->
-    <section id="invoice" class="page hidden">
-
-      <div class="page-title">
-
-        <h2>🧾 Invoice / Bill</h2>
-
-        <button class="blue-btn" onclick="newBill()">
-          + New Bill
-        </button>
-
-      </div>
-
-
-      <div class="invoice-layout">
-
-        <!-- FORM -->
-        <div class="panel">
-
-          <h3>🏪 Shop Details</h3>
-
-          <input id="shopName"
-                 value="GANESH GENERAL STORES"
-                 placeholder="Shop Name">
-
-          <input id="shopAddress"
-                 value="Murum, Dharashiv"
-                 placeholder="Address">
-
-          <input id="shopMobile"
-                 value="9876543210"
-                 placeholder="Mobile">
-
-
-          <h3>👤 Customer Details</h3>
-
-          <input id="customerName"
-                 placeholder="Customer Name">
-
-          <input id="customerMobile"
-                 placeholder="Mobile">
-
-
-          <h3>📦 Items</h3>
-
-          <div class="item-head">
-            <span>Item</span>
-            <span>Qty</span>
-            <span>Rate</span>
-            <span>Amount</span>
-            <span></span>
-          </div>
-
-          <div id="itemContainer"></div>
-
-          <button class="add-item" onclick="addItem()">
-            + Add Item
-          </button>
-
-
-          <h3>💳 Payment Method</h3>
-
-          <select id="paymentMethod">
-            <option>Cash</option>
-            <option>UPI</option>
-            <option>Credit / Udhar</option>
-          </select>
-
-
-          <div class="totals">
-
-            <div>
-              <span>Sub Total</span>
-              <b id="formSubtotal">₹0</b>
-            </div>
-
-            <div>
-              <span>GST</span>
-              <b id="formGST">₹0</b>
-            </div>
-
-            <div class="total-row">
-              <span>Total</span>
-              <b id="formTotal">₹0</b>
-            </div>
-
-          </div>
-
-
-          <button class="create-btn" onclick="createInvoice()">
-            🖨️ Create Invoice
-          </button>
-
-        </div>
-
-
-        <!-- RECEIPT -->
+    <aside class="sidebar">
         <div>
+            <div class="logo">
+                <i class="fa-solid fa-shop"></i>
+                <span>Business Toolkit</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><i class="fa-solid fa-house"></i> Dashboard</li>
+                <li class="nav-item active"><i class="fa-solid fa-file-invoice"></i> Invoice</li>
+                <li class="nav-item"><i class="fa-solid fa-calculator"></i> Calculator</li>
+                <li class="nav-item"><i class="fa-solid fa-chart-line"></i> Profit</li>
+                <li class="nav-item"><i class="fa-solid fa-percent"></i> GST</li>
+                <li class="nav-item"><i class="fa-solid fa-boxes-stacked"></i> Stocks</li>
+                <li class="nav-item"><i class="fa-solid fa-chart-pie"></i> Sales</li>
+                <li class="nav-item"><i class="fa-solid fa-users"></i> Udhar Customers</li>
+            </ul>
+        </div>
+        <div class="nav-item"><i class="fa-solid fa-gear"></i> Settings</div>
+    </aside>
 
-          <div class="receipt-actions">
+    <main class="main-content">
+        
+        <header class="top-header">
+            <h2><i class="fa-solid fa-file-lines" style="color: #2563eb;"></i> Invoice / Bill</h2>
+            <div>
+                <button class="btn btn-blue" onclick="resetForm()"><i class="fa-solid fa-plus"></i> New Invoice</button>
+                <button class="btn btn-outline" onclick="window.print()"><i class="fa-solid fa-print"></i> Print</button>
+            </div>
+        </header>
 
-            <button onclick="printReceipt()">🖨️ Print</button>
+        <div class="workspace">
+            
+            <div class="form-card">
+                
+                <div class="section-title"><i class="fa-solid fa-store"></i> Shop Details</div>
+                <div class="form-group">
+                    <label>Shop Name</label>
+                    <input type="text" id="inShopName" class="form-control" value="GANESH GENERAL STORES" oninput="updateReceipt()">
+                </div>
+                <div class="grid-2" style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" id="inShopAddress" class="form-control" value="Murum, Dharashiv" oninput="updateReceipt()">
+                    </div>
+                    <div class="form-group">
+                        <label>Mobile</label>
+                        <input type="text" id="inShopMobile" class="form-control" value="9876543210" oninput="updateReceipt()">
+                    </div>
+                </div>
 
-            <button onclick="shareWhatsApp()">
-              📱 WhatsApp
-            </button>
+                <div class="section-title" style="margin-top:15px;"><i class="fa-solid fa-user"></i> Customer Details</div>
+                <div class="grid-2" style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                    <div class="form-group">
+                        <label>Customer Name</label>
+                        <input type="text" id="inCustName" class="form-control" value="Rahul" oninput="updateReceipt()">
+                    </div>
+                    <div class="form-group">
+                        <label>Mobile</label>
+                        <input type="text" id="inCustMobile" class="form-control" value="9876543210" oninput="updateReceipt()">
+                    </div>
+                </div>
 
-          </div>
+                <div class="section-title" style="margin-top:15px;"><i class="fa-solid fa-cart-shopping"></i> Add Items</div>
+                <div id="itemsContainer">
+                    </div>
+                <button class="btn btn-blue" onclick="addItemRow()" style="margin-bottom: 15px;"><i class="fa-solid fa-plus"></i> Add Item</button>
 
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <select id="inPayMethod" class="form-control" onchange="updateReceipt()">
+                        <option value="Cash">Cash</option>
+                        <option value="UPI / Online">UPI / Online</option>
+                        <option value="Udhar (Credit)">Udhar (Credit)</option>
+                    </select>
+                </div>
 
-          <div id="receipt" class="receipt">
-
-            <div class="receipt-shop">
-
-              <h2 id="rShopName">
-                GANESH GENERAL STORES
-              </h2>
-
-              <p id="rShopAddress">
-                Murum, Dharashiv
-              </p>
-
-              <p id="rShopMobile">
-                9876543210
-              </p>
-
+                <button class="btn btn-green" onclick="alert('बिल यशस्वीरित्या सेव्ह झाले!')"><i class="fa-solid fa-print"></i> Create Invoice</button>
             </div>
 
+            <div>
+                <div class="receipt-card" id="printableReceipt">
+                    <div class="receipt-header">
+                        <i class="fa-solid fa-shop" style="font-size: 2rem; color: #0f172a;"></i>
+                        <h3 id="outShopName">GANESH GENERAL STORES</h3>
+                        <p id="outShopAddress">Murum, Dharashiv</p>
+                        <p id="outShopMobile">9876543210</p>
+                    </div>
 
-            <div class="dash-line"></div>
+                    <div class="receipt-divider"></div>
 
+                    <div class="receipt-details">
+                        <div>
+                            <b>Bill No:</b> <span id="outBillNo">00001</span><br>
+                            <b>Customer:</b> <span id="outCustName">Rahul</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <b>Date:</b> <span id="outDate">06/09/2026</span><br>
+                            <b>Mobile:</b> <span id="outCustMobile">9876543210</span>
+                        </div>
+                    </div>
 
-            <div class="receipt-info">
+                    <div class="receipt-divider"></div>
 
-              <span>
-                Bill No: <b id="rBillNo">00001</b>
-              </span>
+                    <table class="receipt-table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th style="text-align: center;">Qty</th>
+                                <th style="text-align: right;">Rate</th>
+                                <th style="text-align: right;">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody id="outTableBody">
+                            </tbody>
+                    </table>
 
-              <span>
-                Date: <b id="rDate">--</b>
-              </span>
+                    <div class="receipt-divider"></div>
 
-              <span>
-                Customer: <b id="rCustomer">--</b>
-              </span>
+                    <div style="font-size:0.85rem; text-align:right;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                            <span>Sub Total:</span>
+                            <span id="outSubTotal">₹470</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                            <span>GST (0%):</span>
+                            <span>₹0</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:1rem; border-top:1px solid #cbd5e1; padding-top:4px;">
+                            <span>TOTAL:</span>
+                            <span id="outTotal">₹470</span>
+                        </div>
+                    </div>
 
-              <span>
-                Mobile: <b id="rCustomerMobile">--</b>
-              </span>
+                    <div style="margin-top: 15px; font-size:0.8rem; color:#64748b; text-align:left;">
+                        Payment: <b id="outPayment">Cash</b>
+                    </div>
 
+                    <div style="margin-top: 25px;">
+                        <p style="font-family: cursive; font-size: 1.1rem; color: #0f172a;">Thank You!</p>
+                        <p style="font-size: 0.75rem; color: #94a3b8;">Visit Again</p>
+                    </div>
+                </div>
             </div>
-
-
-            <div class="dash-line"></div>
-
-
-            <div class="receipt-table">
-
-              <div class="receipt-head">
-                <b>Item</b>
-                <b>Qty</b>
-                <b>Rate</b>
-                <b>Amount</b>
-              </div>
-
-              <div id="receiptItems"></div>
-
-            </div>
-
-
-            <div class="dash-line"></div>
-
-
-            <div class="receipt-total">
-
-              <p>
-                <span>Sub Total:</span>
-                <b id="rSubtotal">₹0</b>
-              </p>
-
-              <p>
-                <span>GST:</span>
-                <b id="rGST">₹0</b>
-              </p>
-
-              <p class="grand">
-                <span>TOTAL:</span>
-                <b id="rTotal">₹0</b>
-              </p>
-
-            </div>
-
-
-            <div class="dash-line"></div>
-
-
-            <p class="payment">
-              Payment:
-              <b id="rPayment">Cash</b>
-            </p>
-
-
-            <div class="thank">
-
-              <b>Thank You!</b>
-
-              <span>Visit Again</span>
-
-            </div>
-
-          </div>
 
         </div>
 
-      </div>
-
-    </section>
-
-
-    <!-- CALCULATOR -->
-    <section id="calculator" class="page hidden">
-
-      <h2>🧮 Calculator</h2>
-
-      <div class="calculator">
-
-        <input id="calcDisplay" readonly>
-
-        <div class="calc-buttons">
-
-          <button onclick="calcClear()">C</button>
-          <button onclick="calcInput('/')">÷</button>
-          <button onclick="calcInput('*')">×</button>
-          <button onclick="calcInput('-')">−</button>
-
-          <button onclick="calcInput('7')">7</button>
-          <button onclick="calcInput('8')">8</button>
-          <button onclick="calcInput('9')">9</button>
-          <button onclick="calcInput('+')">+</button>
-
-          <button onclick="calcInput('4')">4</button>
-          <button onclick="calcInput('5')">5</button>
-          <button onclick="calcInput('6')">6</button>
-          <button onclick="calcResult()">=</button>
-
-          <button onclick="calcInput('1')">1</button>
-          <button onclick="calcInput('2')">2</button>
-          <button onclick="calcInput('3')">3</button>
-          <button onclick="calcInput('0')">0</button>
-
+        <div class="widgets-grid">
+            <div class="widget-card">
+                <div class="widget-icon" style="background: #2563eb;"><i class="fa-solid fa-calculator"></i></div>
+                <div><b>Calculator</b><br><span style="font-size: 0.7rem; color: #64748b;">जलद गणना</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-icon" style="background: #a855f7;"><i class="fa-solid fa-file-invoice"></i></div>
+                <div><b>Invoice</b><br><span style="font-size: 0.7rem; color: #64748b;">पावती तयार करा</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-icon" style="background: #22c55e;"><i class="fa-solid fa-chart-line"></i></div>
+                <div><b>Profit</b><br><span style="font-size: 0.7rem; color: #64748b;">नफा तपासा</span></div>
+            </div>
+            <div class="widget-card">
+                <div class="widget-icon" style="background: #ef4444;"><i class="fa-solid fa-percent"></i></div>
+                <div><b>GST</b><br><span style="font-size: 0.7rem; color: #64748b;">GST गणना</span></div>
+            </div>
         </div>
 
-      </div>
+    </main>
 
-    </section>
+    <script>
+        let items = [
+            { name: "Sugar", qty: 2, rate: 50 },
+            { name: "Rice", qty: 5, rate: 60 },
+            { name: "Soap", qty: 2, rate: 35 }
+        ];
 
+        function renderItems() {
+            const container = document.getElementById('itemsContainer');
+            container.innerHTML = '';
+            
+            items.forEach((item, index) => {
+                const row = document.createElement('div');
+                row.className = 'item-row';
+                row.innerHTML = `
+                    <input type="text" class="form-control" value="${item.name}" placeholder="Item" oninput="updateItem(${index}, 'name', this.value)">
+                    <input type="number" class="form-control" value="${item.qty}" placeholder="Qty" oninput="updateItem(${index}, 'qty', this.value)">
+                    <input type="number" class="form-control" value="${item.rate}" placeholder="Rate" oninput="updateItem(${index}, 'rate', this.value)">
+                    <input type="text" class="form-control" value="${item.qty * item.rate}" readonly style="background:#f8fafc;">
+                    <button class="btn-delete" onclick="deleteItem(${index})"><i class="fa-solid fa-trash"></i></button>
+                `;
+                container.appendChild(row);
+            });
 
-    <!-- PROFIT -->
-    <section id="profit" class="page hidden">
+            updateReceipt();
+        }
 
-      <h2>📈 Profit</h2>
+        function addItemRow() {
+            items.push({ name: "", qty: 1, rate: 0 });
+            renderItems();
+        }
 
-      <div class="big-stat">
-        Total Sales
-        <b id="profitSales">₹0</b>
-      </div>
+        function deleteItem(index) {
+            items.splice(index, 1);
+            renderItems();
+        }
 
-      <div class="big-stat">
-        Total Expenses
-        <b id="profitExpenses">₹0</b>
-      </div>
+        function updateItem(index, field, value) {
+            items[index][field] = field === 'name' ? value : parseFloat(value) || 0;
+            renderItems();
+        }
 
-      <div class="big-stat">
-        Net Profit
-        <b id="profitAmount">₹0</b>
-      </div>
+        function updateReceipt() {
+            // Update Shop and Customer Details
+            document.getElementById('outShopName').innerText = document.getElementById('inShopName').value || 'SHOP NAME';
+            document.getElementById('outShopAddress').innerText = document.getElementById('inShopAddress').value;
+            document.getElementById('outShopMobile').innerText = document.getElementById('inShopMobile').value;
+            
+            document.getElementById('outCustName').innerText = document.getElementById('inCustName').value;
+            document.getElementById('outCustMobile').innerText = document.getElementById('inCustMobile').value;
+            document.getElementById('outPayment').innerText = document.getElementById('inPayMethod').value;
 
-      <h3>Add Expense</h3>
+            // Render Receipt Items Table
+            const outTable = document.getElementById('outTableBody');
+            outTable.innerHTML = '';
+            let grandTotal = 0;
 
-      <input id="expenseName"
-             placeholder="Expense Name">
+            items.forEach(item => {
+                const amount = item.qty * item.rate;
+                grandTotal += amount;
+                if(item.name.trim() !== "") {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${item.name}</td>
+                        <td style="text-align: center;">${item.qty}</td>
+                        <td style="text-align: right;">${item.rate}</td>
+                        <td style="text-align: right;">${amount}</td>
+                    `;
+                    outTable.appendChild(tr);
+                }
+            });
 
-      <input id="expenseAmount"
-             type="number"
-             placeholder="Amount">
+            document.getElementById('outSubTotal').innerText = '₹' + grandTotal;
+            document.getElementById('outTotal').innerText = '₹' + grandTotal;
+        }
 
-      <button class="blue-btn" onclick="addExpense()">
-        + Add Expense
-      </button>
+        function resetForm() {
+            items = [{ name: "", qty: 1, rate: 0 }];
+            renderItems();
+        }
 
-    </section>
-
-
-    <!-- GST -->
-    <section id="gst" class="page hidden">
-
-      <h2>％ GST Calculator</h2>
-
-      <div class="tool-box">
-
-        <input id="gstAmount"
-               type="number"
-               placeholder="Amount">
-
-        <input id="gstRate"
-               type="number"
-               placeholder="GST %">
-
-        <button class="blue-btn" onclick="calculateGST()">
-          Calculate GST
-        </button>
-
-        <div id="gstResult"></div>
-
-      </div>
-
-    </section>
-
-
-    <!-- STOCKS -->
-    <section id="stocks" class="page hidden">
-
-      <h2>📦 Stocks</h2>
-
-      <div class="tool-box">
-
-        <input id="stockName"
-               placeholder="Product Name">
-
-        <input id="stockQty"
-               type="number"
-               placeholder="Quantity">
-
-        <input id="stockPrice"
-               type="number"
-               placeholder="Price">
-
-        <button class="blue-btn" onclick="addStock()">
-          + Add Stock
-        </button>
-
-      </div>
-
-      <div id="stockList"></div>
-
-    </section>
-
-
-    <!-- SALES -->
-    <section id="sales" class="page hidden">
-
-      <h2>📊 Sales</h2>
-
-      <div id="salesList"></div>
-
-    </section>
-
-
-    <!-- UDHAR -->
-    <section id="udhar" class="page hidden">
-
-      <h2>👥 Udhar Customers</h2>
-
-      <div class="tool-box">
-
-        <input id="udharName"
-               placeholder="Customer Name">
-
-        <input id="udharAmount"
-               type="number"
-               placeholder="Udhar Amount">
-
-        <button class="blue-btn" onclick="addUdhar()">
-          + Add Udhar
-        </button>
-
-      </div>
-
-      <div id="udharList"></div>
-
-    </section>
-
-  </main>
-
-</div>
-
-
-<script src="script.js"></script>
-
+        // Initialize App
+        renderItems();
+    </script>
 </body>
-  </html>
+</html>
