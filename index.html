@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>दुकान की पावती + कैलकुलेटर</title>
+    <title>दुकान की पावती + बड़ा कैलकुलेटर</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @media print {
@@ -18,7 +18,7 @@
 
     <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        <!-- 1. फॉर्म और कैलकुलेटर (Left Panel) -->
+        <!-- 1. फॉर्म और बड़ा कैलकुलेटर (Left Panel) -->
         <div class="lg:col-span-6 space-y-4 no-print">
             
             <!-- बिल फॉर्म -->
@@ -64,35 +64,38 @@
                 </button>
             </div>
 
-            <!-- इन-बिल्ट कैलकुलेटर (Calculator Tool) -->
-            <div class="bg-slate-800 p-4 rounded-lg shadow text-white w-full max-w-xs mx-auto">
-                <h3 class="text-xs font-bold uppercase tracking-wider mb-2 text-slate-400 flex items-center gap-1">
-                    <span>🧮</span> क्विक कैलकुलेटर
+            <!-- बड़ा कैलकुलेटर (Large Full-Width Calculator) -->
+            <div class="bg-slate-800 p-5 rounded-lg shadow text-white w-full">
+                <h3 class="text-sm font-bold uppercase tracking-wider mb-3 text-slate-300 flex items-center gap-2">
+                    <span>🧮</span> दुकान कैलकुलेटर (Large)
                 </h3>
-                <input type="text" id="calcScreen" readonly class="w-full bg-slate-900 text-right text-xl font-mono p-2 rounded mb-3 border border-slate-700 text-green-400 focus:outline-none" value="0">
                 
-                <div class="grid grid-cols-4 gap-1.5 text-sm font-bold">
-                    <button onclick="clearCalc()" class="bg-red-500 hover:bg-red-600 p-2 rounded text-white col-span-2">C</button>
-                    <button onclick="pressCalc('/')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded text-amber-400">÷</button>
-                    <button onclick="pressCalc('*')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded text-amber-400">×</button>
+                <!-- Display Screen -->
+                <input type="text" id="calcScreen" readonly class="w-full bg-slate-900 text-right text-3xl font-mono p-3 rounded-lg mb-4 border border-slate-700 text-green-400 focus:outline-none tracking-widest" value="0">
+                
+                <!-- Keypad -->
+                <div class="grid grid-cols-4 gap-2 text-lg font-bold">
+                    <button onclick="clearCalc()" class="bg-red-500 hover:bg-red-600 h-14 rounded-lg text-white col-span-2 shadow">C</button>
+                    <button onclick="pressCalc('/')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg text-amber-400 text-xl shadow">÷</button>
+                    <button onclick="pressCalc('*')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg text-amber-400 text-xl shadow">×</button>
 
-                    <button onclick="pressCalc('7')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">7</button>
-                    <button onclick="pressCalc('8')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">8</button>
-                    <button onclick="pressCalc('9')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">9</button>
-                    <button onclick="pressCalc('-')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded text-amber-400">-</button>
+                    <button onclick="pressCalc('7')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg shadow">7</button>
+                    <button onclick="pressCalc('8')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg shadow">8</button>
+                    <button onclick="pressCalc('9')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg shadow">9</button>
+                    <button onclick="pressCalc('-')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg text-amber-400 text-2xl shadow">-</button>
 
-                    <button onclick="pressCalc('4')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">4</button>
-                    <button onclick="pressCalc('5')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">5</button>
-                    <button onclick="pressCalc('6')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">6</button>
-                    <button onclick="pressCalc('+')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded text-amber-400">+</button>
+                    <button onclick="pressCalc('4')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg shadow">4</button>
+                    <button onclick="pressCalc('5')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg shadow">5</button>
+                    <button onclick="pressCalc('6')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg shadow">6</button>
+                    <button onclick="pressCalc('+')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg text-amber-400 text-2xl shadow">+</button>
 
-                    <button onclick="pressCalc('1')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">1</button>
-                    <button onclick="pressCalc('2')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">2</button>
-                    <button onclick="pressCalc('3')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">3</button>
-                    <button onclick="solveCalc()" class="bg-indigo-600 hover:bg-indigo-700 p-2 rounded row-span-2 flex items-center justify-center text-white">=</button>
+                    <button onclick="pressCalc('1')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg shadow">1</button>
+                    <button onclick="pressCalc('2')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg shadow">2</button>
+                    <button onclick="pressCalc('3')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg shadow">3</button>
+                    <button onclick="solveCalc()" class="bg-indigo-600 hover:bg-indigo-700 rounded-lg row-span-2 text-2xl flex items-center justify-center text-white shadow">=</button>
 
-                    <button onclick="pressCalc('0')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded col-span-2">0</button>
-                    <button onclick="pressCalc('.')" class="bg-slate-700 hover:bg-slate-600 p-2 rounded">.</button>
+                    <button onclick="pressCalc('0')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg col-span-2 shadow">0</button>
+                    <button onclick="pressCalc('.')" class="bg-slate-700 hover:bg-slate-600 h-14 rounded-lg shadow">.</button>
                 </div>
             </div>
 
