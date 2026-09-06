@@ -1,141 +1,30 @@
-let receiptNumber =
-    Number(localStorage.getItem("receiptNumber")) || 1;
+// भाषा बदला (Multi-lingual Logic)
+const translations = {
+    mr: {
+        headline: 'तुमचा व्यवसाय करा डिजिटल, <span class="highlight">फक्त एका क्लिकवर!</span>',
+        subheadline: 'बिलिंग, उधारी आणि जीएसटी - आता सर्वकाही एकाच ठिकाणी अत्यंत सोप्या पद्धतीने व्यवस्थापित करा.',
+        ctaMain: 'मोफत सुरू करा (Start For Free)',
+        ctaSecondary: '१४ दिवसांची फ्री ट्रायल घ्या'
+    },
+    hi: {
+        headline: 'अपना व्यवसाय डिजिटल करें, <span class="highlight">सिर्फ एक क्लिक पर!</span>',
+        subheadline: 'बिलिंग, उधारी और जीएसटी - अब सब कुछ एक ही जगह पर आसानी से प्रबंधित करें।',
+        ctaMain: 'मुफ्त शुरू करें (Start For Free)',
+        ctaSecondary: '14 दिनों का फ्री ट्रायल लें'
+    },
+    en: {
+        headline: 'Digitize Your Business, <span class="highlight">Just in One Click!</span>',
+        subheadline: 'Invoicing, Credit Management & GST - Manage everything easily in one place.',
+        ctaMain: 'Start For Free',
+        ctaSecondary: 'Take 14 Days Free Trial'
+    }
+};
 
-function showReceiptNumber() {
-
-    document.getElementById("receiptNo").innerText =
-        String(receiptNumber).padStart(5, "0");
-}
-
-function showDate() {
-
-    const today = new Date();
-
-    const date =
-        today.toLocaleDateString("en-IN");
-
-    document.getElementById("receiptDate").innerText =
-        date;
-}
-
-function addItem() {
-
-    const table = document.getElementById("items");
-
-    const row = document.createElement("tr");
-
-    row.innerHTML = `
-        <td>
-            <input
-                type="text"
-                placeholder="वस्तूचे नाव"
-            >
-        </td>
-
-        <td>
-            <input
-                type="number"
-                value="1"
-                min="1"
-                oninput="calculateTotal()"
-            >
-        </td>
-
-        <td>
-            <input
-                type="number"
-                value="0"
-                min="0"
-                oninput="calculateTotal()"
-            >
-        </td>
-
-        <td class="amount">
-            ₹0.00
-        </td>
-
-        <td class="no-print">
-            <button
-                class="delete-btn"
-                onclick="deleteItem(this)"
-            >
-                X
-            </button>
-        </td>
-    `;
-
-    table.appendChild(row);
-
-    calculateTotal();
-}
-
-function deleteItem(button) {
-
-    button.closest("tr").remove();
-
-    calculateTotal();
-}
-
-function calculateTotal() {
-
-    const rows =
-        document.querySelectorAll("#items tr");
-
-    let total = 0;
-
-    rows.forEach(row => {
-
-        const inputs =
-            row.querySelectorAll("input");
-
-        const quantity =
-            Number(inputs[1].value) || 0;
-
-        const rate =
-            Number(inputs[2].value) || 0;
-
-        const amount =
-            quantity * rate;
-
-        row.querySelector(".amount").innerText =
-            "₹" + amount.toFixed(2);
-
-        total += amount;
-    });
-
-    document.getElementById("total").innerText =
-        total.toFixed(2);
-}
-
-function printReceipt() {
-
-    localStorage.setItem(
-        "receiptNumber",
-        receiptNumber + 1
-    );
-
-    window.print();
-
-    receiptNumber++;
-
-    showReceiptNumber();
-}
-
-showReceiptNumber();
-showDate();
-addItem();
-function doPost(e) {
-  try {
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-    var data = JSON.parse(e.postData.contents);
-    
-    // तारीख, नाम और मैसेज शीट में सेव होगा
-    sheet.appendRow([new Date(), data.name, data.message]);
-    
-    return ContentService.createTextOutput(JSON.stringify({"result": "success"}))
-      .setMimeType(ContentService.MimeType.JSON);
-  } catch(error) {
-    return ContentService.createTextOutput(JSON.stringify({"result": "error", "error": error}))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
+function changeLanguage(lang) {
+    if (translations[lang]) {
+        document.getElementById('heroHeadline').innerHTML = translations[lang].headline;
+        document.getElementById('heroSubheadline').innerText = translations[lang].subheadline;
+        document.getElementById('ctaMain').innerText = translations[lang].ctaMain;
+        document.getElementById('ctaSecondary').innerText = translations[lang].ctaSecondary;
+    }
 }
