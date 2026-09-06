@@ -3,365 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>स्मार्ट बिलिंग आणि व्यवसाय टूलकिट</title>
-    <!-- FontAwesome Icons CDN -->
+    <title>दुकानदार बिलिंग आणि डिजिटल खाते</title>
+    <!-- FontAwesome Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* General Reset */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
-        body { background-color: #f8fafc; color: #1e293b; line-height: 1.5; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .text-center { text-align: center; }
+        body { background-color: #f8fafc; color: #0f172a; line-height: 1.5; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 15px; }
 
-        /* Free Badge */
-        .free-badge { background-color: #10b981; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-left: 8px; }
-
-        /* Buttons */
-        .btn { display: inline-block; padding: 10px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; cursor: pointer; border: none; transition: 0.3s; }
-        .btn-primary { background-color: #4f46e5; color: white; }
-        .btn-primary:hover { background-color: #4338ca; }
-        .btn-success { background-color: #10b981; color: white; }
-        .btn-success:hover { background-color: #059669; }
-        .btn-secondary { background-color: white; color: #334155; border: 1px solid #cbd5e1; }
-        .btn-secondary:hover { background-color: #f1f5f9; }
-        .btn-outline { background-color: transparent; color: #4f46e5; border: 1px solid #4f46e5; width: 100%; }
-        .btn-outline:hover { background-color: #eef2ff; }
-        .btn-lg { padding: 14px 28px; font-size: 1.1rem; }
-        .btn-sm { padding: 8px 16px; font-size: 0.9rem; }
-
-        /* Navbar */
-        .navbar { position: sticky; top: 0; background-color: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px); border-bottom: 1px solid #e2e8f0; z-index: 100; }
-        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 64px; }
-        .logo { display: flex; align-items: center; gap: 8px; font-size: 1.25rem; font-weight: 800; color: #4f46e5; }
-        .nav-right { display: flex; align-items: center; gap: 12px; }
-        .nav-link { color: #475569; text-decoration: none; font-weight: 500; }
-        select { padding: 6px 12px; border-radius: 6px; border: 1px solid #cbd5e1; background-color: #f1f5f9; font-weight: 600; }
+        /* Navigation */
+        .navbar { background: white; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100; padding: 12px 0; }
+        .nav-box { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.3rem; font-weight: 800; color: #2563eb; display: flex; align-items: center; gap: 8px; }
+        select { padding: 8px 12px; border-radius: 6px; border: 1px solid #cbd5e1; font-weight: bold; background: #f1f5f9; }
 
         /* Hero Section */
-        .hero-section { padding: 60px 0; background: linear-gradient(to bottom, #eef2ff, #f8fafc); }
-        .hero-section h1 { font-size: 2.8rem; color: #0f172a; max-width: 800px; margin: 0 auto; }
-        .highlight { color: #4f46e5; }
-        .hero-section p { font-size: 1.1rem; color: #475569; max-width: 650px; margin: 15px auto; }
-        .cta-group { display: flex; justify-content: center; gap: 15px; margin-top: 25px; flex-wrap: wrap; }
-        .sub-text { font-size: 0.85rem; color: #64748b; margin-top: 10px; }
+        .hero { padding: 40px 0; background: linear-gradient(to bottom, #eff6ff, #f8fafc); text-align: center; }
+        .hero h1 { font-size: 2.2rem; color: #1e293b; margin-bottom: 12px; }
+        .hero p { font-size: 1.1rem; color: #475569; margin-bottom: 20px; }
+        
+        /* Video Container */
+        .video-box { max-width: 600px; margin: 20px auto; background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.15); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; }
+        .video-box i { font-size: 3rem; color: #ef4444; }
 
-        /* Dashboard Mockup */
-        .dashboard-mockup { background-color: #0f172a; border-radius: 16px; padding: 15px; margin-top: 40px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); }
-        .window-dots { display: flex; align-items: center; gap: 6px; margin-bottom: 12px; }
-        .dot { width: 10px; height: 10px; border-radius: 50%; }
-        .red { background-color: #ef4444; } .yellow { background-color: #f59e0b; } .green { background-color: #10b981; }
-        .domain-text { color: #64748b; font-size: 0.75rem; margin-left: 10px; }
-        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-        .card { background-color: #1e293b; padding: 20px; border-radius: 8px; text-align: left; }
-        .card-title { color: #94a3b8; font-size: 0.8rem; }
-        .card-value { font-size: 1.4rem; font-weight: bold; margin-top: 5px; }
-        .text-green { color: #34d399; } .text-red { color: #f87171; } .text-purple { color: #a78bfa; }
+        /* Social Proof Banner */
+        .social-proof { background: #dbeafe; border: 1px solid #bfdbfe; color: #1e40af; padding: 12px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 1.05rem; margin: 20px 0; }
 
-        /* Problem & Solution */
-        .problem-solution-section { padding: 60px 0; background: white; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; }
-        .section-title { text-align: center; margin-bottom: 40px; }
-        .section-title h2 { font-size: 2rem; color: #0f172a; }
-        .section-title p { color: #64748b; }
-        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .box { padding: 25px; border-radius: 16px; }
-        .box-problem { background-color: #fff1f2; border: 1px solid #ffe4e6; }
-        .box-solution { background-color: #ecfdf5; border: 1px solid #d1fae5; }
-        .box h3 { font-size: 1.2rem; margin-bottom: 15px; }
-        .box-problem h3 { color: #be123c; } .box-solution h3 { color: #047857; }
-        .box ul { list-style: none; }
-        .box li { margin-bottom: 12px; font-size: 0.95rem; display: flex; gap: 10px; }
-        .icon-red { color: #f43f5e; } .icon-green { color: #10b981; }
+        /* Big Buttons */
+        .btn-big { display: block; width: 100%; max-width: 400px; margin: 15px auto; padding: 18px; font-size: 1.3rem; font-weight: bold; border-radius: 12px; border: none; cursor: pointer; text-align: center; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .btn-primary { background-color: #2563eb; color: white; }
+        .btn-success { background-color: #16a34a; color: white; }
 
-        /* Features Section */
-        .features-section { padding: 60px 0; }
-        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-        .feature-card { background: white; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; }
-        .icon-box { width: 45px; height: 45px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 15px; }
-        .icon-purple { background-color: #eef2ff; } .icon-yellow { background-color: #fef3c7; }
+        /* Simple Dashboard */
+        .simple-dashboard { background: white; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; margin: 25px 0; }
+        .dash-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
+        .dash-card { padding: 15px; border-radius: 10px; text-align: left; }
+        .card-sale { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+        .card-profit { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; }
+        .card-val { font-size: 1.6rem; font-weight: 800; margin-top: 5px; }
 
-        /* Pricing Section */
-        .pricing-section { padding: 60px 0; background: white; }
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .price-card { border: 1px solid #e2e8f0; border-radius: 16px; padding: 30px; position: relative; }
-        .price-card.featured { border: 2px solid #4f46e5; box-shadow: 0 10px 20px rgba(79, 70, 229, 0.1); }
-        .badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #4f46e5; color: white; font-size: 0.7rem; padding: 4px 12px; border-radius: 20px; font-weight: bold; }
-        .plan-desc { font-size: 0.8rem; color: #64748b; margin-bottom: 15px; }
-        .price { font-size: 2rem; font-weight: 800; color: #0f172a; margin-bottom: 20px; }
-        .price span { font-size: 0.8rem; color: #64748b; font-weight: normal; }
-        .price-card ul { list-style: none; margin-bottom: 25px; border-top: 1px solid #f1f5f9; padding-top: 15px; }
-        .price-card li { font-size: 0.85rem; margin-bottom: 8px; }
+        /* Feature Cards */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 30px 0; }
+        .f-card { background: white; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; }
+        .f-card h3 { color: #1e293b; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
 
-        /* Trust & Footer */
-        .trust-section { padding: 60px 0; }
-        .trust-badge { display: inline-flex; gap: 15px; background: white; padding: 10px 20px; border-radius: 30px; border: 1px solid #e2e8f0; font-size: 0.85rem; font-weight: 600; margin-bottom: 30px; }
-        .testimonial-card { background: white; padding: 30px; border-radius: 16px; border: 1px solid #e2e8f0; max-width: 600px; margin: 0 auto; }
-        .stars { color: #f59e0b; margin-bottom: 10px; }
-        .quote { font-style: italic; font-size: 0.95rem; color: #334155; margin-bottom: 15px; }
-        .author { font-weight: bold; }
-        .role { font-size: 0.8rem; color: #64748b; }
-        footer { background-color: #0f172a; color: #94a3b8; padding: 30px 0; font-size: 0.85rem; }
-        .sub-footer { color: #475569; font-size: 0.75rem; margin-top: 5px; }
+        /* Modal / Login Overlay */
+        .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); display:none; justify-content:center; align-items:center; z-index:999; }
+        .modal-box { background:white; padding:25px; border-radius:12px; width:90%; max-width:380px; text-align:center; }
+        .modal-box input { width:100%; padding:12px; margin:10px 0; border:1px solid #cbd5e1; border-radius:8px; font-size:1rem; }
 
-        @media (max-width: 768px) {
-            .hero-section h1 { font-size: 2rem; }
-            .hero-section p { font-size: 0.95rem; }
-        }
+        footer { text-align: center; padding: 20px; color: #64748b; font-size: 0.9rem; border-top: 1px solid #e2e8f0; background: white; }
     </style>
 </head>
 <body>
 
-    <!-- १. नेव्हिगेशन बार -->
-    <header class="navbar">
-        <div class="container nav-container">
-            <div class="logo">
-                <i class="fa-solid fa-receipt"></i>
-                <span>बिझनेस टूलकिट</span>
-                <span class="free-badge">फ्री व्हर्जन</span>
-            </div>
-            <div class="nav-right">
-                <select id="langSelect" onchange="changeLanguage(this.value)">
-                    <option value="mr" selected>मराठी</option>
-                    <option value="hi">हिंदी</option>
-                    <option value="en">English</option>
-                </select>
-                <a href="#pricing" class="nav-link">प्लॅन्स</a>
-                <button onclick="openPremiumModal('Premium Plan')" class="btn btn-primary btn-sm">⭐ अपग्रेड प्रीमियम</button>
-            </div>
+    <!-- नेव्हिगेशन -->
+    <nav class="navbar">
+        <div class="container nav-box">
+            <div class="logo"><i class="fa-solid fa-store"></i> दुकानाचा डिजिटल पार्टनर</div>
+            <select id="lang" onchange="alert('भाषा बदलली!')">
+                <option value="mr">मराठी</option>
+                <option value="hi">हिंदी</option>
+            </select>
         </div>
-    </header>
+    </nav>
 
-    <!-- २. हिरो सेक्शन -->
-    <section class="hero-section">
-        <div class="container text-center">
-            <h1 id="heroHeadline">तुमचा व्यवसाय करा डिजिटल, <span class="highlight">फक्त एका क्लिकवर!</span></h1>
-            <p id="heroSubheadline">बिलिंग, उधारी आणि जीएसटी - आता सर्वकाही मोफत आणि अत्यंत सोप्या पद्धतीने वापरा.</p>
-            <div class="cta-group">
-                <a href="#dashboard" id="ctaMain" class="btn btn-success btn-lg"><i class="fa-solid fa-bolt"></i> मोफत वापरण्यास सुरुवात करा</a>
-                <button onclick="openPremiumModal('14-Day Free Trial')" id="ctaSecondary" class="btn btn-secondary btn-lg">१४ दिवसांची प्रो ट्रायल घ्या</button>
-            </div>
-            <p class="sub-text"><i class="fa-solid fa-circle-check icon-green"></i> मोफत वापरासाठी लॉगिन किंवा क्रेडिट कार्डची गरज नाही.</p>
-
-            <div id="dashboard" class="dashboard-mockup">
-                <div class="window-dots">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="domain-text">dashboard.businesstoolkit.app (Free Access)</span>
-                </div>
-                <div class="dashboard-grid">
-                    <div class="card">
-                        <p class="card-title">आजची एकूण विक्री</p>
-                        <p class="card-value text-green">₹ १२,४५०.००</p>
-                    </div>
-                    <div class="card">
-                        <p class="card-title">एकूण बाकी उधारी</p>
-                        <p class="card-value text-red">₹ ४,८००.००</p>
-                    </div>
-                    <div class="card">
-                        <p class="card-title">जीएसटी अहवाल (या महिन्याचा)</p>
-                        <p class="card-value text-purple">तयार आहे (GSTR-1)</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ३. समस्या आणि उपाय -->
-    <section class="problem-solution-section">
+    <!-- Hero Section -->
+    <section class="hero">
         <div class="container">
-            <div class="section-title">
-                <h2>व्यापाऱ्यांच्या रोजच्या अडचणींवर एकमेव उपाय</h2>
-                <p>कागदी बिलांची कटकट संपवा आणि उधारीचे पैसे वेळेवर मिळवा.</p>
-            </div>
-            <div class="grid-2">
-                <div class="box box-problem">
-                    <h3><i class="fa-solid fa-triangle-exclamation"></i> जुन्या पद्धतीतील समस्या</h3>
-                    <ul>
-                        <li><i class="fa-solid fa-xmark icon-red"></i> कागदी पुस्तकांमध्ये उधारीचा हिशोब हरवणे.</li>
-                        <li><i class="fa-solid fa-xmark icon-red"></i> ग्राहकांना वारंवार उधारीची आठवण करून देण्याची लाज वाटणे.</li>
-                        <li><i class="fa-solid fa-xmark icon-red"></i> महिन्याच्या शेवटी जीएसटी रिस्पॉर्ट बनवण्यात तासनतास वाया जाणे.</li>
-                    </ul>
-                </div>
-                <div class="box box-solution">
-                    <h3><i class="fa-solid fa-circle-check"></i> डिजिटल टूलकिटचा उपाय</h3>
-                    <ul>
-                        <li><i class="fa-solid fa-check icon-green"></i> एका क्लिकवर मोबाईलवर सुरक्षित उधारी खाते.</li>
-                        <li><i class="fa-solid fa-check icon-green"></i> व्हॉट्सॲपवर आपोआप पेमेंट रिमाइंडर्स पाठवा.</li>
-                        <li><i class="fa-solid fa-check icon-green"></i> सीए साठी एका मिनिटात GST रिपोर्ट्स डाऊनलोड करा.</li>
-                    </ul>
+            <h1>खातेवही आणि बिल बुक सांभाळायची कटकट संपवा!</h1>
+            <p>१० सेकंदात बिल बनवा आणि थेट व्हॉट्सॲपवर पाठवा.</p>
+
+            <!-- १ मिनिटाचा सोपा व्हिडिओ -->
+            <div class="video-box" onclick="alert('१ मिनिटाचा प्रात्यक्षिक व्हिडिओ सुरू होत आहे...')">
+                <div style="text-align: center;">
+                    <i class="fa-solid fa-circle-play"></i>
+                    <p style="margin-top: 8px; font-weight: bold;">१ मिनिटाचा व्हिडिओ पहा (हाऊ टू युज)</p>
                 </div>
             </div>
+
+            <!-- मुख्य बटण -->
+            <button onclick="openLogin()" class="btn-big btn-primary">
+                <i class="fa-solid fa-plus-circle"></i> नवीन बिल बनवा (Create Bill)
+            </button>
         </div>
     </section>
 
-    <!-- ४. मुख्य फीचर्स -->
-    <section class="features-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>तुमच्या व्यवसायासाठी स्मार्ट फीचर्स</h2>
-            </div>
-            <div class="grid-4">
-                <div class="feature-card">
-                    <div class="icon-box icon-purple">📄</div>
-                    <h3>स्मार्ट बिलिंग (Smart Invoicing)</h3>
-                    <p>अवघ्या ५ सेकंदात मोफत बिल तयार करा आणि ग्राहकांना पाठवा.</p>
+    <div class="container">
+        <!-- Social Proof -->
+        <div class="social-proof">
+            <i class="fa-solid fa-users"></i> महाराष्ट्रातील ५०००+ किराणा आणि कपड्यांच्या दुकानदारांचा विश्वास!
+        </div>
+
+        <!-- Offline Highlight Feature -->
+        <div style="background: #fffbebf8; border: 1px solid #fef08a; padding: 15px; border-radius: 10px; margin: 20px 0;">
+            <h3 style="color: #854d0e; font-size: 1.1rem;"><i class="fa-solid fa-wifi-slash"></i> इंटरनेट नसले तरी बिलिंग सुरू राहील! (Offline Mode)</h3>
+            <p style="color: #a16207; font-size: 0.95rem;">लाईट गेली किंवा नेट संपले तरी दुकान बंद पडणार नाही हा विश्वास.</p>
+        </div>
+
+        <!-- सोपे डॅशबोर्ड (Complex Analytics नाही) -->
+        <div class="simple-dashboard">
+            <h2>आजचा हिशोब (सोपे डॅशबोर्ड)</h2>
+            <div class="dash-grid">
+                <div class="dash-card card-sale">
+                    <div>आजची एकूण विक्री (Today's Sale)</div>
+                    <div class="card-val">₹ ८,५००.००</div>
                 </div>
-                <div class="feature-card">
-                    <div class="icon-box icon-green">📱</div>
-                    <h3>व्हॉट्सॲप रिमाइंडर्स (WhatsApp Reminders)</h3>
-                    <p>उधारी वसुली ३ पट वेगाने करण्यासाठी थेट व्हॉट्सॲपवर पेमेंट लिंक पाठवा.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon-box icon-purple">📊</div>
-                    <h3>जीएसटी आणि टॅक्स रिपोर्ट (GST Reports)</h3>
-                    <p>GSTR-1, GSTR-3B रिपोर्ट्स एक्सल किंवा पीडीएफ स्वरूपात सहज डाऊनलोड करा.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon-box icon-yellow">📦</div>
-                    <h3>स्टॉक मॅनेजमेंट (Inventory Control)</h3>
-                    <p>कोणता माल संपत आला आहे याचा आधीच अलर्ट मिळवा आणि स्टॉक ट्रॅक करा.</p>
+                <div class="dash-card card-profit">
+                    <div>आजचा नफा (Today's Profit)</div>
+                    <div class="card-val">₹ १,२५०.००</div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- ५. किंमत आणि अपग्रेड प्लॅन्स -->
-    <section id="pricing" class="pricing-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>किंमत आणि प्लॅन्स (Pricing Plans)</h2>
-                <p>आधी मोफत वापरा, गरज वाटल्यास प्रीमियम प्लॅनवर अपग्रेड करा.</p>
+        <!-- कामाचे मुख्य फीचर्स -->
+        <h2 style="margin-top: 30px;">दुकानदारांसाठी खास सुविधा:</h2>
+        <div class="features-grid">
+            <div class="f-card">
+                <h3><i class="fa-solid fa-bolt" style="color: #eab308;"></i> १० सेकंदात बिलिंग</h3>
+                <p>ग्राहकाला दुकानात जास्त वेळ ताटकळत उभे राहावे लागू नये म्हणून अतिशय वेगाने बिल बनवा.</p>
             </div>
-            <div class="grid-3">
-                <!-- Free Plan -->
-                <div class="price-card">
-                    <h3>Free (बेसिक)</h3>
-                    <p class="plan-desc">सध्या सुरू असलेला मोफत प्लॅन</p>
-                    <div class="price">₹० <span>/ कायमस्वरूपी</span></div>
-                    <ul>
-                        <li><i class="fa-solid fa-check icon-green"></i> दरमह ५० बिलांची मर्यादा</li>
-                        <li><i class="fa-solid fa-check icon-green"></i> मूलभूत ग्राहक खाते</li>
-                        <li><i class="fa-solid fa-check icon-green"></i> १ युझर सपोर्ट</li>
-                    </ul>
-                    <a href="#dashboard" class="btn btn-outline" style="text-align: center;">सध्या सक्रिय आहे</a>
-                </div>
-
-                <!-- Pro Plan -->
-                <div class="price-card featured">
-                    <span class="badge">सर्वात लोकप्रिय</span>
-                    <h3>Pro (मासिक प्लॅन)</h3>
-                    <p class="plan-desc">वेगाने वाढणाऱ्या व्यवसायासाठी</p>
-                    <div class="price">₹२९९ <span>/ महिना</span></div>
-                    <ul>
-                        <li><i class="fa-solid fa-check icon-green"></i> अमर्यादित बिलिंग</li>
-                        <li><i class="fa-solid fa-check icon-green"></i> ऑटोमॅटिक व्हॉट्सॲप रिमाइंडर्स</li>
-                        <li><i class="fa-solid fa-check icon-green"></i> GST रिपोर्ट्स आणि इन्व्हेंटरी</li>
-                    </ul>
-                    <button onclick="openPremiumModal('Pro Plan - ₹299/Month')" class="btn btn-primary" style="width:100%;">प्रीमियम वर अपग्रेड करा</button>
-                </div>
-
-                <!-- Enterprise Plan -->
-                <div class="price-card">
-                    <h3>Enterprise / Premium</h3>
-                    <p class="plan-desc">वार्षिक सवलतीसह पूर्ण सुविधा</p>
-                    <div class="price">₹२,४९९ <span>/ वर्ष (३०% सूट)</span></div>
-                    <ul>
-                        <li><i class="fa-solid fa-check icon-green"></i> Pro प्लॅनच्या सर्व सुविधा</li>
-                        <li><i class="fa-solid fa-check icon-green"></i> एकाधिक स्टोअर सपोर्ट</li>
-                        <li><i class="fa-solid fa-check icon-green"></i> २४/७ व्हॉट्सॲप सपोर्ट</li>
-                    </ul>
-                    <button onclick="openPremiumModal('Enterprise Plan - ₹2499/Year')" class="btn btn-outline">वार्षिक प्लॅन घ्या</button>
-                </div>
+            <div class="f-card">
+                <h3><i class="fa-brands fa-whatsapp" style="color: #22c55e;"></i> थेट व्हॉट्सॲपवर बिल</h3>
+                <p>प्रिंट करण्याऐवजी ग्राहकाच्या व्हॉट्सॲप नंबरवर बिलाची PDF किंवा लिंक एका क्लिकवर पाठवा.</p>
+            </div>
+            <div class="f-card">
+                <h3><i class="fa-solid fa-book" style="color: #ef4444;"></i> उधारीची सोपी नोंद (Khata)</h3>
+                <p>कोणाकडे किती उधारी बाकी आहे ते सहज पाहा आणि तिथूनच <b>"पैसे मागा" (Send Reminder)</b> चे बटण वापरा.</p>
+            </div>
+            <div class="f-card">
+                <h3><i class="fa-solid fa-barcode" style="color: #6366f1;"></i> कॅमेरा बारकोड स्कॅनर</h3>
+                <p>मोबाईलच्या कॅमेऱ्याचा वापर करून वस्तूचा बारकोड स्कॅन करा आणि त्वरित बिलात ॲड करा.</p>
             </div>
         </div>
-    </section>
 
-    <!-- ६. विश्वास निर्माण करणारे घटक -->
-    <section class="trust-section">
-        <div class="container text-center">
-            <div class="trust-badge">
-                <span class="text-green"><i class="fa-solid fa-lock"></i> 100% Safe & Secure</span>
-                <span class="divider">|</span>
-                <span class="text-purple"><i class="fa-solid fa-shield-halved"></i> Data Encrypted</span>
-            </div>
-            <div class="testimonial-card">
-                <div class="stars">★★★★★</div>
-                <p class="quote">"मी सुरुवातीला १ महिना फ्री व्हर्जन वापरून पाहिले. खूप आवडल्यामुळे नंतर प्रीमियम प्लॅन घेतला. आता व्हॉट्सॲप रिमाइंडर्समुळे सर्व पैसे वेळेवर मिळतात!"</p>
-                <div class="author">राहुल देशपांडे</div>
-                <div class="role">मालक, किराणा स्टोअर (पुणे)</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ७. फुटर -->
-    <footer>
-        <div class="container text-center">
-            <p>© 2026 बिझनेस टूलकिट. सर्व हक्क सुरक्षित.</p>
-            <p class="sub-footer">मोबाईल रिस्पॉन्सिव्ह आणि सुरक्षित क्लाउड तंत्रज्ञानावर आधारित.</p>
-        </div>
-    </footer>
-
-    <!-- ८. प्रीमियम अपग्रेड फॉर्म (नवा पॉप-अप - युझरने मागितल्यावरच उघडेल) -->
-    <div id="premiumModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
-        <div style="background:white; padding:30px; border-radius:16px; width:90%; max-width:400px; text-align:center; position:relative; box-shadow:0 10px 25px rgba(0,0,0,0.2);">
-            <span onclick="closePremiumModal()" style="position:absolute; right:15px; top:10px; cursor:pointer; font-size:24px; font-weight:bold; color:#64748b;">&times;</span>
-            <h3 style="margin-bottom:10px; color:#0f172a; font-size:1.4rem;">⭐ प्रीमियम वर अपग्रेड करा</h3>
-            <p id="selectedPlanText" style="font-size:0.9rem; color:#4f46e5; font-weight:bold; margin-bottom:15px;"></p>
-            <form onsubmit="handlePremiumSubmit(event)">
-                <input type="text" placeholder="तुमचे नाव" required style="width:100%; padding:12px; margin-bottom:12px; border:1px solid #cbd5e1; border-radius:8px; font-size:0.95rem; outline:none;">
-                <input type="tel" placeholder="मोबाईल नंबर (WhatsApp)" required style="width:100%; padding:12px; margin-bottom:20px; border:1px solid #cbd5e1; border-radius:8px; font-size:0.95rem; outline:none;">
-                <button type="submit" class="btn btn-primary" style="width:100%; padding:12px; font-size:1rem;">प्रीमियम खरेदी करा</button>
-            </form>
+        <!-- ऑटो सजेशन्स बिलिंग डेमो (Minimum Typing) -->
+        <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 30px;">
+            <h3>कमी टायपिंग बिलिंग डेमो (Auto Suggestions)</h3>
+            <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 10px;">वस्तूचे नाव टाकताच लगेच खाली पर्याय दिसतील:</p>
+            <input type="text" list="items" placeholder="वस्तूचे नाव टाईप करा (उदा. तांदूळ, तेल)..." style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px;">
+            <datalist id="items">
+                <option value="सोयाबीन तेल १ लिटर - ₹१३०">
+                <option value="बासमती तांदूळ १ किलो - ₹६०">
+                <option value="साखर १ किलो - ₹४२">
+                <option value="गहू आटा ५ किलो - ₹२१०">
+            </datalist>
         </div>
     </div>
 
-    <!-- ९. जावास्क्रिप्ट -->
+    <!-- मोबाईल + ओटीपी साइन-अप/लॉगिन पॉप-अप -->
+    <div id="loginModal" class="modal-overlay">
+        <div class="modal-box">
+            <h3 style="margin-bottom: 10px;">सोपे लॉगिन (Mobile + OTP)</h3>
+            <p style="font-size: 0.85rem; color: #64748b;">तुमचा मोबाईल नंबर टाका:</p>
+            <input type="tel" id="mobileNo" placeholder="१० अंकी मोबाईल नंबर" maxlength="10">
+            <button onclick="sendOTP()" class="btn-big btn-success" style="font-size: 1rem; padding: 10px; margin-top: 5px;">ओटीपी पाठवा (Send OTP)</button>
+            <p onclick="closeLogin()" style="margin-top: 15px; color: #ef4444; cursor: pointer; font-size: 0.9rem;">रद्द करा</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 दुकानाचा डिजिटल पार्टनर | मोबाईलमध्ये डेटा सुरक्षित राहतो (No Frequent Logouts)</p>
+    </footer>
+
     <script>
-        // १. भाषा बदलण्याची लॉजिक
-        const translations = {
-            mr: {
-                headline: 'तुमचा व्यवसाय करा डिजिटल, <span class="highlight">फक्त एका क्लिकवर!</span>',
-                subheadline: 'बिलिंग, उधारी आणि जीएसटी - आता सर्वकाही मोफत आणि अत्यंत सोप्या पद्धतीने वापरा.',
-                ctaMain: '<i class="fa-solid fa-bolt"></i> मोफत वापरण्यास सुरुवात करा',
-                ctaSecondary: '१४ दिवसांची प्रो ट्रायल घ्या'
-            },
-            hi: {
-                headline: 'अपना व्यवसाय डिजिटल करें, <span class="highlight">सिर्फ एक क्लिक पर!</span>',
-                subheadline: 'बिलिंग, उधारी और जीएसटी - अब सब कुछ मुफ्त और आसानी से प्रबंधित करें।',
-                ctaMain: '<i class="fa-solid fa-bolt"></i> मुफ्त में उपयोग शुरू करें',
-                ctaSecondary: '14 दिनों का प्रो ट्रायल लें'
-            },
-            en: {
-                headline: 'Digitize Your Business, <span class="highlight">Just in One Click!</span>',
-                subheadline: 'Invoicing, Credit Management & GST - Use everything for free with ease.',
-                ctaMain: '<i class="fa-solid fa-bolt"></i> Start Using for Free',
-                ctaSecondary: 'Take 14 Days Pro Trial'
+        function openLogin() {
+            document.getElementById('loginModal').style.display = 'flex';
+        }
+        function closeLogin() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+        function sendOTP() {
+            let num = document.getElementById('mobileNo').value;
+            if(num.length === 10) {
+                alert('ओटीपी तुमच्या ' + num + ' या नंबरवर पाठवला आहे!');
+                closeLogin();
+            } else {
+                alert('कृपया १० अंकी योग्य मोबाईल नंबर टाका.');
             }
-        };
-
-        function changeLanguage(lang) {
-            if (translations[lang]) {
-                document.getElementById('heroHeadline').innerHTML = translations[lang].headline;
-                document.getElementById('heroSubheadline').innerText = translations[lang].subheadline;
-                document.getElementById('ctaMain').innerHTML = translations[lang].ctaMain;
-                document.getElementById('ctaSecondary').innerText = translations[lang].ctaSecondary;
-            }
-        }
-
-        // २. प्रीमियम पॉप-अप फॉर्म लॉजिक
-        function openPremiumModal(planName) {
-            document.getElementById('selectedPlanText').innerText = "निवडलेला प्लॅन: " + planName;
-            document.getElementById('premiumModal').style.display = 'flex';
-        }
-
-        function closePremiumModal() {
-            document.getElementById('premiumModal').style.display = 'none';
-        }
-
-        function handlePremiumSubmit(event) {
-            event.preventDefault();
-            alert('धन्यवाद! तुमच्या प्रीमियम अपग्रेडची विनंती आम्हाला मिळाली आहे. आमची टीम लवकरच तुमच्याशी संपर्क करेल.');
-            closePremiumModal();
         }
     </script>
 </body>
