@@ -4,96 +4,162 @@
 
 body {
     margin: 0;
+    padding: 20px;
+    background: #eeeeee;
     font-family: Arial, sans-serif;
-    background: #f4f6f8;
 }
 
-header {
-    background: #111827;
-    color: white;
-    text-align: center;
-    padding: 25px;
-}
-
-header h1 {
-    margin: 0;
-}
-
-header p {
-    margin: 8px 0 0;
-}
-
-main {
-    max-width: 1000px;
+.container {
+    max-width: 600px;
     margin: auto;
-    padding: 20px;
 }
 
-.dashboard {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-}
-
-.card {
+.receipt {
     background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    padding: 25px;
+    border-radius: 10px;
 }
 
-.card h3 {
-    margin-top: 0;
+.shop-header {
+    text-align: center;
+    border-bottom: 1px dashed #000;
+    padding-bottom: 15px;
 }
 
-.card p {
-    font-size: 25px;
+.shop-header h1 {
+    margin: 0 0 8px;
+}
+
+.shop-header p {
+    margin: 4px 0;
+}
+
+.receipt-info {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+}
+
+.customer {
+    margin-bottom: 15px;
+}
+
+.customer label {
+    display: block;
+    margin-bottom: 6px;
     font-weight: bold;
 }
 
-.box {
-    background: white;
-    margin-top: 20px;
-    padding: 20px;
-    border-radius: 12px;
-}
-
-input {
+.customer input {
     width: 100%;
-    padding: 12px;
-    margin: 10px 0;
+    padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
+    border-radius: 6px;
 }
 
-button {
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background: #f2f2f2;
+}
+
+td input {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #ccc;
+}
+
+.add-btn,
+.print-btn {
     width: 100%;
     padding: 12px;
+    margin-top: 15px;
     border: none;
-    border-radius: 8px;
-    background: #111827;
-    color: white;
+    border-radius: 7px;
     font-size: 16px;
     cursor: pointer;
 }
 
-button:active {
-    transform: scale(0.98);
+.add-btn {
+    background: #eeeeee;
 }
 
-@media (max-width: 700px) {
+.print-btn {
+    background: #111111;
+    color: white;
+}
 
-    .dashboard {
-        grid-template-columns: repeat(2, 1fr);
+.delete-btn {
+    border: none;
+    background: none;
+    color: red;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.total-section {
+    margin-top: 20px;
+    border-top: 1px dashed #000;
+    padding-top: 10px;
+}
+
+.total-section p {
+    display: flex;
+    justify-content: space-between;
+}
+
+select {
+    padding: 6px;
+}
+
+.thanks {
+    text-align: center;
+    margin-top: 25px;
+    border-top: 1px dashed #000;
+    padding-top: 10px;
+}
+
+@media (max-width: 500px) {
+
+    body {
+        padding: 5px;
+    }
+
+    .receipt {
+        padding: 15px;
+    }
+
+    th,
+    td {
+        padding: 5px;
+        font-size: 13px;
     }
 
 }
 
-@media (max-width: 450px) {
+@media print {
 
-    .dashboard {
-        grid-template-columns: 1fr;
+    body {
+        background: white;
+        padding: 0;
     }
 
+    .receipt {
+        box-shadow: none;
+        width: 100%;
+    }
+
+    .no-print {
+        display: none !important;
+    }
 }
