@@ -3,86 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Toolkit - Receipt</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Business Toolkit</title>
+    <!-- CSS Framework -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- PDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.min.js"></script>
 </head>
+<body class="bg-gray-100 font-sans text-gray-800">
 
-<body>
+    <header class="bg-blue-600 text-white py-4 shadow-lg mb-6">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">🏪 व्यवसाय टूलकिट (Business Toolkit)</h1>
+        </div>
+    </header>
 
-<div class="container">
-
-    <div class="receipt">
-
-        <div class="shop-header">
-            <h1 id="shopName">माझे दुकान</h1>
-            <p id="shopAddress">दुकानाचा पत्ता</p>
-            <p>मोबाईल: 0000000000</p>
+    <div class="container mx-auto px-4 max-w-5xl">
+        <!-- Tabs -->
+        <div class="flex flex-wrap gap-2 mb-6 border-b pb-4">
+            <button onclick="showTool('invoice')" class="tab-btn bg-blue-600 text-white px-4 py-2 rounded-lg font-medium shadow">🧾 Invoice Generator</button>
+            <button onclick="showTool('gst')" class="tab-btn bg-white text-gray-700 px-4 py-2 rounded-lg font-medium shadow hover:bg-gray-50">🧮 GST Calculator</button>
+            <button onclick="showTool('profit')" class="tab-btn bg-white text-gray-700 px-4 py-2 rounded-lg font-medium shadow hover:bg-gray-50">📈 Profit Calculator</button>
+            <button onclick="showTool('feedback')" class="tab-btn bg-white text-gray-700 px-4 py-2 rounded-lg font-medium shadow hover:bg-gray-50">💬 Feedback Form</button>
         </div>
 
-        <div class="receipt-info">
-            <div>
-                पावती नं.: <strong id="receiptNo">00001</strong>
+        <!-- Invoice Tool -->
+        <div id="invoice-tool" class="tool-content">
+            <div class="bg-white p-6 rounded-lg shadow-md mb-4">
+                <h2 class="text-xl font-bold mb-4 border-b pb-2">दुकानाची पावती / बिल बनवा</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">दुकानाचे नाव:</label>
+                        <input type="text" id="shopName" value="माझे दुकान" class="w-full border p-2 rounded">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">मोबाईल / पत्ता:</label>
+                        <input type="text" id="shopContact" value="मो. ९८७६५४३२१०" class="w-full border p-2 rounded">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">ग्राहकाचे नाव:</label>
+                        <input type="text" id="custName" placeholder="उदा. राहुल पाटील" class="w-full border p-2 rounded">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">तारीख:</label>
+                        <input type="date" id="invDate" class="w-full border p-2 rounded">
+                    </div>
+                </div>
+
+                <h3 class="font-bold text-lg mb-2">वस्तूंची यादी</h3>
+                <div id="items-container" class="space-y-2 mb-4">
+                    <div class="flex gap-2 item-row">
+                        <input type="text" placeholder="वस्तूचे नाव" class="item-name border p-2 rounded w-1/2">
+                        <input type="number" placeholder="प्रमाण" class="item-qty border p-2 rounded w-1/4" oninput="calculateTotal()">
+                        <input type="number" placeholder="दर ₹" class="item-rate border p-2 rounded w-1/4" oninput="calculateTotal()">
+                    </div>
+                </div>
+
+                <button onclick="addItemRow()" class="bg-gray-200 text-gray-800 px-3 py-1 rounded text-sm font-semibold mb-4">+ वस्तू जोडा</button>
+
+                <div class="text-right border-t pt-2 text-xl font-bold mb-4">
+                    एकूण रक्कम: ₹<span id="grandTotal">0</span>
+                </div>
+
+                <button onclick="downloadPDF()" class="bg-green-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-green-700">📄 PDF बिल डाउनलोड करा</button>
             </div>
 
-            <div>
-                तारीख: <strong id="receiptDate"></strong>
+            <div class="hidden">
+                <div id="invoice-preview" class="p-8 bg-white text-black">
+                    <div class="text-center border-b pb-4 mb-4">
+                        <h1 class="text-2xl font-bold" id="pdfShopName"></h1>
+                        <p class="text-sm" id="pdfShopContact"></p>
+                    </div>
+                    <div class="flex justify-between mb-4 text-sm">
+                        <p><strong>ग्राहक:</strong> <span id="pdfCustName"></span></p>
+                        <p><strong>तारीख:</strong> <span id="pdfDate"></span></p>
+                    </div>
+                    <table class="w-full border-collapse border border-gray-300 text-left mb-4 text-sm">
+                        <thead>
+                            <tr class="bg-gray-100 border-b">
+                                <th class="border p-2">वस्तू</th>
+                                <th class="border p-2">प्रमाण</th>
+                                <th class="border p-2">दर</th>
+                                <th class="border p-2">एकूण</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pdfTableBody"></tbody>
+                    </table>
+                    <div class="text-right text-lg font-bold">
+                        एकूण बिल: ₹<span id="pdfTotal"></span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="customer">
-            <label>ग्राहकाचे नाव</label>
-            <input type="text" id="customerName" placeholder="नाव लिहा">
+        <!-- GST Tool -->
+        <div id="gst-tool" class="tool-content hidden">
+            <div class="bg-white p-6 rounded-lg shadow-md max-w-lg mx-auto">
+                <h2 class="text-xl font-bold mb-4 border-b pb-2">GST कॅल्क्युलेटर</h2>
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold mb-1">रक्कम ₹:</label>
+                    <input type="number" id="gstAmount" placeholder="1000" class="w-full border p-2 rounded">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold mb-1">GST %:</label>
+                    <select id="gstRate" class="w-full border p-2 rounded">
+                        <option value="5">5%</option>
+                        <option value="12">12%</option>
+                        <option value="18" selected>18%</option>
+                        <option value="28">28%</option>
+                    </select>
+                </div>
+                <button onclick="calculateGST()" class="w-full bg-blue-600 text-white py-2 rounded font-bold">हिशोब करा</button>
+                <div id="gstResult" class="mt-4 p-4 bg-gray-50 rounded hidden">
+                    <p>मूळ रक्कम: ₹<span id="baseAmt">0</span></p>
+                    <p>GST रक्कम: ₹<span id="taxAmt">0</span></p>
+                    <p class="font-bold text-lg text-blue-600">एकूण (Tax सह): ₹<span id="totalGstAmt">0</span></p>
+                </div>
+            </div>
         </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>वस्तू</th>
-                    <th>Qty</th>
-                    <th>दर</th>
-                    <th>रक्कम</th>
-                    <th class="no-print">X</th>
-                </tr>
-            </thead>
-
-            <tbody id="items"></tbody>
-        </table>
-
-        <button class="add-btn no-print" onclick="addItem()">
-            + वस्तू जोडा
-        </button>
-
-        <div class="total-section">
-
-            <p>
-                एकूण:
-                <strong>₹<span id="total">0.00</span></strong>
-            </p>
-
-            <p>
-                पेमेंट:
-                <select id="payment">
-                    <option>Cash</option>
-                    <option>UPI</option>
-                    <option>Card</option>
-                </select>
-            </p>
-
+        <!-- Profit Tool -->
+        <div id="profit-tool" class="tool-content hidden">
+            <div class="bg-white p-6 rounded-lg shadow-md max-w-lg mx-auto">
+                <h2 class="text-xl font-bold mb-4 border-b pb-2">Profit Margin कॅल्क्युलेटर</h2>
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold mb-1">खरेदी किंमत ₹:</label>
+                    <input type="number" id="costPrice" placeholder="800" class="w-full border p-2 rounded">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold mb-1">विक्री किंमत ₹:</label>
+                    <input type="number" id="sellingPrice" placeholder="1000" class="w-full border p-2 rounded">
+                </div>
+                <button onclick="calculateProfit()" class="w-full bg-blue-600 text-white py-2 rounded font-bold">नफा मोजा</button>
+                <div id="profitResult" class="mt-4 p-4 bg-gray-50 rounded hidden">
+                    <p class="font-bold text-lg" id="profitStatus"></p>
+                    <p>नफा टक्का (Margin): <span id="profitMargin" class="font-bold"></span>%</p>
+                </div>
+            </div>
         </div>
 
-        <div class="thanks">
-            <p>धन्यवाद! पुन्हा भेट द्या 🙏</p>
+        <!-- Feedback Tool -->
+        <div id="feedback-tool" class="tool-content hidden">
+            <div class="bg-white p-6 rounded-lg shadow-md max-w-lg mx-auto">
+                <h2 class="text-xl font-bold mb-4 border-b pb-2">फीडबॅक पाठवा</h2>
+                <form id="feedbackForm" onsubmit="submitFeedback(event)">
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold mb-1">तुमचे नाव:</label>
+                        <input type="text" id="fbName" required class="w-full border p-2 rounded">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold mb-1">अभिप्राय / सूचना:</label>
+                        <textarea id="fbMessage" rows="3" required class="w-full border p-2 rounded"></textarea>
+                    </div>
+                    <button type="submit" id="fbBtn" class="w-full bg-green-600 text-white py-2 rounded font-bold">सबमिट करा</button>
+                </form>
+                <p id="fbSuccess" class="text-green-600 font-bold mt-2 text-center hidden">धन्यवाद! अभिप्राय सेव्ह झाला.</p>
+            </div>
         </div>
-
-        <button class="print-btn no-print" onclick="printReceipt()">
-            🖨️ पावती Print करा
-        </button>
-
     </div>
 
-</div>
-
-<script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
