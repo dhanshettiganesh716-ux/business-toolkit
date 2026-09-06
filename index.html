@@ -1,240 +1,248 @@
 <!DOCTYPE html>
 <html lang="mr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Business Toolkit</title>
+
+  <title>Business Toolkit - Billing</title>
 
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-  <div>
-    <h1>💰 Business Toolkit</h1>
-    <p>तुमच्या दुकानाचा स्मार्ट साथीदार</p>
-  </div>
+  <div class="app">
 
-  <button class="premium-btn" onclick="showPremium()">
-    💎 Premium
-  </button>
-</header>
+    <h1>Business Toolkit</h1>
 
+    <!-- दुकानाची माहिती -->
+    <div class="shop-form">
 
-<nav>
-  <button onclick="showSection('dashboard')">📊 Dashboard</button>
-  <button onclick="showSection('billing')">🧾 Billing</button>
-  <button onclick="showSection('ledger')">👤 उधारी</button>
-  <button onclick="showSection('stock')">📦 Stock</button>
-  <button onclick="showSection('expenses')">💸 खर्च</button>
-</nav>
+      <input
+        type="text"
+        id="shopName"
+        placeholder="दुकानाचे नाव">
 
+      <input
+        type="text"
+        id="shopAddress"
+        placeholder="दुकानाचा पत्ता">
 
-<main>
+      <input
+        type="tel"
+        id="shopMobile"
+        placeholder="दुकानाचा मोबाईल नंबर">
 
-<!-- DASHBOARD -->
-
-<section id="dashboard" class="section active">
-
-  <h2>📊 Dashboard</h2>
-
-  <div class="cards">
-
-    <div class="card">
-      <span>आजची विक्री</span>
-      <strong id="todaySales">₹0</strong>
     </div>
 
-    <div class="card">
-      <span>एकूण विक्री</span>
-      <strong id="totalSales">₹0</strong>
+
+    <!-- ग्राहकाची माहिती -->
+    <div class="customer-form">
+
+      <input
+        type="text"
+        id="customerName"
+        placeholder="ग्राहकाचे नाव">
+
+      <input
+        type="tel"
+        id="customerMobile"
+        placeholder="ग्राहकाचा मोबाईल नंबर">
+
     </div>
 
-    <div class="card">
-      <span>एकूण खर्च</span>
-      <strong id="totalExpenses">₹0</strong>
-    </div>
 
-    <div class="card">
-      <span>नफा</span>
-      <strong id="profit">₹0</strong>
-    </div>
-
-  </div>
-
-  <div class="info-box">
-    <h3>🚀 Business Toolkit</h3>
-    <p>
-      Billing, Customer Ledger, Stock आणि Expenses
-      एका ठिकाणी manage करा.
-    </p>
-  </div>
-
-</section>
-
-
-<!-- BILLING -->
-
-<section id="billing" class="section">
-
-  <h2>🧾 Smart Billing</h2>
-
-  <div class="bill-box">
-
-    <label>ग्राहकाचे नाव</label>
-    <input id="customerName" type="text" placeholder="उदा. राहुल">
-
-    <label>मोबाईल नंबर</label>
-    <input id="customerMobile" type="tel" placeholder="मोबाईल नंबर">
-
+    <!-- वस्तू -->
     <h3>वस्तू</h3>
 
-    <div id="items"></div>
+    <div id="items">
 
-    <button class="add-btn" onclick="addItem()">
-      ➕ वस्तू जोडा
-    </button>
+      <div class="item-row">
 
-    <div class="bill-total">
-      <span>एकूण:</span>
-      <strong id="billTotal">₹0</strong>
+        <input
+          type="text"
+          class="item-name"
+          placeholder="वस्तूचे नाव">
+
+        <input
+          type="number"
+          class="item-qty"
+          placeholder="Qty"
+          value="1"
+          min="1">
+
+        <input
+          type="number"
+          class="item-rate"
+          placeholder="Rate"
+          min="0">
+
+        <span class="item-amount">₹0</span>
+
+      </div>
+
     </div>
 
-    <button class="main-btn" onclick="createBill()">
-      🧾 Bill तयार करा
+
+    <button onclick="addItem()">
+      + वस्तू जोडा
     </button>
 
-  </div>
+
+    <!-- पेमेंट -->
+    <select id="paymentMethod">
+
+      <option value="Cash">Cash</option>
+
+      <option value="UPI">UPI</option>
+
+      <option value="Credit">Credit / उधारी</option>
+
+    </select>
 
 
-  <div id="billPreview" class="bill-preview hidden">
+    <!-- बिल तयार करा -->
+    <button
+      class="create-btn"
+      onclick="createBill()">
 
-  </div>
+      🧾 पावती तयार करा
 
-</section>
-
-
-<!-- LEDGER -->
-
-<section id="ledger" class="section">
-
-  <h2>👤 Digital Khata</h2>
-
-  <div class="form-box">
-
-    <input id="ledgerCustomer"
-           type="text"
-           placeholder="ग्राहकाचे नाव">
-
-    <input id="ledgerAmount"
-           type="number"
-           placeholder="उधारी रक्कम">
-
-    <button class="main-btn" onclick="addLedger()">
-      ➕ उधारी नोंदवा
     </button>
 
+
+    <!-- पावती -->
+    <div id="receipt" class="receipt">
+
+      <div class="receipt-shop">
+
+        <h2 id="rShopName">
+          तुमच्या दुकानाचे नाव
+        </h2>
+
+        <p id="rShopAddress">
+          दुकानाचा पत्ता
+        </p>
+
+        <p id="rShopMobile">
+          मोबाईल नंबर
+        </p>
+
+      </div>
+
+
+      <div class="line">
+        --------------------------------
+      </div>
+
+
+      <div class="receipt-info">
+
+        <p>
+          Bill No:
+          <b id="rBillNo">00001</b>
+        </p>
+
+        <p>
+          Date:
+          <span id="rDate"></span>
+        </p>
+
+        <p>
+          Customer:
+          <span id="rCustomer"></span>
+        </p>
+
+        <p>
+          Mobile:
+          <span id="rCustomerMobile"></span>
+        </p>
+
+      </div>
+
+
+      <div class="line">
+        --------------------------------
+      </div>
+
+
+      <div class="receipt-table">
+
+        <div class="receipt-header">
+
+          <span>Item</span>
+          <span>Qty</span>
+          <span>Rate</span>
+          <span>Amount</span>
+
+        </div>
+
+        <div id="receiptItems"></div>
+
+      </div>
+
+
+      <div class="line">
+        --------------------------------
+      </div>
+
+
+      <div class="receipt-total">
+
+        <p>
+          Sub Total:
+          <b id="rSubtotal">₹0</b>
+        </p>
+
+        <p>
+          GST:
+          <b id="rGST">₹0</b>
+        </p>
+
+        <p class="grand-total">
+          TOTAL:
+          <b id="rTotal">₹0</b>
+        </p>
+
+      </div>
+
+
+      <div class="line">
+        --------------------------------
+      </div>
+
+
+      <p class="payment">
+        Payment:
+        <b id="rPayment">Cash</b>
+      </p>
+
+
+      <div class="thank-you">
+
+        <p>Thank You!</p>
+
+        <p>Visit Again</p>
+
+      </div>
+
+
+      <button
+        class="print-btn"
+        onclick="window.print()">
+
+        🖨️ Print पावती
+
+      </button>
+
+    </div>
+
   </div>
 
-  <div id="ledgerList"></div>
 
-</section>
-
-
-<!-- STOCK -->
-
-<section id="stock" class="section">
-
-  <h2>📦 Stock Management</h2>
-
-  <div class="form-box">
-
-    <input id="productName"
-           type="text"
-           placeholder="वस्तूचे नाव">
-
-    <input id="productQty"
-           type="number"
-           placeholder="Quantity">
-
-    <input id="productPrice"
-           type="number"
-           placeholder="Price">
-
-    <button class="main-btn" onclick="addStock()">
-      📦 Stock Add करा
-    </button>
-
-  </div>
-
-  <div id="stockList"></div>
-
-</section>
-
-
-<!-- EXPENSES -->
-
-<section id="expenses" class="section">
-
-  <h2>💸 Expenses</h2>
-
-  <div class="form-box">
-
-    <input id="expenseName"
-           type="text"
-           placeholder="खर्चाचे नाव">
-
-    <input id="expenseAmount"
-           type="number"
-           placeholder="रक्कम">
-
-    <button class="main-btn" onclick="addExpense()">
-      ➕ खर्च Add करा
-    </button>
-
-  </div>
-
-  <div id="expenseList"></div>
-
-</section>
-
-
-<!-- PREMIUM -->
-
-<section id="premium" class="section">
-
-  <h2>💎 Premium Features</h2>
-
-  <div class="premium-list">
-
-    <div>♾️ Unlimited Bills</div>
-
-    <div>🏪 Custom Shop Name & Logo</div>
-
-    <div>🔔 Automatic Payment Reminders</div>
-
-    <div>💳 UPI Payment Link</div>
-
-    <div>📦 Low Stock Alerts</div>
-
-    <div>📊 GST Excel Reports</div>
-
-    <div>📈 Advanced Business Analytics</div>
-
-    <div>👥 Staff Login</div>
-
-  </div>
-
-</section>
-
-</main>
-
-
-<div id="toast"></div>
-
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 
 </body>
+
 </html>
