@@ -13,10 +13,15 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
 
+        /* Free Badge */
+        .free-badge { background-color: #10b981; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-left: 8px; }
+
         /* Buttons */
         .btn { display: inline-block; padding: 10px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; cursor: pointer; border: none; transition: 0.3s; }
         .btn-primary { background-color: #4f46e5; color: white; }
         .btn-primary:hover { background-color: #4338ca; }
+        .btn-success { background-color: #10b981; color: white; }
+        .btn-success:hover { background-color: #059669; }
         .btn-secondary { background-color: white; color: #334155; border: 1px solid #cbd5e1; }
         .btn-secondary:hover { background-color: #f1f5f9; }
         .btn-outline { background-color: transparent; color: #4f46e5; border: 1px solid #4f46e5; width: 100%; }
@@ -28,7 +33,7 @@
         .navbar { position: sticky; top: 0; background-color: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px); border-bottom: 1px solid #e2e8f0; z-index: 100; }
         .nav-container { display: flex; justify-content: space-between; align-items: center; height: 64px; }
         .logo { display: flex; align-items: center; gap: 8px; font-size: 1.25rem; font-weight: 800; color: #4f46e5; }
-        .nav-right { display: flex; align-items: center; gap: 15px; }
+        .nav-right { display: flex; align-items: center; gap: 12px; }
         .nav-link { color: #475569; text-decoration: none; font-weight: 500; }
         select { padding: 6px 12px; border-radius: 6px; border: 1px solid #cbd5e1; background-color: #f1f5f9; font-weight: 600; }
 
@@ -111,6 +116,7 @@
             <div class="logo">
                 <i class="fa-solid fa-receipt"></i>
                 <span>बिझनेस टूलकिट</span>
+                <span class="free-badge">फ्री व्हर्जन</span>
             </div>
             <div class="nav-right">
                 <select id="langSelect" onchange="changeLanguage(this.value)">
@@ -119,7 +125,7 @@
                     <option value="en">English</option>
                 </select>
                 <a href="#pricing" class="nav-link">प्लॅन्स</a>
-                <button onclick="openModal()" class="btn btn-primary btn-sm">सुरवात करा</button>
+                <button onclick="openPremiumModal('Premium Plan')" class="btn btn-primary btn-sm">⭐ अपग्रेड प्रीमियम</button>
             </div>
         </div>
     </header>
@@ -128,19 +134,19 @@
     <section class="hero-section">
         <div class="container text-center">
             <h1 id="heroHeadline">तुमचा व्यवसाय करा डिजिटल, <span class="highlight">फक्त एका क्लिकवर!</span></h1>
-            <p id="heroSubheadline">बिलिंग, उधारी आणि जीएसटी - आता सर्वकाही एकाच ठिकाणी अत्यंत सोप्या पद्धतीने व्यवस्थापित करा.</p>
+            <p id="heroSubheadline">बिलिंग, उधारी आणि जीएसटी - आता सर्वकाही मोफत आणि अत्यंत सोप्या पद्धतीने वापरा.</p>
             <div class="cta-group">
-                <button onclick="openModal()" id="ctaMain" class="btn btn-primary btn-lg">मोफत सुरू करा (Start For Free)</button>
-                <button onclick="openModal()" id="ctaSecondary" class="btn btn-secondary btn-lg">१४ दिवसांची फ्री ट्रायल घ्या</button>
+                <a href="#dashboard" id="ctaMain" class="btn btn-success btn-lg"><i class="fa-solid fa-bolt"></i> मोफत वापरण्यास सुरुवात करा</a>
+                <button onclick="openPremiumModal('14-Day Free Trial')" id="ctaSecondary" class="btn btn-secondary btn-lg">१४ दिवसांची प्रो ट्रायल घ्या</button>
             </div>
-            <p class="sub-text"><i class="fa-solid fa-shield-check icon-green"></i> कोणत्याही क्रेडिट कार्डची गरज नाही.</p>
+            <p class="sub-text"><i class="fa-solid fa-circle-check icon-green"></i> मोफत वापरासाठी लॉगिन किंवा क्रेडिट कार्डची गरज नाही.</p>
 
-            <div class="dashboard-mockup">
+            <div id="dashboard" class="dashboard-mockup">
                 <div class="window-dots">
                     <span class="dot red"></span>
                     <span class="dot yellow"></span>
                     <span class="dot green"></span>
-                    <span class="domain-text">dashboard.businesstoolkit.app</span>
+                    <span class="domain-text">dashboard.businesstoolkit.app (Free Access)</span>
                 </div>
                 <div class="dashboard-grid">
                     <div class="card">
@@ -198,7 +204,7 @@
                 <div class="feature-card">
                     <div class="icon-box icon-purple">📄</div>
                     <h3>स्मार्ट बिलिंग (Smart Invoicing)</h3>
-                    <p>अवघ्या ५ सेकंदात प्रोफेशनल बिल तयार करा आणि ग्राहकांना प्रिंट किंवा डिजिटल बिल पाठवा.</p>
+                    <p>अवघ्या ५ सेकंदात मोफत बिल तयार करा आणि ग्राहकांना पाठवा.</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon-box icon-green">📱</div>
@@ -219,25 +225,28 @@
         </div>
     </section>
 
-    <!-- ५. किंमत आणि प्लॅन्स -->
+    <!-- ५. किंमत आणि अपग्रेड प्लॅन्स -->
     <section id="pricing" class="pricing-section">
         <div class="container">
             <div class="section-title">
                 <h2>किंमत आणि प्लॅन्स (Pricing Plans)</h2>
-                <p>पारदर्शकता (Transparency) विश्वास निर्माण करते.</p>
+                <p>आधी मोफत वापरा, गरज वाटल्यास प्रीमियम प्लॅनवर अपग्रेड करा.</p>
             </div>
             <div class="grid-3">
+                <!-- Free Plan -->
                 <div class="price-card">
                     <h3>Free (बेसिक)</h3>
-                    <p class="plan-desc">लहान दुकानांसाठी सुरुवातीचा प्लॅन</p>
+                    <p class="plan-desc">सध्या सुरू असलेला मोफत प्लॅन</p>
                     <div class="price">₹० <span>/ कायमस्वरूपी</span></div>
                     <ul>
-                        <li><i class="fa-solid fa-check icon-green"></i> दरमहा ५० बिलांची मर्यादा</li>
+                        <li><i class="fa-solid fa-check icon-green"></i> दरमह ५० बिलांची मर्यादा</li>
                         <li><i class="fa-solid fa-check icon-green"></i> मूलभूत ग्राहक खाते</li>
                         <li><i class="fa-solid fa-check icon-green"></i> १ युझर सपोर्ट</li>
                     </ul>
-                    <button onclick="openModal()" class="btn btn-outline">शुरू करा</button>
+                    <a href="#dashboard" class="btn btn-outline" style="text-align: center;">सध्या सक्रिय आहे</a>
                 </div>
+
+                <!-- Pro Plan -->
                 <div class="price-card featured">
                     <span class="badge">सर्वात लोकप्रिय</span>
                     <h3>Pro (मासिक प्लॅन)</h3>
@@ -248,8 +257,10 @@
                         <li><i class="fa-solid fa-check icon-green"></i> ऑटोमॅटिक व्हॉट्सॲप रिमाइंडर्स</li>
                         <li><i class="fa-solid fa-check icon-green"></i> GST रिपोर्ट्स आणि इन्व्हेंटरी</li>
                     </ul>
-                    <button onclick="openModal()" class="btn btn-primary" style="width:100%;">फ्री ट्रायल सुरू करा</button>
+                    <button onclick="openPremiumModal('Pro Plan - ₹299/Month')" class="btn btn-primary" style="width:100%;">प्रीमियम वर अपग्रेड करा</button>
                 </div>
+
+                <!-- Enterprise Plan -->
                 <div class="price-card">
                     <h3>Enterprise / Premium</h3>
                     <p class="plan-desc">वार्षिक सवलतीसह पूर्ण सुविधा</p>
@@ -259,7 +270,7 @@
                         <li><i class="fa-solid fa-check icon-green"></i> एकाधिक स्टोअर सपोर्ट</li>
                         <li><i class="fa-solid fa-check icon-green"></i> २४/७ व्हॉट्सॲप सपोर्ट</li>
                     </ul>
-                    <button onclick="openModal()" class="btn btn-outline">संपर्क करा</button>
+                    <button onclick="openPremiumModal('Enterprise Plan - ₹2499/Year')" class="btn btn-outline">वार्षिक प्लॅन घ्या</button>
                 </div>
             </div>
         </div>
@@ -275,7 +286,7 @@
             </div>
             <div class="testimonial-card">
                 <div class="stars">★★★★★</div>
-                <p class="quote">"या टूलमुळे माझी उधारी वसूल करणे खूप सोपे झाले. आधी प्रत्येक महिन्याला ५ ते १० हजार रुपये अडकून पडायचे, आता व्हॉट्सॲप रिमाइंडर्समुळे वेळेवर पैसे मिळतात!"</p>
+                <p class="quote">"मी सुरुवातीला १ महिना फ्री व्हर्जन वापरून पाहिले. खूप आवडल्यामुळे नंतर प्रीमियम प्लॅन घेतला. आता व्हॉट्सॲप रिमाइंडर्समुळे सर्व पैसे वेळेवर मिळतात!"</p>
                 <div class="author">राहुल देशपांडे</div>
                 <div class="role">मालक, किराणा स्टोअर (पुणे)</div>
             </div>
@@ -290,41 +301,41 @@
         </div>
     </footer>
 
-    <!-- ८. साइन-अप पॉप-अप फॉर्म (Modal Overlay) -->
-    <div id="signupModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
+    <!-- ८. प्रीमियम अपग्रेड फॉर्म (नवा पॉप-अप - युझरने मागितल्यावरच उघडेल) -->
+    <div id="premiumModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center;">
         <div style="background:white; padding:30px; border-radius:16px; width:90%; max-width:400px; text-align:center; position:relative; box-shadow:0 10px 25px rgba(0,0,0,0.2);">
-            <span onclick="closeModal()" style="position:absolute; right:15px; top:10px; cursor:pointer; font-size:24px; font-weight:bold; color:#64748b;">&times;</span>
-            <h3 style="margin-bottom:10px; color:#0f172a; font-size:1.4rem;">मोफत रजिस्ट्रेशन करा</h3>
-            <p style="font-size:0.85rem; color:#64748b; margin-bottom:20px;">तुमची माहिती भरा आणि लगेच टूल वापरण्यास सुरुवात करा.</p>
-            <form onsubmit="handleSubmit(event)">
+            <span onclick="closePremiumModal()" style="position:absolute; right:15px; top:10px; cursor:pointer; font-size:24px; font-weight:bold; color:#64748b;">&times;</span>
+            <h3 style="margin-bottom:10px; color:#0f172a; font-size:1.4rem;">⭐ प्रीमियम वर अपग्रेड करा</h3>
+            <p id="selectedPlanText" style="font-size:0.9rem; color:#4f46e5; font-weight:bold; margin-bottom:15px;"></p>
+            <form onsubmit="handlePremiumSubmit(event)">
                 <input type="text" placeholder="तुमचे नाव" required style="width:100%; padding:12px; margin-bottom:12px; border:1px solid #cbd5e1; border-radius:8px; font-size:0.95rem; outline:none;">
-                <input type="tel" placeholder="मोबाईल नंबर" required style="width:100%; padding:12px; margin-bottom:20px; border:1px solid #cbd5e1; border-radius:8px; font-size:0.95rem; outline:none;">
-                <button type="submit" class="btn btn-primary" style="width:100%; padding:12px; font-size:1rem;">सुरू करा</button>
+                <input type="tel" placeholder="मोबाईल नंबर (WhatsApp)" required style="width:100%; padding:12px; margin-bottom:20px; border:1px solid #cbd5e1; border-radius:8px; font-size:0.95rem; outline:none;">
+                <button type="submit" class="btn btn-primary" style="width:100%; padding:12px; font-size:1rem;">प्रीमियम खरेदी करा</button>
             </form>
         </div>
     </div>
 
-    <!-- ९. जावास्क्रिप्ट (Functions & Language Switch) -->
+    <!-- ९. जावास्क्रिप्ट -->
     <script>
-        // १. भाषा बदलण्याची लॉजिक (Multi-lingual Logic)
+        // १. भाषा बदलण्याची लॉजिक
         const translations = {
             mr: {
                 headline: 'तुमचा व्यवसाय करा डिजिटल, <span class="highlight">फक्त एका क्लिकवर!</span>',
-                subheadline: 'बिलिंग, उधारी आणि जीएसटी - आता सर्वकाही एकाच ठिकाणी अत्यंत सोप्या पद्धतीने व्यवस्थापित करा.',
-                ctaMain: 'मोफत सुरू करा (Start For Free)',
-                ctaSecondary: '१४ दिवसांची फ्री ट्रायल घ्या'
+                subheadline: 'बिलिंग, उधारी आणि जीएसटी - आता सर्वकाही मोफत आणि अत्यंत सोप्या पद्धतीने वापरा.',
+                ctaMain: '<i class="fa-solid fa-bolt"></i> मोफत वापरण्यास सुरुवात करा',
+                ctaSecondary: '१४ दिवसांची प्रो ट्रायल घ्या'
             },
             hi: {
                 headline: 'अपना व्यवसाय डिजिटल करें, <span class="highlight">सिर्फ एक क्लिक पर!</span>',
-                subheadline: 'बिलिंग, उधारी और जीएसटी - अब सब कुछ एक ही जगह पर आसानी से प्रबंधित करें।',
-                ctaMain: 'मुफ्त शुरू करें (Start For Free)',
-                ctaSecondary: '14 दिनों का फ्री ट्रायल लें'
+                subheadline: 'बिलिंग, उधारी और जीएसटी - अब सब कुछ मुफ्त और आसानी से प्रबंधित करें।',
+                ctaMain: '<i class="fa-solid fa-bolt"></i> मुफ्त में उपयोग शुरू करें',
+                ctaSecondary: '14 दिनों का प्रो ट्रायल लें'
             },
             en: {
                 headline: 'Digitize Your Business, <span class="highlight">Just in One Click!</span>',
-                subheadline: 'Invoicing, Credit Management & GST - Manage everything easily in one place.',
-                ctaMain: 'Start For Free',
-                ctaSecondary: 'Take 14 Days Free Trial'
+                subheadline: 'Invoicing, Credit Management & GST - Use everything for free with ease.',
+                ctaMain: '<i class="fa-solid fa-bolt"></i> Start Using for Free',
+                ctaSecondary: 'Take 14 Days Pro Trial'
             }
         };
 
@@ -332,24 +343,25 @@
             if (translations[lang]) {
                 document.getElementById('heroHeadline').innerHTML = translations[lang].headline;
                 document.getElementById('heroSubheadline').innerText = translations[lang].subheadline;
-                document.getElementById('ctaMain').innerText = translations[lang].ctaMain;
+                document.getElementById('ctaMain').innerHTML = translations[lang].ctaMain;
                 document.getElementById('ctaSecondary').innerText = translations[lang].ctaSecondary;
             }
         }
 
-        // २. पॉप-अप फॉर्म लॉजिक (Modal Actions)
-        function openModal() {
-            document.getElementById('signupModal').style.display = 'flex';
+        // २. प्रीमियम पॉप-अप फॉर्म लॉजिक
+        function openPremiumModal(planName) {
+            document.getElementById('selectedPlanText').innerText = "निवडलेला प्लॅन: " + planName;
+            document.getElementById('premiumModal').style.display = 'flex';
         }
 
-        function closeModal() {
-            document.getElementById('signupModal').style.display = 'none';
+        function closePremiumModal() {
+            document.getElementById('premiumModal').style.display = 'none';
         }
 
-        function handleSubmit(event) {
+        function handlePremiumSubmit(event) {
             event.preventDefault();
-            alert('धन्यवाद! तुमचे रजिस्ट्रेशन यशस्वी झाले आहे.');
-            closeModal();
+            alert('धन्यवाद! तुमच्या प्रीमियम अपग्रेडची विनंती आम्हाला मिळाली आहे. आमची टीम लवकरच तुमच्याशी संपर्क करेल.');
+            closePremiumModal();
         }
     </script>
 </body>
