@@ -1,166 +1,387 @@
 <!DOCTYPE html>
-<html lang="mr">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Toolkit</title>
-    <!-- CSS Framework -->
+    <title>Business Toolkit - बिजनेस टूलकिट</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- PDF Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.min.js"></script>
+    <style>
+        /* Print Style Configuration */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #receipt-print-area, #receipt-print-area * {
+                visibility: visible;
+            }
+            #receipt-print-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 20px;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-100 font-sans text-gray-800">
+<body class="bg-slate-100 font-sans text-slate-800 min-h-screen">
 
-    <header class="bg-blue-600 text-white py-4 shadow-lg mb-6">
+    <!-- Header -->
+    <header class="bg-indigo-700 text-white py-4 shadow-md mb-6 no-print">
         <div class="container mx-auto px-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold">🏪 व्यवसाय टूलकिट (Business Toolkit)</h1>
+            <h1 class="text-2xl font-bold flex items-center gap-2">
+                <span>🏪</span> स्मार्ट बिजनेस टूलकिट (Business Toolkit)
+            </h1>
+            <span class="text-xs bg-indigo-800 px-3 py-1 rounded-full text-indigo-200">ऑल-इन-वन सिस्टम</span>
         </div>
     </header>
 
     <div class="container mx-auto px-4 max-w-5xl">
-        <!-- Tabs -->
-        <div class="flex flex-wrap gap-2 mb-6 border-b pb-4">
-            <button onclick="showTool('invoice')" class="tab-btn bg-blue-600 text-white px-4 py-2 rounded-lg font-medium shadow">🧾 Invoice Generator</button>
-            <button onclick="showTool('gst')" class="tab-btn bg-white text-gray-700 px-4 py-2 rounded-lg font-medium shadow hover:bg-gray-50">🧮 GST Calculator</button>
-            <button onclick="showTool('profit')" class="tab-btn bg-white text-gray-700 px-4 py-2 rounded-lg font-medium shadow hover:bg-gray-50">📈 Profit Calculator</button>
-            <button onclick="showTool('feedback')" class="tab-btn bg-white text-gray-700 px-4 py-2 rounded-lg font-medium shadow hover:bg-gray-50">💬 Feedback Form</button>
+
+        <!-- Navigation Tabs -->
+        <div class="flex flex-wrap gap-2 mb-6 border-b pb-4 border-slate-300 no-print">
+            <button onclick="showTool('invoice')" id="tab-invoice" class="tab-btn bg-indigo-600 text-white px-5 py-2.5 rounded-lg font-medium shadow hover:bg-indigo-700 transition">🧾 Invoice / रसीद</button>
+            <button onclick="showTool('gst')" id="tab-gst" class="tab-btn bg-white text-slate-700 px-5 py-2.5 rounded-lg font-medium shadow hover:bg-slate-50 transition">🧮 GST कैलकुलेटर</button>
+            <button onclick="showTool('profit')" id="tab-profit" class="tab-btn bg-white text-slate-700 px-5 py-2.5 rounded-lg font-medium shadow hover:bg-slate-50 transition">📈 Profit Margin</button>
+            <button onclick="showTool('feedback')" id="tab-feedback" class="tab-btn bg-white text-slate-700 px-5 py-2.5 rounded-lg font-medium shadow hover:bg-slate-50 transition">💬 फीडबैक</button>
         </div>
 
-        <!-- Invoice Tool -->
+        <!-- 1. INVOICE / RECEIPT TOOL -->
         <div id="invoice-tool" class="tool-content">
-            <div class="bg-white p-6 rounded-lg shadow-md mb-4">
-                <h2 class="text-xl font-bold mb-4 border-b pb-2">दुकानाची पावती / बिल बनवा</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label class="block text-sm font-semibold mb-1">दुकानाचे नाव:</label>
-                        <input type="text" id="shopName" value="माझे दुकान" class="w-full border p-2 rounded">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <!-- Input Form (Left Side) -->
+                <div class="lg:col-span-6 bg-white p-6 rounded-xl shadow-sm border border-slate-200 no-print">
+                    <h2 class="text-lg font-bold text-slate-800 mb-4 border-b pb-2 flex items-center gap-2">
+                        <span>📝</span> बिल की जानकारी भरें
+                    </h2>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">दुकान का नाम (Shop Name)</label>
+                            <input type="text" id="shopName" value="मेरी दुकान" oninput="updateReceipt()" class="w-full border border-slate-300 p-2.5 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">मोबाइल / पता (Contact & Address)</label>
+                            <input type="text" id="shopContact" value="मो. 9876543210 | शहर" oninput="updateReceipt()" class="w-full border border-slate-300 p-2.5 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none text-sm">
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">ग्राहक का नाम (Customer)</label>
+                                <input type="text" id="custName" placeholder="उदा. राहुल शर्मा" oninput="updateReceipt()" class="w-full border border-slate-300 p-2.5 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">तारीख (Date)</label>
+                                <input type="date" id="invDate" onchange="updateReceipt()" class="w-full border border-slate-300 p-2.5 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none text-sm">
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label class="block text-sm font-semibold mb-1">मोबाईल / पत्ता:</label>
-                        <input type="text" id="shopContact" value="मो. ९८७६५४३२१०" class="w-full border p-2 rounded">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold mb-1">ग्राहकाचे नाव:</label>
-                        <input type="text" id="custName" placeholder="उदा. राहुल पाटील" class="w-full border p-2 rounded">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold mb-1">तारीख:</label>
-                        <input type="date" id="invDate" class="w-full border p-2 rounded">
-                    </div>
-                </div>
 
-                <h3 class="font-bold text-lg mb-2">वस्तूंची यादी</h3>
-                <div id="items-container" class="space-y-2 mb-4">
-                    <div class="flex gap-2 item-row">
-                        <input type="text" placeholder="वस्तूचे नाव" class="item-name border p-2 rounded w-1/2">
-                        <input type="number" placeholder="प्रमाण" class="item-qty border p-2 rounded w-1/4" oninput="calculateTotal()">
-                        <input type="number" placeholder="दर ₹" class="item-rate border p-2 rounded w-1/4" oninput="calculateTotal()">
-                    </div>
-                </div>
-
-                <button onclick="addItemRow()" class="bg-gray-200 text-gray-800 px-3 py-1 rounded text-sm font-semibold mb-4">+ वस्तू जोडा</button>
-
-                <div class="text-right border-t pt-2 text-xl font-bold mb-4">
-                    एकूण रक्कम: ₹<span id="grandTotal">0</span>
-                </div>
-
-                <button onclick="downloadPDF()" class="bg-green-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-green-700">📄 PDF बिल डाउनलोड करा</button>
-            </div>
-
-            <div class="hidden">
-                <div id="invoice-preview" class="p-8 bg-white text-black">
-                    <div class="text-center border-b pb-4 mb-4">
-                        <h1 class="text-2xl font-bold" id="pdfShopName"></h1>
-                        <p class="text-sm" id="pdfShopContact"></p>
-                    </div>
-                    <div class="flex justify-between mb-4 text-sm">
-                        <p><strong>ग्राहक:</strong> <span id="pdfCustName"></span></p>
-                        <p><strong>तारीख:</strong> <span id="pdfDate"></span></p>
-                    </div>
-                    <table class="w-full border-collapse border border-gray-300 text-left mb-4 text-sm">
-                        <thead>
-                            <tr class="bg-gray-100 border-b">
-                                <th class="border p-2">वस्तू</th>
-                                <th class="border p-2">प्रमाण</th>
-                                <th class="border p-2">दर</th>
-                                <th class="border p-2">एकूण</th>
-                            </tr>
-                        </thead>
-                        <tbody id="pdfTableBody"></tbody>
-                    </table>
-                    <div class="text-right text-lg font-bold">
-                        एकूण बिल: ₹<span id="pdfTotal"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- GST Tool -->
-        <div id="gst-tool" class="tool-content hidden">
-            <div class="bg-white p-6 rounded-lg shadow-md max-w-lg mx-auto">
-                <h2 class="text-xl font-bold mb-4 border-b pb-2">GST कॅल्क्युलेटर</h2>
-                <div class="mb-4">
-                    <label class="block text-sm font-semibold mb-1">रक्कम ₹:</label>
-                    <input type="number" id="gstAmount" placeholder="1000" class="w-full border p-2 rounded">
-                </div>
-                <div class="mb-4">
-                    <label class="block text-sm font-semibold mb-1">GST %:</label>
-                    <select id="gstRate" class="w-full border p-2 rounded">
-                        <option value="5">5%</option>
-                        <option value="12">12%</option>
-                        <option value="18" selected>18%</option>
-                        <option value="28">28%</option>
-                    </select>
-                </div>
-                <button onclick="calculateGST()" class="w-full bg-blue-600 text-white py-2 rounded font-bold">हिशोब करा</button>
-                <div id="gstResult" class="mt-4 p-4 bg-gray-50 rounded hidden">
-                    <p>मूळ रक्कम: ₹<span id="baseAmt">0</span></p>
-                    <p>GST रक्कम: ₹<span id="taxAmt">0</span></p>
-                    <p class="font-bold text-lg text-blue-600">एकूण (Tax सह): ₹<span id="totalGstAmt">0</span></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Profit Tool -->
-        <div id="profit-tool" class="tool-content hidden">
-            <div class="bg-white p-6 rounded-lg shadow-md max-w-lg mx-auto">
-                <h2 class="text-xl font-bold mb-4 border-b pb-2">Profit Margin कॅल्क्युलेटर</h2>
-                <div class="mb-4">
-                    <label class="block text-sm font-semibold mb-1">खरेदी किंमत ₹:</label>
-                    <input type="number" id="costPrice" placeholder="800" class="w-full border p-2 rounded">
-                </div>
-                <div class="mb-4">
-                    <label class="block text-sm font-semibold mb-1">विक्री किंमत ₹:</label>
-                    <input type="number" id="sellingPrice" placeholder="1000" class="w-full border p-2 rounded">
-                </div>
-                <button onclick="calculateProfit()" class="w-full bg-blue-600 text-white py-2 rounded font-bold">नफा मोजा</button>
-                <div id="profitResult" class="mt-4 p-4 bg-gray-50 rounded hidden">
-                    <p class="font-bold text-lg" id="profitStatus"></p>
-                    <p>नफा टक्का (Margin): <span id="profitMargin" class="font-bold"></span>%</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Feedback Tool -->
-        <div id="feedback-tool" class="tool-content hidden">
-            <div class="bg-white p-6 rounded-lg shadow-md max-w-lg mx-auto">
-                <h2 class="text-xl font-bold mb-4 border-b pb-2">फीडबॅक पाठवा</h2>
-                <form id="feedbackForm" onsubmit="submitFeedback(event)">
+                    <!-- Items Section -->
                     <div class="mb-4">
-                        <label class="block text-sm font-semibold mb-1">तुमचे नाव:</label>
-                        <input type="text" id="fbName" required class="w-full border p-2 rounded">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="font-bold text-sm text-slate-700">सामान की सूची (Items)</h3>
+                            <button onclick="addItemRow()" class="text-xs bg-indigo-50 text-indigo-600 font-semibold px-3 py-1.5 rounded-md hover:bg-indigo-100 border border-indigo-200 transition">+ सामान जोड़ें</button>
+                        </div>
+                        
+                        <div id="items-container" class="space-y-2 max-h-60 overflow-y-auto pr-1">
+                            <!-- Dynamic Rows Here -->
+                        </div>
                     </div>
-                    <div class="mb-4">
-                        <label class="block text-sm font-semibold mb-1">अभिप्राय / सूचना:</label>
-                        <textarea id="fbMessage" rows="3" required class="w-full border p-2 rounded"></textarea>
+
+                    <!-- Print Action Button -->
+                    <div class="pt-4 border-t flex flex-wrap gap-3">
+                        <button onclick="printReceipt()" class="flex-1 bg-emerald-600 text-white px-4 py-2.5 rounded-lg font-bold hover:bg-emerald-700 shadow-md transition flex justify-center items-center gap-2">
+                            <span>🖨️</span> प्रिंट / PDF सेव करें
+                        </button>
                     </div>
-                    <button type="submit" id="fbBtn" class="w-full bg-green-600 text-white py-2 rounded font-bold">सबमिट करा</button>
+                </div>
+
+                <!-- Live Receipt Preview (Right Side) -->
+                <div class="lg:col-span-6">
+                    <div id="receipt-print-area" class="bg-white p-6 rounded-xl shadow-md border border-slate-200 text-slate-800">
+                        <div class="border-b-2 border-indigo-600 pb-4 mb-4 text-center">
+                            <h1 class="text-2xl font-black text-indigo-900 tracking-wide" id="viewShopName">मेरी दुकान</h1>
+                            <p class="text-xs text-slate-500 mt-1" id="viewShopContact">मो. 9876543210 | शहर</p>
+                            <span class="inline-block mt-2 px-3 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-indigo-50 text-indigo-700 rounded-full border border-indigo-200">कैश रसीद / Cash Memo</span>
+                        </div>
+
+                        <div class="flex justify-between text-xs mb-4 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                            <div><strong>ग्राहक:</strong> <span id="viewCustName" class="text-slate-700">ग्राहक का नाम</span></div>
+                            <div><strong>तारीख:</strong> <span id="viewDate" class="text-slate-700">-</span></div>
+                        </div>
+
+                        <table class="w-full border-collapse text-left text-xs mb-4">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-700 border-y border-slate-200">
+                                    <th class="p-2">क्र.</th>
+                                    <th class="p-2">सामान (Item)</th>
+                                    <th class="p-2 text-center">मात्रा (Qty)</th>
+                                    <th class="p-2 text-right">दर (₹)</th>
+                                    <th class="p-2 text-right">कुल (₹)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="viewTableBody">
+                                <!-- Dynamic Content -->
+                            </tbody>
+                        </table>
+
+                        <div class="border-t border-slate-200 pt-3 flex justify-between items-center">
+                            <div class="text-[11px] text-slate-400">
+                                धन्यवाद! फिर पधारें।
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs text-slate-500">कुल राशि (Total):</span>
+                                <div class="text-xl font-extrabold text-indigo-700">₹<span id="viewTotal">0</span></div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 text-center border-t border-dashed border-slate-200 pt-3 text-[10px] text-slate-400 no-print">
+                            (यह कंप्यूटर जनरेटेड रसीद है)
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 2. GST CALCULATOR -->
+        <div id="gst-tool" class="tool-content hidden no-print">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 max-w-md mx-auto">
+                <h2 class="text-lg font-bold text-slate-800 mb-4 border-b pb-2 flex items-center gap-2">
+                    <span>🧮</span> GST कैलकुलेटर
+                </h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">मूल राशि (Amount ₹)</label>
+                        <input type="number" id="gstAmount" placeholder="उदा. 1000" class="w-full border border-slate-300 p-2.5 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">GST दर (%)</label>
+                        <select id="gstRate" class="w-full border border-slate-300 p-2.5 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm bg-white">
+                            <option value="5">5%</option>
+                            <option value="12">12%</option>
+                            <option value="18" selected>18%</option>
+                            <option value="28">28%</option>
+                        </select>
+                    </div>
+                    <button onclick="calculateGST()" class="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-bold hover:bg-indigo-700 transition shadow">हिसाब करें</button>
+                    
+                    <div id="gstResult" class="p-4 bg-indigo-50 rounded-lg border border-indigo-100 hidden text-sm space-y-1.5">
+                        <div class="flex justify-between"><span>मूल कीमत:</span> <span class="font-semibold">₹<span id="baseAmt">0</span></span></div>
+                        <div class="flex justify-between"><span>GST टैक्स:</span> <span class="font-semibold">₹<span id="taxAmt">0</span></span></div>
+                        <div class="flex justify-between border-t border-indigo-200 pt-1.5 text-base font-bold text-indigo-900"><span>कुल राशि (Tax सहित):</span> <span>₹<span id="totalGstAmt">0</span></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. PROFIT MARGIN CALCULATOR -->
+        <div id="profit-tool" class="tool-content hidden no-print">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 max-w-md mx-auto">
+                <h2 class="text-lg font-bold text-slate-800 mb-4 border-b pb-2 flex items-center gap-2">
+                    <span>📈</span> Profit Margin कैलकुलेटर
+                </h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">खरीद कीमत (Cost Price ₹)</label>
+                        <input type="number" id="costPrice" placeholder="उदा. 800" class="w-full border border-slate-300 p-2.5 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">बिक्री कीमत (Selling Price ₹)</label>
+                        <input type="number" id="sellingPrice" placeholder="उदा. 1000" class="w-full border border-slate-300 p-2.5 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm">
+                    </div>
+                    <button onclick="calculateProfit()" class="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-bold hover:bg-indigo-700 transition shadow">मुनाफा जांचें</button>
+                    
+                    <div id="profitResult" class="p-4 bg-slate-50 rounded-lg border border-slate-200 hidden text-sm space-y-1">
+                        <div id="profitStatus" class="font-bold text-base mb-1"></div>
+                        <div class="text-slate-600">मुनाफा प्रतिशत (Profit Margin): <span id="profitMargin" class="font-bold text-slate-800"></span>%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. FEEDBACK FORM -->
+        <div id="feedback-tool" class="tool-content hidden no-print">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 max-w-md mx-auto">
+                <h2 class="text-lg font-bold text-slate-800 mb-4 border-b pb-2 flex items-center gap-2">
+                    <span>💬</span> अपना फीडबैक भेजें
+                </h2>
+                <form id="feedbackForm" onsubmit="submitFeedback(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">आपका नाम</label>
+                        <input type="text" id="fbName" required placeholder="अपना पूरा नाम लिखें" class="w-full border border-slate-300 p-2.5 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">प्रतिक्रिया या सुझाव</label>
+                        <textarea id="fbMessage" rows="3" required placeholder="यहाँ सुझाव लिखें..." class="w-full border border-slate-300 p-2.5 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm"></textarea>
+                    </div>
+                    <button type="submit" id="fbBtn" class="w-full bg-emerald-600 text-white py-2.5 rounded-lg font-bold hover:bg-emerald-700 transition shadow">सबमिट करें (Google Sheet)</button>
                 </form>
-                <p id="fbSuccess" class="text-green-600 font-bold mt-2 text-center hidden">धन्यवाद! अभिप्राय सेव्ह झाला.</p>
+                <p id="fbSuccess" class="text-emerald-600 font-semibold text-xs mt-3 text-center hidden bg-emerald-50 p-2 rounded border border-emerald-200">✅ धन्यवाद! आपका फीडबैक सेव हो गया है।</p>
             </div>
         </div>
+
     </div>
 
-    <script src="script.js"></script>
+    <!-- Script Logic -->
+    <script>
+        // Set Default Date Today
+        document.getElementById('invDate').valueAsDate = new Date();
+
+        // Initialize Default Row
+        window.onload = function() {
+            addItemRow();
+            updateReceipt();
+        };
+
+        // Switch Tools Tab
+        function showTool(toolId) {
+            document.querySelectorAll('.tool-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn bg-white text-slate-700 px-5 py-2.5 rounded-lg font-medium shadow hover:bg-slate-50 transition";
+            });
+            document.getElementById(toolId + '-tool').classList.remove('hidden');
+            document.getElementById('tab-' + toolId).className = "tab-btn bg-indigo-600 text-white px-5 py-2.5 rounded-lg font-medium shadow hover:bg-indigo-700 transition";
+        }
+
+        // Add Dynamic Item Row
+        function addItemRow() {
+            const container = document.getElementById('items-container');
+            const rowId = Date.now();
+            const row = document.createElement('div');
+            row.className = 'flex gap-2 items-center item-row';
+            row.id = `row-${rowId}`;
+            row.innerHTML = `
+                <input type="text" placeholder="सामान का नाम" oninput="updateReceipt()" class="item-name border border-slate-300 p-2 rounded-lg w-1/2 text-sm">
+                <input type="number" placeholder="Qty" value="1" oninput="updateReceipt()" class="item-qty border border-slate-300 p-2 rounded-lg w-1/5 text-sm text-center">
+                <input type="number" placeholder="दर" oninput="updateReceipt()" class="item-rate border border-slate-300 p-2 rounded-lg w-1/4 text-sm text-right">
+                <button onclick="removeRow('row-${rowId}')" class="text-slate-400 hover:text-red-500 font-bold p-1">✕</button>
+            `;
+            container.appendChild(row);
+            updateReceipt();
+        }
+
+        function removeRow(id) {
+            const row = document.getElementById(id);
+            if(row) {
+                row.remove();
+                updateReceipt();
+            }
+        }
+
+        // Live Update Preview
+        function updateReceipt() {
+            document.getElementById('viewShopName').innerText = document.getElementById('shopName').value || 'मेरी दुकान';
+            document.getElementById('viewShopContact').innerText = document.getElementById('shopContact').value || '-';
+            document.getElementById('viewCustName').innerText = document.getElementById('custName').value || 'दर्ज नहीं';
+            document.getElementById('viewDate').innerText = document.getElementById('invDate').value || '-';
+
+            const tbody = document.getElementById('viewTableBody');
+            tbody.innerHTML = '';
+
+            let grandTotal = 0;
+            let count = 1;
+
+            const rows = document.querySelectorAll('.item-row');
+            rows.forEach(row => {
+                const name = row.querySelector('.item-name').value;
+                const qty = parseFloat(row.querySelector('.item-qty').value) || 0;
+                const rate = parseFloat(row.querySelector('.item-rate').value) || 0;
+                const total = qty * rate;
+
+                if (name.trim() !== '') {
+                    grandTotal += total;
+                    const tr = document.createElement('tr');
+                    tr.className = 'border-b border-slate-100';
+                    tr.innerHTML = `
+                        <td class="p-2 text-slate-500">${count++}</td>
+                        <td class="p-2 font-medium text-slate-800">${name}</td>
+                        <td class="p-2 text-center text-slate-600">${qty}</td>
+                        <td class="p-2 text-right text-slate-600">₹${rate.toFixed(2)}</td>
+                        <td class="p-2 text-right font-semibold text-slate-800">₹${total.toFixed(2)}</td>
+                    `;
+                    tbody.appendChild(tr);
+                }
+            });
+
+            if (tbody.children.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400 italic">कोई सामान नहीं जोड़ा गया</td></tr>`;
+            }
+
+            document.getElementById('viewTotal').innerText = grandTotal.toFixed(2);
+        }
+
+        // Native Browser Print Logic
+        function printReceipt() {
+            window.print();
+        }
+
+        // GST Calculation Logic
+        function calculateGST() {
+            const amount = parseFloat(document.getElementById('gstAmount').value) || 0;
+            const rate = parseFloat(document.getElementById('gstRate').value) || 0;
+            const tax = (amount * rate) / 100;
+            
+            document.getElementById('baseAmt').innerText = amount.toFixed(2);
+            document.getElementById('taxAmt').innerText = tax.toFixed(2);
+            document.getElementById('totalGstAmt').innerText = (amount + tax).toFixed(2);
+            document.getElementById('gstResult').classList.remove('hidden');
+        }
+
+        // Profit Calculation Logic
+        function calculateProfit() {
+            const cp = parseFloat(document.getElementById('costPrice').value) || 0;
+            const sp = parseFloat(document.getElementById('sellingPrice').value) || 0;
+            const profit = sp - cp;
+            const margin = cp > 0 ? (profit / cp) * 100 : 0;
+
+            const status = document.getElementById('profitStatus');
+            if(profit >= 0) {
+                status.innerText = `मुनाफा: ₹${profit.toFixed(2)}`;
+                status.className = "font-bold text-base text-emerald-600";
+            } else {
+                status.innerText = `नुकसान: ₹${Math.abs(profit).toFixed(2)}`;
+                status.className = "font-bold text-base text-rose-600";
+            }
+            
+            document.getElementById('profitMargin').innerText = margin.toFixed(2);
+            document.getElementById('profitResult').classList.remove('hidden');
+        }
+
+        // Submit Feedback to Google Sheet
+        function submitFeedback(e) {
+            e.preventDefault();
+            const btn = document.getElementById('fbBtn');
+            btn.innerText = "भेजा जा रहा है...";
+            
+            // Apps script URL
+            const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE"; 
+
+            const data = {
+                name: document.getElementById('fbName').value,
+                message: document.getElementById('fbMessage').value
+            };
+
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            }).then(() => {
+                btn.innerText = "सबमिट करें (Google Sheet)";
+                document.getElementById('fbSuccess').classList.remove('hidden');
+                document.getElementById('feedbackForm').reset();
+            }).catch(err => {
+                btn.innerText = "सबमिट करें (Google Sheet)";
+                alert("सबमिट करने में समस्या आई।");
+            });
+        }
+    </script>
 </body>
 </html>
