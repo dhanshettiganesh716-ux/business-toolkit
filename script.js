@@ -1,63 +1,126 @@
-let totalSales = 0;
-let totalExpenses = 0;
-let totalCustomers = 0;
+let receiptNumber =
+    Number(localStorage.getItem("receiptNumber")) || 1;
 
-function addSale() {
+function showReceiptNumber() {
 
-    let amount = Number(
-        document.getElementById("saleAmount").value
+    document.getElementById("receiptNo").innerText =
+        String(receiptNumber).padStart(5, "0");
+}
+
+function showDate() {
+
+    const today = new Date();
+
+    const date =
+        today.toLocaleDateString("en-IN");
+
+    document.getElementById("receiptDate").innerText =
+        date;
+}
+
+function addItem() {
+
+    const table = document.getElementById("items");
+
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+        <td>
+            <input
+                type="text"
+                placeholder="वस्तूचे नाव"
+            >
+        </td>
+
+        <td>
+            <input
+                type="number"
+                value="1"
+                min="1"
+                oninput="calculateTotal()"
+            >
+        </td>
+
+        <td>
+            <input
+                type="number"
+                value="0"
+                min="0"
+                oninput="calculateTotal()"
+            >
+        </td>
+
+        <td class="amount">
+            ₹0.00
+        </td>
+
+        <td class="no-print">
+            <button
+                class="delete-btn"
+                onclick="deleteItem(this)"
+            >
+                X
+            </button>
+        </td>
+    `;
+
+    table.appendChild(row);
+
+    calculateTotal();
+}
+
+function deleteItem(button) {
+
+    button.closest("tr").remove();
+
+    calculateTotal();
+}
+
+function calculateTotal() {
+
+    const rows =
+        document.querySelectorAll("#items tr");
+
+    let total = 0;
+
+    rows.forEach(row => {
+
+        const inputs =
+            row.querySelectorAll("input");
+
+        const quantity =
+            Number(inputs[1].value) || 0;
+
+        const rate =
+            Number(inputs[2].value) || 0;
+
+        const amount =
+            quantity * rate;
+
+        row.querySelector(".amount").innerText =
+            "₹" + amount.toFixed(2);
+
+        total += amount;
+    });
+
+    document.getElementById("total").innerText =
+        total.toFixed(2);
+}
+
+function printReceipt() {
+
+    localStorage.setItem(
+        "receiptNumber",
+        receiptNumber + 1
     );
 
-    if (amount <= 0) {
-        alert("Please enter a valid amount");
-        return;
-    }
+    window.print();
 
-    totalSales = totalSales + amount;
+    receiptNumber++;
 
-    updateDashboard();
-
-    document.getElementById("saleAmount").value = "";
+    showReceiptNumber();
 }
 
-function addExpense() {
-
-    let amount = Number(
-        document.getElementById("expenseAmount").value
-    );
-
-    if (amount <= 0) {
-        alert("Please enter a valid amount");
-        return;
-    }
-
-    totalExpenses = totalExpenses + amount;
-
-    updateDashboard();
-
-    document.getElementById("expenseAmount").value = "";
-}
-
-function addCustomer() {
-
-    totalCustomers = totalCustomers + 1;
-
-    updateDashboard();
-}
-
-function updateDashboard() {
-
-    let profit = totalSales - totalExpenses;
-
-    document.getElementById("sales").innerText =
-        "₹" + totalSales;
-
-    document.getElementById("expenses").innerText =
-        "₹" + totalExpenses;
-
-    document.getElementById("profit").innerText =
-        "₹" + profit;
-
-    document.getElementById("customers").innerText =
-        totalCustomers;
-}
+showReceiptNumber();
+showDate();
+addItem();
