@@ -4,111 +4,269 @@
 
 body {
   margin: 0;
-  padding: 20px;
-  background: #eeeeee;
   font-family: Arial, sans-serif;
-  color: #111;
+  background: #f4f7fb;
+  color: #172033;
 }
 
-.app {
-  max-width: 500px;
-  margin: auto;
+.layout {
+  display: flex;
+  min-height: 100vh;
 }
 
-h1 {
+
+/* SIDEBAR */
+
+.sidebar {
+  width: 230px;
+  background: #101b2d;
+  color: white;
+  padding: 20px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+}
+
+.logo {
   text-align: center;
   font-size: 24px;
+  padding: 10px 0 25px;
+  border-bottom: 1px solid #334155;
+  margin-bottom: 10px;
+}
+
+.logo b {
+  display: block;
+}
+
+.logo b:last-child {
+  color: #2f80ed;
+}
+
+.sidebar button {
+  background: transparent;
+  border: 0;
+  color: #dbe5f4;
+  text-align: left;
+  padding: 13px 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.sidebar button:hover {
+  background: #2367d1;
+  color: white;
+}
+
+.side-bottom {
+  margin-top: auto;
+  padding: 15px;
+  border-top: 1px solid #334155;
+}
+
+
+/* MAIN */
+
+.main {
+  margin-left: 230px;
+  width: calc(100% - 230px);
+  padding: 20px;
+}
+
+.topbar {
+  background: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
 }
 
-
-/* INPUT SECTION */
-
-.shop-form,
-.customer-form {
-  background: white;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-}
-
-input,
-select {
-  width: 100%;
-  padding: 11px;
-  margin-bottom: 8px;
-  border: 1px solid #aaa;
-  border-radius: 5px;
-  font-size: 15px;
-}
-
-h3 {
-  margin-top: 15px;
-}
-
-
-/* ITEMS */
-
-.item-row {
-  display: grid;
-  grid-template-columns: 1.5fr 0.6fr 0.8fr 0.8fr;
-  gap: 5px;
-  align-items: center;
-  background: white;
-  padding: 8px;
-  margin-bottom: 5px;
-  border-radius: 5px;
-}
-
-.item-row input {
+.topbar h1 {
   margin: 0;
-  min-width: 0;
 }
 
-.item-amount {
-  font-size: 14px;
+.topbar p {
+  margin: 4px 0 0;
+  color: #64748b;
+}
+
+.shop-title {
+  border: 1px solid #cbd5e1;
+  padding: 12px 18px;
+  border-radius: 8px;
   font-weight: bold;
-  text-align: right;
+}
+
+
+/* PAGES */
+
+.hidden {
+  display: none;
+}
+
+.page {
+  max-width: 1250px;
+  margin: auto;
+}
+
+.page-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 
 /* BUTTONS */
 
-button {
-  border: none;
-  padding: 11px 15px;
-  border-radius: 5px;
+.blue-btn {
+  background: #1769e0;
+  color: white;
+  border: 0;
+  padding: 12px 18px;
+  border-radius: 7px;
+  font-weight: bold;
   cursor: pointer;
-  font-size: 15px;
-  margin-top: 5px;
 }
 
 .create-btn {
   width: 100%;
-  background: #111;
+  background: #159447;
   color: white;
-  margin-top: 15px;
+  border: 0;
+  padding: 14px;
+  border-radius: 7px;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
 }
 
-.print-btn {
-  width: 100%;
-  background: #111;
+.add-item {
+  background: #1769e0;
   color: white;
-  margin-top: 20px;
+  border: 0;
+  padding: 10px 15px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+
+/* INVOICE */
+
+.invoice-layout {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  gap: 20px;
+}
+
+.panel {
+  background: white;
+  padding: 18px;
+  border-radius: 10px;
+  border: 1px solid #dbe3ef;
+}
+
+.panel h3 {
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 9px;
+  margin-top: 10px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  margin-bottom: 9px;
+  font-size: 14px;
+}
+
+
+/* ITEMS */
+
+.item-head,
+.item-row {
+  display: grid;
+  grid-template-columns: 1.5fr .55fr .7fr .8fr .3fr;
+  gap: 6px;
+  align-items: center;
+}
+
+.item-head {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.item-row input {
+  margin: 0;
+}
+
+.item-amount {
+  font-weight: bold;
+  text-align: right;
+}
+
+.delete-item {
+  border: 0;
+  background: #fee2e2;
+  color: red;
+  border-radius: 5px;
+  padding: 8px;
+}
+
+
+/* TOTALS */
+
+.totals {
+  background: #f8fafc;
+  padding: 12px;
+  margin-top: 15px;
+  border-radius: 7px;
+}
+
+.totals div {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px;
+}
+
+.total-row {
+  background: #173f7a;
+  color: white;
+  border-radius: 5px;
+  font-size: 18px;
 }
 
 
 /* RECEIPT */
 
-.receipt {
-  width: 100%;
-  max-width: 380px;
-  margin: 25px auto;
+.receipt-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.receipt-actions button {
+  padding: 10px 15px;
   background: white;
-  padding: 18px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.receipt {
+  background: white;
+  padding: 25px;
+  min-height: 700px;
+  box-shadow: 0 3px 15px rgba(0,0,0,.12);
   font-family: "Courier New", monospace;
-  font-size: 14px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
 }
 
 .receipt-shop {
@@ -116,167 +274,267 @@ button {
 }
 
 .receipt-shop h2 {
-  margin: 0 0 5px;
-  font-size: 21px;
+  margin: 0 0 6px;
+  font-size: 22px;
 }
 
 .receipt-shop p {
-  margin: 3px 0;
+  margin: 3px;
 }
 
-.line {
-  overflow: hidden;
-  white-space: nowrap;
-  margin: 10px 0;
-  font-size: 13px;
+.dash-line {
+  border-top: 2px dashed #333;
+  margin: 15px 0;
 }
 
-.receipt-info p {
-  margin: 5px 0;
-}
-
-
-/* RECEIPT TABLE */
-
-.receipt-header {
+.receipt-info {
   display: grid;
-  grid-template-columns: 1.5fr 0.5fr 0.7fr 0.9fr;
-  font-weight: bold;
-  border-bottom: 1px dashed #000;
-  padding-bottom: 5px;
+  gap: 7px;
 }
 
+.receipt-table {
+  width: 100%;
+}
+
+.receipt-head,
 .receipt-item {
   display: grid;
-  grid-template-columns: 1.5fr 0.5fr 0.7fr 0.9fr;
-  padding: 5px 0;
+  grid-template-columns: 1.5fr .5fr .7fr .9fr;
+  gap: 5px;
+  padding: 7px 0;
 }
 
-.receipt-header span,
-.receipt-item span {
-  overflow: hidden;
-  word-break: break-word;
+.receipt-head {
+  border-bottom: 1px dashed #333;
 }
 
-.receipt-header span:nth-child(n+2),
-.receipt-item span:nth-child(n+2) {
+.receipt-item span:nth-child(n+2),
+.receipt-head b:nth-child(n+2) {
   text-align: right;
 }
-
-
-/* TOTAL */
 
 .receipt-total p {
   display: flex;
   justify-content: space-between;
-  margin: 6px 0;
+  margin: 8px 0;
 }
 
-.grand-total {
-  font-size: 18px;
-  border-top: 1px dashed #000;
-  padding-top: 8px;
+.grand {
+  border-top: 2px solid #111;
+  padding-top: 10px;
+  font-size: 20px;
 }
-
-
-/* PAYMENT */
 
 .payment {
   text-align: center;
-  margin-top: 12px;
 }
 
-
-/* THANK YOU */
-
-.thank-you {
+.thank {
   text-align: center;
-  margin-top: 18px;
-  font-weight: bold;
+  margin-top: 40px;
+  display: grid;
+  gap: 8px;
+  font-size: 20px;
 }
 
-.thank-you p {
-  margin: 3px;
+
+/* DASHBOARD */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 15px;
+}
+
+.stat,
+.big-stat,
+.tool-box {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #dbe3ef;
+}
+
+.stat span {
+  display: block;
+  color: #64748b;
+}
+
+.stat b {
+  display: block;
+  font-size: 25px;
+  margin-top: 8px;
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.quick-grid button {
+  background: white;
+  border: 1px solid #dbe3ef;
+  padding: 25px 10px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+/* CALCULATOR */
+
+.calculator {
+  width: 320px;
+  background: #111827;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+#calcDisplay {
+  height: 55px;
+  font-size: 25px;
+  text-align: right;
+}
+
+.calc-buttons {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 7px;
+}
+
+.calc-buttons button {
+  padding: 18px;
+  font-size: 18px;
+}
+
+
+/* PROFIT */
+
+.big-stat {
+  margin-bottom: 12px;
+}
+
+.big-stat b {
+  display: block;
+  font-size: 25px;
+  margin-top: 7px;
+}
+
+
+/* LIST */
+
+.list-card {
+  background: white;
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #dbe3ef;
+}
+
+.low-stock {
+  color: red;
+  font-weight: bold;
 }
 
 
 /* MOBILE */
 
-@media (max-width: 500px) {
+@media(max-width: 800px) {
 
-  body {
+  .sidebar {
+    width: 70px;
+    padding: 10px 5px;
+  }
+
+  .logo {
+    font-size: 0;
+  }
+
+  .logo:first-letter {
+    font-size: 25px;
+  }
+
+  .sidebar button {
+    text-align: center;
+    font-size: 0;
+  }
+
+  .sidebar button::first-letter {
+    font-size: 20px;
+  }
+
+  .side-bottom {
+    font-size: 0;
+    text-align: center;
+  }
+
+  .main {
+    margin-left: 70px;
+    width: calc(100% - 70px);
     padding: 10px;
   }
 
-  .item-row {
-    grid-template-columns: 1.3fr 0.55fr 0.75fr 0.8fr;
-    padding: 5px;
+  .topbar {
+    display: block;
   }
 
-  .item-row input {
+  .shop-title {
+    margin-top: 10px;
     font-size: 12px;
-    padding: 9px 5px;
   }
 
-  .item-amount {
-    font-size: 12px;
+  .invoice-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .quick-grid {
+    grid-template-columns: 1fr 1fr;
   }
 
   .receipt {
-    padding: 12px;
-    font-size: 12px;
+    min-height: auto;
   }
 
-  .receipt-shop h2 {
-    font-size: 18px;
-  }
-
-  .receipt-header,
-  .receipt-item {
-    grid-template-columns: 1.5fr 0.5fr 0.7fr 0.9fr;
-  }
 }
-
-
-/* PRINT */
 
 @media print {
 
   body {
     background: white;
+  }
+
+  .sidebar,
+  .topbar,
+  .panel,
+  .receipt-actions {
+    display: none !important;
+  }
+
+  .main {
+    margin: 0;
+    width: 100%;
     padding: 0;
   }
 
-  body > * {
-    display: none;
-  }
-
-  .app {
-    display: block;
-    max-width: none;
-  }
-
-  .app > h1,
-  .shop-form,
-  .customer-form,
-  h3,
-  #items,
-  .app > button,
-  #paymentMethod,
-  .create-btn {
-    display: none;
-  }
-
   .receipt {
-    display: block;
-    width: 80mm;
-    max-width: 80mm;
-    margin: 0;
-    padding: 5mm;
     box-shadow: none;
+    width: 80mm;
+    min-height: auto;
+    margin: 0 auto;
+    padding: 5mm;
   }
 
-  .print-btn {
-    display: none;
+  .page {
+    display: block !important;
+  }
+
+  .page:not(#invoice) {
+    display: none !important;
   }
     }
