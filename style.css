@@ -1,348 +1,239 @@
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
-  color: #222;
-  padding-bottom: 30px;
-}
-
-
-/* HEADER */
-
-header {
-  background: #111827;
-  color: white;
-  padding: 18px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-header h1 {
-  font-size: 22px;
-}
-
-header p {
-  font-size: 13px;
-  margin-top: 5px;
-  color: #cbd5e1;
-}
-
-.premium-btn {
-  background: #facc15;
-  border: none;
-  padding: 10px 14px;
-  border-radius: 10px;
-  font-weight: bold;
-}
-
-
-/* NAVIGATION */
-
-nav {
-  background: white;
-  padding: 10px;
-  display: flex;
-  gap: 7px;
-  overflow-x: auto;
-  border-bottom: 1px solid #ddd;
-}
-
-nav button {
-  white-space: nowrap;
-  border: 1px solid #ddd;
-  background: white;
-  padding: 10px 13px;
-  border-radius: 9px;
-  cursor: pointer;
-}
-
-nav button:hover {
-  background: #eef2ff;
-}
-
-
-/* MAIN */
-
-main {
-  max-width: 900px;
-  margin: auto;
-  padding: 18px;
-}
-
-.section {
-  display: none;
-}
-
-.section.active {
-  display: block;
-}
-
-.section h2 {
-  margin-bottom: 18px;
-}
-
-
-/* DASHBOARD CARDS */
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-.card {
-  background: white;
-  padding: 18px;
-  border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
-
-.card span {
-  display: block;
-  color: #64748b;
-  font-size: 14px;
-  margin-bottom: 8px;
-}
-
-.card strong {
-  font-size: 22px;
-}
-
-
-/* INFO */
-
-.info-box {
-  background: white;
+  margin: 0;
   padding: 20px;
-  margin-top: 15px;
-  border-radius: 14px;
+  background: #eeeeee;
+  font-family: Arial, sans-serif;
+  color: #111;
 }
 
-.info-box h3 {
-  margin-bottom: 8px;
+.app {
+  max-width: 500px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
 
-/* FORM */
+/* INPUT SECTION */
 
-.bill-box,
-.form-box {
+.shop-form,
+.customer-form {
   background: white;
-  padding: 18px;
-  border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
 }
 
-label {
-  display: block;
-  margin-top: 10px;
-  margin-bottom: 6px;
-  font-weight: bold;
-}
-
-input {
+input,
+select {
   width: 100%;
-  padding: 13px;
-  margin-bottom: 10px;
-  border: 1px solid #d1d5db;
-  border-radius: 9px;
+  padding: 11px;
+  margin-bottom: 8px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
   font-size: 15px;
-  outline: none;
 }
 
-input:focus {
-  border-color: #6366f1;
+h3 {
+  margin-top: 15px;
+}
+
+
+/* ITEMS */
+
+.item-row {
+  display: grid;
+  grid-template-columns: 1.5fr 0.6fr 0.8fr 0.8fr;
+  gap: 5px;
+  align-items: center;
+  background: white;
+  padding: 8px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+
+.item-row input {
+  margin: 0;
+  min-width: 0;
+}
+
+.item-amount {
+  font-size: 14px;
+  font-weight: bold;
+  text-align: right;
 }
 
 
 /* BUTTONS */
 
-.main-btn {
-  width: 100%;
-  padding: 13px;
+button {
   border: none;
-  border-radius: 9px;
-  background: #111827;
-  color: white;
+  padding: 11px 15px;
+  border-radius: 5px;
+  cursor: pointer;
   font-size: 15px;
-  font-weight: bold;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
-.add-btn {
-  padding: 11px;
-  border: none;
-  background: #e5e7eb;
-  border-radius: 9px;
-  margin-bottom: 10px;
+.create-btn {
+  width: 100%;
+  background: #111;
+  color: white;
+  margin-top: 15px;
+}
+
+.print-btn {
+  width: 100%;
+  background: #111;
+  color: white;
+  margin-top: 20px;
 }
 
 
-/* BILL ITEM */
+/* RECEIPT */
 
-.item-row {
+.receipt {
+  width: 100%;
+  max-width: 380px;
+  margin: 25px auto;
+  background: white;
+  padding: 18px;
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+
+.receipt-shop {
+  text-align: center;
+}
+
+.receipt-shop h2 {
+  margin: 0 0 5px;
+  font-size: 21px;
+}
+
+.receipt-shop p {
+  margin: 3px 0;
+}
+
+.line {
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 10px 0;
+  font-size: 13px;
+}
+
+.receipt-info p {
+  margin: 5px 0;
+}
+
+
+/* RECEIPT TABLE */
+
+.receipt-header {
   display: grid;
-  grid-template-columns: 1.5fr 0.7fr 1fr auto;
-  gap: 7px;
-  align-items: center;
-  margin-bottom: 8px;
+  grid-template-columns: 1.5fr 0.5fr 0.7fr 0.9fr;
+  font-weight: bold;
+  border-bottom: 1px dashed #000;
+  padding-bottom: 5px;
 }
 
-.item-row input {
-  margin: 0;
+.receipt-item {
+  display: grid;
+  grid-template-columns: 1.5fr 0.5fr 0.7fr 0.9fr;
+  padding: 5px 0;
 }
 
-.remove-btn {
-  border: none;
-  background: #fee2e2;
-  color: #dc2626;
-  padding: 10px;
-  border-radius: 7px;
+.receipt-header span,
+.receipt-item span {
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.receipt-header span:nth-child(n+2),
+.receipt-item span:nth-child(n+2) {
+  text-align: right;
 }
 
 
 /* TOTAL */
 
-.bill-total {
+.receipt-total p {
   display: flex;
   justify-content: space-between;
-  border-top: 1px solid #ddd;
-  margin-top: 15px;
-  padding-top: 15px;
-  font-size: 19px;
+  margin: 6px 0;
+}
+
+.grand-total {
+  font-size: 18px;
+  border-top: 1px dashed #000;
+  padding-top: 8px;
 }
 
 
-/* BILL PREVIEW */
+/* PAYMENT */
 
-.bill-preview {
-  background: white;
-  margin-top: 20px;
-  padding: 25px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-}
-
-.bill-preview h2 {
+.payment {
   text-align: center;
-  margin-bottom: 5px;
-}
-
-.bill-preview .bill-line {
-  border-bottom: 1px dashed #777;
-  padding: 8px 0;
-}
-
-.print-btn {
-  background: #111827;
-  color: white;
-  border: none;
-  padding: 12px;
-  width: 100%;
-  border-radius: 8px;
-  margin-top: 15px;
+  margin-top: 12px;
 }
 
 
-/* LIST */
+/* THANK YOU */
 
-#ledgerList,
-#stockList,
-#expenseList {
-  margin-top: 15px;
-}
-
-.list-card {
-  background: white;
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 12px;
-  border-left: 4px solid #111827;
-}
-
-.delete-btn {
-  margin-top: 8px;
-  background: #fee2e2;
-  color: #b91c1c;
-  border: none;
-  padding: 7px 10px;
-  border-radius: 7px;
-}
-
-
-/* PREMIUM */
-
-.premium-list {
-  display: grid;
-  gap: 12px;
-}
-
-.premium-list div {
-  background: white;
-  padding: 18px;
-  border-radius: 12px;
+.thank-you {
+  text-align: center;
+  margin-top: 18px;
   font-weight: bold;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-
-/* TOAST */
-
-#toast {
-  position: fixed;
-  bottom: 25px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #111827;
-  color: white;
-  padding: 12px 18px;
-  border-radius: 10px;
-  display: none;
-  z-index: 1000;
+.thank-you p {
+  margin: 3px;
 }
 
 
 /* MOBILE */
 
-@media (max-width: 600px) {
+@media (max-width: 500px) {
 
-  header {
-    align-items: flex-start;
-  }
-
-  header h1 {
-    font-size: 19px;
-  }
-
-  .premium-btn {
-    font-size: 12px;
-    padding: 8px 10px;
-  }
-
-  main {
-    padding: 12px;
-  }
-
-  .cards {
-    grid-template-columns: 1fr 1fr;
+  body {
+    padding: 10px;
   }
 
   .item-row {
-    grid-template-columns: 1fr 0.6fr;
+    grid-template-columns: 1.3fr 0.55fr 0.75fr 0.8fr;
+    padding: 5px;
   }
 
-  .item-row input:nth-child(3) {
-    grid-column: 1;
+  .item-row input {
+    font-size: 12px;
+    padding: 9px 5px;
   }
 
-  .remove-btn {
-    grid-column: 2;
+  .item-amount {
+    font-size: 12px;
+  }
+
+  .receipt {
+    padding: 12px;
+    font-size: 12px;
+  }
+
+  .receipt-shop h2 {
+    font-size: 18px;
+  }
+
+  .receipt-header,
+  .receipt-item {
+    grid-template-columns: 1.5fr 0.5fr 0.7fr 0.9fr;
   }
 }
 
@@ -351,25 +242,41 @@ input:focus {
 
 @media print {
 
-  body * {
-    visibility: hidden;
+  body {
+    background: white;
+    padding: 0;
   }
 
-  #billPreview,
-  #billPreview * {
-    visibility: visible;
+  body > * {
+    display: none;
   }
 
-  #billPreview {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
+  .app {
+    display: block;
+    max-width: none;
+  }
+
+  .app > h1,
+  .shop-form,
+  .customer-form,
+  h3,
+  #items,
+  .app > button,
+  #paymentMethod,
+  .create-btn {
+    display: none;
+  }
+
+  .receipt {
+    display: block;
+    width: 80mm;
+    max-width: 80mm;
+    margin: 0;
+    padding: 5mm;
     box-shadow: none;
-    border: none;
   }
 
   .print-btn {
     display: none;
   }
-}
+    }
