@@ -1,248 +1,492 @@
 <!DOCTYPE html>
-<html lang="mr">
-
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Business Toolkit - Billing</title>
+  <title>Business Toolkit</title>
 
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <div class="app">
+<div class="layout">
 
-    <h1>Business Toolkit</h1>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
 
-    <!-- दुकानाची माहिती -->
-    <div class="shop-form">
-
-      <input
-        type="text"
-        id="shopName"
-        placeholder="दुकानाचे नाव">
-
-      <input
-        type="text"
-        id="shopAddress"
-        placeholder="दुकानाचा पत्ता">
-
-      <input
-        type="tel"
-        id="shopMobile"
-        placeholder="दुकानाचा मोबाईल नंबर">
-
+    <div class="logo">
+      🏪
+      <b>Business</b>
+      <b>Toolkit</b>
     </div>
 
+    <button onclick="openPage('dashboard')">🏠 Dashboard</button>
+    <button onclick="openPage('invoice')">🧾 Invoice / Bill</button>
+    <button onclick="openPage('calculator')">🧮 Calculator</button>
+    <button onclick="openPage('profit')">📈 Profit</button>
+    <button onclick="openPage('gst')">％ GST</button>
+    <button onclick="openPage('stocks')">📦 Stocks</button>
+    <button onclick="openPage('sales')">📊 Sales</button>
+    <button onclick="openPage('udhar')">👥 Udhar Customers</button>
 
-    <!-- ग्राहकाची माहिती -->
-    <div class="customer-form">
-
-      <input
-        type="text"
-        id="customerName"
-        placeholder="ग्राहकाचे नाव">
-
-      <input
-        type="tel"
-        id="customerMobile"
-        placeholder="ग्राहकाचा मोबाईल नंबर">
-
+    <div class="side-bottom">
+      ⚙️ Settings
     </div>
 
+  </aside>
 
-    <!-- वस्तू -->
-    <h3>वस्तू</h3>
 
-    <div id="items">
+  <!-- MAIN -->
+  <main class="main">
 
-      <div class="item-row">
+    <header class="topbar">
 
-        <input
-          type="text"
-          class="item-name"
-          placeholder="वस्तूचे नाव">
+      <div>
+        <h1>Business Toolkit</h1>
+        <p>Smart Business. Better Growth. 🚀</p>
+      </div>
 
-        <input
-          type="number"
-          class="item-qty"
-          placeholder="Qty"
-          value="1"
-          min="1">
+      <div class="shop-title">
+        🏪 GANESH GENERAL STORES
+      </div>
 
-        <input
-          type="number"
-          class="item-rate"
-          placeholder="Rate"
-          min="0">
+    </header>
 
-        <span class="item-amount">₹0</span>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="page">
+
+      <h2>📊 Dashboard</h2>
+
+      <div class="dashboard-grid">
+
+        <div class="stat">
+          <span>Today's Sales</span>
+          <b id="dashToday">₹0</b>
+        </div>
+
+        <div class="stat">
+          <span>Total Sales</span>
+          <b id="dashSales">₹0</b>
+        </div>
+
+        <div class="stat">
+          <span>Total Expenses</span>
+          <b id="dashExpenses">₹0</b>
+        </div>
+
+        <div class="stat">
+          <span>Profit</span>
+          <b id="dashProfit">₹0</b>
+        </div>
 
       </div>
 
-    </div>
+      <div class="quick-grid">
 
-
-    <button onclick="addItem()">
-      + वस्तू जोडा
-    </button>
-
-
-    <!-- पेमेंट -->
-    <select id="paymentMethod">
-
-      <option value="Cash">Cash</option>
-
-      <option value="UPI">UPI</option>
-
-      <option value="Credit">Credit / उधारी</option>
-
-    </select>
-
-
-    <!-- बिल तयार करा -->
-    <button
-      class="create-btn"
-      onclick="createBill()">
-
-      🧾 पावती तयार करा
-
-    </button>
-
-
-    <!-- पावती -->
-    <div id="receipt" class="receipt">
-
-      <div class="receipt-shop">
-
-        <h2 id="rShopName">
-          तुमच्या दुकानाचे नाव
-        </h2>
-
-        <p id="rShopAddress">
-          दुकानाचा पत्ता
-        </p>
-
-        <p id="rShopMobile">
-          मोबाईल नंबर
-        </p>
+        <button onclick="openPage('calculator')">🧮 Calculator</button>
+        <button onclick="openPage('invoice')">🧾 Invoice</button>
+        <button onclick="openPage('profit')">📈 Profit</button>
+        <button onclick="openPage('gst')">％ GST</button>
+        <button onclick="openPage('stocks')">📦 Stocks</button>
+        <button onclick="openPage('sales')">📊 Sales</button>
+        <button onclick="openPage('udhar')">👥 Udhar Customers</button>
 
       </div>
 
-
-      <div class="line">
-        --------------------------------
-      </div>
+    </section>
 
 
-      <div class="receipt-info">
+    <!-- INVOICE -->
+    <section id="invoice" class="page hidden">
 
-        <p>
-          Bill No:
-          <b id="rBillNo">00001</b>
-        </p>
+      <div class="page-title">
 
-        <p>
-          Date:
-          <span id="rDate"></span>
-        </p>
+        <h2>🧾 Invoice / Bill</h2>
 
-        <p>
-          Customer:
-          <span id="rCustomer"></span>
-        </p>
-
-        <p>
-          Mobile:
-          <span id="rCustomerMobile"></span>
-        </p>
+        <button class="blue-btn" onclick="newBill()">
+          + New Bill
+        </button>
 
       </div>
 
 
-      <div class="line">
-        --------------------------------
-      </div>
+      <div class="invoice-layout">
+
+        <!-- FORM -->
+        <div class="panel">
+
+          <h3>🏪 Shop Details</h3>
+
+          <input id="shopName"
+                 value="GANESH GENERAL STORES"
+                 placeholder="Shop Name">
+
+          <input id="shopAddress"
+                 value="Murum, Dharashiv"
+                 placeholder="Address">
+
+          <input id="shopMobile"
+                 value="9876543210"
+                 placeholder="Mobile">
 
 
-      <div class="receipt-table">
+          <h3>👤 Customer Details</h3>
 
-        <div class="receipt-header">
+          <input id="customerName"
+                 placeholder="Customer Name">
 
-          <span>Item</span>
-          <span>Qty</span>
-          <span>Rate</span>
-          <span>Amount</span>
+          <input id="customerMobile"
+                 placeholder="Mobile">
+
+
+          <h3>📦 Items</h3>
+
+          <div class="item-head">
+            <span>Item</span>
+            <span>Qty</span>
+            <span>Rate</span>
+            <span>Amount</span>
+            <span></span>
+          </div>
+
+          <div id="itemContainer"></div>
+
+          <button class="add-item" onclick="addItem()">
+            + Add Item
+          </button>
+
+
+          <h3>💳 Payment Method</h3>
+
+          <select id="paymentMethod">
+            <option>Cash</option>
+            <option>UPI</option>
+            <option>Credit / Udhar</option>
+          </select>
+
+
+          <div class="totals">
+
+            <div>
+              <span>Sub Total</span>
+              <b id="formSubtotal">₹0</b>
+            </div>
+
+            <div>
+              <span>GST</span>
+              <b id="formGST">₹0</b>
+            </div>
+
+            <div class="total-row">
+              <span>Total</span>
+              <b id="formTotal">₹0</b>
+            </div>
+
+          </div>
+
+
+          <button class="create-btn" onclick="createInvoice()">
+            🖨️ Create Invoice
+          </button>
 
         </div>
 
-        <div id="receiptItems"></div>
+
+        <!-- RECEIPT -->
+        <div>
+
+          <div class="receipt-actions">
+
+            <button onclick="printReceipt()">🖨️ Print</button>
+
+            <button onclick="shareWhatsApp()">
+              📱 WhatsApp
+            </button>
+
+          </div>
+
+
+          <div id="receipt" class="receipt">
+
+            <div class="receipt-shop">
+
+              <h2 id="rShopName">
+                GANESH GENERAL STORES
+              </h2>
+
+              <p id="rShopAddress">
+                Murum, Dharashiv
+              </p>
+
+              <p id="rShopMobile">
+                9876543210
+              </p>
+
+            </div>
+
+
+            <div class="dash-line"></div>
+
+
+            <div class="receipt-info">
+
+              <span>
+                Bill No: <b id="rBillNo">00001</b>
+              </span>
+
+              <span>
+                Date: <b id="rDate">--</b>
+              </span>
+
+              <span>
+                Customer: <b id="rCustomer">--</b>
+              </span>
+
+              <span>
+                Mobile: <b id="rCustomerMobile">--</b>
+              </span>
+
+            </div>
+
+
+            <div class="dash-line"></div>
+
+
+            <div class="receipt-table">
+
+              <div class="receipt-head">
+                <b>Item</b>
+                <b>Qty</b>
+                <b>Rate</b>
+                <b>Amount</b>
+              </div>
+
+              <div id="receiptItems"></div>
+
+            </div>
+
+
+            <div class="dash-line"></div>
+
+
+            <div class="receipt-total">
+
+              <p>
+                <span>Sub Total:</span>
+                <b id="rSubtotal">₹0</b>
+              </p>
+
+              <p>
+                <span>GST:</span>
+                <b id="rGST">₹0</b>
+              </p>
+
+              <p class="grand">
+                <span>TOTAL:</span>
+                <b id="rTotal">₹0</b>
+              </p>
+
+            </div>
+
+
+            <div class="dash-line"></div>
+
+
+            <p class="payment">
+              Payment:
+              <b id="rPayment">Cash</b>
+            </p>
+
+
+            <div class="thank">
+
+              <b>Thank You!</b>
+
+              <span>Visit Again</span>
+
+            </div>
+
+          </div>
+
+        </div>
 
       </div>
 
-
-      <div class="line">
-        --------------------------------
-      </div>
+    </section>
 
 
-      <div class="receipt-total">
+    <!-- CALCULATOR -->
+    <section id="calculator" class="page hidden">
 
-        <p>
-          Sub Total:
-          <b id="rSubtotal">₹0</b>
-        </p>
+      <h2>🧮 Calculator</h2>
 
-        <p>
-          GST:
-          <b id="rGST">₹0</b>
-        </p>
+      <div class="calculator">
 
-        <p class="grand-total">
-          TOTAL:
-          <b id="rTotal">₹0</b>
-        </p>
+        <input id="calcDisplay" readonly>
 
-      </div>
+        <div class="calc-buttons">
 
+          <button onclick="calcClear()">C</button>
+          <button onclick="calcInput('/')">÷</button>
+          <button onclick="calcInput('*')">×</button>
+          <button onclick="calcInput('-')">−</button>
 
-      <div class="line">
-        --------------------------------
-      </div>
+          <button onclick="calcInput('7')">7</button>
+          <button onclick="calcInput('8')">8</button>
+          <button onclick="calcInput('9')">9</button>
+          <button onclick="calcInput('+')">+</button>
 
+          <button onclick="calcInput('4')">4</button>
+          <button onclick="calcInput('5')">5</button>
+          <button onclick="calcInput('6')">6</button>
+          <button onclick="calcResult()">=</button>
 
-      <p class="payment">
-        Payment:
-        <b id="rPayment">Cash</b>
-      </p>
+          <button onclick="calcInput('1')">1</button>
+          <button onclick="calcInput('2')">2</button>
+          <button onclick="calcInput('3')">3</button>
+          <button onclick="calcInput('0')">0</button>
 
-
-      <div class="thank-you">
-
-        <p>Thank You!</p>
-
-        <p>Visit Again</p>
+        </div>
 
       </div>
 
+    </section>
 
-      <button
-        class="print-btn"
-        onclick="window.print()">
 
-        🖨️ Print पावती
+    <!-- PROFIT -->
+    <section id="profit" class="page hidden">
 
+      <h2>📈 Profit</h2>
+
+      <div class="big-stat">
+        Total Sales
+        <b id="profitSales">₹0</b>
+      </div>
+
+      <div class="big-stat">
+        Total Expenses
+        <b id="profitExpenses">₹0</b>
+      </div>
+
+      <div class="big-stat">
+        Net Profit
+        <b id="profitAmount">₹0</b>
+      </div>
+
+      <h3>Add Expense</h3>
+
+      <input id="expenseName"
+             placeholder="Expense Name">
+
+      <input id="expenseAmount"
+             type="number"
+             placeholder="Amount">
+
+      <button class="blue-btn" onclick="addExpense()">
+        + Add Expense
       </button>
 
-    </div>
-
-  </div>
+    </section>
 
 
-  <script src="script.js"></script>
+    <!-- GST -->
+    <section id="gst" class="page hidden">
+
+      <h2>％ GST Calculator</h2>
+
+      <div class="tool-box">
+
+        <input id="gstAmount"
+               type="number"
+               placeholder="Amount">
+
+        <input id="gstRate"
+               type="number"
+               placeholder="GST %">
+
+        <button class="blue-btn" onclick="calculateGST()">
+          Calculate GST
+        </button>
+
+        <div id="gstResult"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- STOCKS -->
+    <section id="stocks" class="page hidden">
+
+      <h2>📦 Stocks</h2>
+
+      <div class="tool-box">
+
+        <input id="stockName"
+               placeholder="Product Name">
+
+        <input id="stockQty"
+               type="number"
+               placeholder="Quantity">
+
+        <input id="stockPrice"
+               type="number"
+               placeholder="Price">
+
+        <button class="blue-btn" onclick="addStock()">
+          + Add Stock
+        </button>
+
+      </div>
+
+      <div id="stockList"></div>
+
+    </section>
+
+
+    <!-- SALES -->
+    <section id="sales" class="page hidden">
+
+      <h2>📊 Sales</h2>
+
+      <div id="salesList"></div>
+
+    </section>
+
+
+    <!-- UDHAR -->
+    <section id="udhar" class="page hidden">
+
+      <h2>👥 Udhar Customers</h2>
+
+      <div class="tool-box">
+
+        <input id="udharName"
+               placeholder="Customer Name">
+
+        <input id="udharAmount"
+               type="number"
+               placeholder="Udhar Amount">
+
+        <button class="blue-btn" onclick="addUdhar()">
+          + Add Udhar
+        </button>
+
+      </div>
+
+      <div id="udharList"></div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<script src="script.js"></script>
 
 </body>
-
-</html>
+  </html>
