@@ -1,339 +1,98 @@
-/* =========================
-   BUSINESS TOOLKIT
-========================= */
+// -------------------------
+// DATE
+// -------------------------
 
-let bills =
-  JSON.parse(localStorage.getItem("bills")) || [];
+function setDate() {
 
-let stocks =
-  JSON.parse(localStorage.getItem("stocks")) || [];
+  const today = new Date();
 
-let expenses =
-  JSON.parse(localStorage.getItem("expenses")) || [];
+  const day = String(today.getDate()).padStart(2, "0");
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const year = today.getFullYear();
 
-let udhars =
-  JSON.parse(localStorage.getItem("udhars")) || [];
-
-let nextBill =
-  Number(localStorage.getItem("nextBill")) || 1;
-
-
-/* =========================
-   PAGE NAVIGATION
-========================= */
-
-function openPage(page) {
-
-  document.querySelectorAll(".page").forEach(p => {
-    p.classList.add("hidden");
-  });
-
-  document.getElementById(page).classList.remove("hidden");
-
-  refreshAll();
+  document.getElementById("date").textContent =
+    `${day}/${month}/${year}`;
 }
 
-
-/* =========================
-   INVOICE ITEMS
-========================= */
-
-function addItem(
-  name = "",
-  qty = 1,
-  rate = 0
-) {
-
-  const container =
-    document.getElementById("itemContainer");
-
-  const row =
-    document.createElement("div");
-
-  row.className = "item-row";
-
-  row.innerHTML = `
-
-    <input
-      class="item-name"
-      placeholder="Item"
-      value="${name}">
-
-    <input
-      class="item-qty"
-      type="number"
-      min="1"
-      value="${qty}">
-
-    <input
-      class="item-rate"
-      type="number"
-      min="0"
-      value="${rate}">
-
-    <span class="item-amount">
-      ₹0
-    </span>
-
-    <button
-      class="delete-item"
-      type="button">
-      🗑️
-    </button>
-
-  `;
-
-  container.appendChild(row);
+setDate();
 
 
-  row.querySelector(".delete-item")
-    .addEventListener("click", function() {
+// -------------------------
+// CALCULATE ITEMS
+// -------------------------
 
-      row.remove();
-
-      calculateInvoice();
-
-    });
-
-
-  row.querySelectorAll("input")
-    .forEach(input => {
-
-      input.addEventListener(
-        "input",
-        calculateInvoice
-      );
-
-    });
-
-
-  calculateInvoice();
-}
-
-
-/* =========================
-   CALCULATE INVOICE
-========================= */
-
-function calculateInvoice() {
-
-  const rows =
-    document.querySelectorAll(".item-row");
+function calculate() {
 
   let subtotal = 0;
 
+  const rows = document.querySelectorAll(".item-row");
 
   rows.forEach(row => {
 
     const qty =
-      Number(
-        row.querySelector(".item-qty").value
-      ) || 0;
+      Number(row.querySelector(".item-qty").value) || 0;
 
     const rate =
-      Number(
-        row.querySelector(".item-rate").value
-      ) || 0;
+      Number(row.querySelector(".item-rate").value) || 0;
 
     const amount = qty * rate;
 
-    row.querySelector(".item-amount")
-      .innerText =
-      "₹" + amount.toFixed(2);
+    row.querySelector(".item-amount").value =
+      amount.toFixed(0);
 
     subtotal += amount;
-
   });
 
-
-  const gst = 0;
+  const gstRate = 0;
+  const gst = subtotal * gstRate / 100;
 
   const total = subtotal + gst;
 
+  document.getElementById("subtotal").textContent =
+    "₹" + subtotal.toFixed(0);
 
-  document.getElementById("formSubtotal")
-    .innerText =
-    "₹" + subtotal.toFixed(2);
+  document.getElementById("gst").textContent =
+    "₹" + gst.toFixed(0);
 
-  document.getElementById("formGST")
-    .innerText =
-    "₹" + gst.toFixed(2);
+  document.getElementById("total").textContent =
+    "₹" + total.toFixed(0);
 
-  document.getElementById("formTotal")
-    .innerText =
-    "₹" + total.toFixed(2);
+  updateReceipt(subtotal, gst, total);
 }
 
 
-/* =========================
-   CREATE INVOICE
-========================= */
+// -------------------------
+// UPDATE RECEIPT
+// -------------------------
 
-function createInvoice() {
+function updateReceipt(subtotal, gst, total) {
 
-  const shopName =
-    document.getElementById("shopName").value.trim();
+  document.getElementById("rShopName").textContent =
+    document.getElementById("shopName").value;
 
-  const shopAddress =
-    document.getElementById("shopAddress").value.trim();
+  document.getElementById("rAddress").textContent =
+    document.getElementById("shopAddress").value;
 
-  const shopMobile =
-    document.getElementById("shopMobile").value.trim();
+  document.getElementById("rShopMobile").textContent =
+    document.getElementById("shopMobile").value;
 
-  const customerName =
-    document.getElementById("customerName").value.trim();
+  document.getElementById("rCustomer").textContent =
+    document.getElementById("customerName").value;
 
-  const customerMobile =
-    document.getElementById("customerMobile").value.trim();
+  document.getElementById("rCustomerMobile").textContent =
+    document.getElementById("customerMobile").value;
 
-  const payment =
-    document.getElementById("paymentMethod").value;
+  document.getElementById("rSubtotal").textContent =
+    "₹" + subtotal.toFixed(0);
 
+  document.getElementById("rGst").textContent =
+    "₹" + gst.toFixed(0);
 
-  if (!shopName) {
+  document.getElementById("rTotal").textContent =
+    "₹" + total.toFixed(0);
 
-    alert("Shop Name टाका.");
-
-    return;
-  }
-
-
-  const rows =
-    document.querySelectorAll(".item-row");
-
-  const items = [];
-
-  let subtotal = 0;
-
-
-  rows.forEach(row => {
-
-    const name =
-      row.querySelector(".item-name").value.trim();
-
-    const qty =
-      Number(
-        row.querySelector(".item-qty").value
-      ) || 0;
-
-    const rate =
-      Number(
-        row.querySelector(".item-rate").value
-      ) || 0;
-
-
-    if (name && qty > 0) {
-
-      const amount = qty * rate;
-
-      items.push({
-        name,
-        qty,
-        rate,
-        amount
-      });
-
-      subtotal += amount;
-
-    }
-
-  });
-
-
-  if (items.length === 0) {
-
-    alert("किमान एक वस्तू Add करा.");
-
-    return;
-  }
-
-
-  const billNo =
-    String(nextBill).padStart(5, "0");
-
-  const date =
-    new Date().toLocaleDateString("en-IN");
-
-
-  const bill = {
-
-    billNo,
-    date,
-
-    shopName,
-    shopAddress,
-    shopMobile,
-
-    customerName,
-    customerMobile,
-
-    items,
-
-    subtotal,
-    gst: 0,
-
-    total: subtotal,
-
-    payment
-
-  };
-
-
-  bills.push(bill);
-
-  localStorage.setItem(
-    "bills",
-    JSON.stringify(bills)
-  );
-
-
-  nextBill++;
-
-  localStorage.setItem(
-    "nextBill",
-    nextBill
-  );
-
-
-  showReceipt(bill);
-
-  refreshAll();
-
-  alert(
-    "Invoice तयार झाले. Bill No: " +
-    billNo
-  );
-}
-
-
-/* =========================
-   SHOW RECEIPT
-========================= */
-
-function showReceipt(bill) {
-
-  document.getElementById("rShopName")
-    .innerText = bill.shopName;
-
-  document.getElementById("rShopAddress")
-    .innerText = bill.shopAddress;
-
-  document.getElementById("rShopMobile")
-    .innerText = bill.shopMobile;
-
-
-  document.getElementById("rBillNo")
-    .innerText = bill.billNo;
-
-  document.getElementById("rDate")
-    .innerText = bill.date;
-
-  document.getElementById("rCustomer")
-    .innerText = bill.customerName || "--";
-
-  document.getElementById("rCustomerMobile")
-    .innerText =
-    bill.customerMobile || "--";
+  document.getElementById("rPayment").textContent =
+    document.getElementById("payment").value;
 
 
   const receiptItems =
@@ -341,635 +100,417 @@ function showReceipt(bill) {
 
   receiptItems.innerHTML = "";
 
+  document.querySelectorAll(".item-row").forEach(row => {
 
-  bill.items.forEach(item => {
+    const name =
+      row.querySelector(".item-name").value;
 
-    const row =
-      document.createElement("div");
+    const qty =
+      row.querySelector(".item-qty").value;
 
-    row.className = "receipt-item";
+    const rate =
+      row.querySelector(".item-rate").value;
 
-    row.innerHTML = `
+    const amount =
+      row.querySelector(".item-amount").value;
 
-      <span>${escapeHTML(item.name)}</span>
+    if (name.trim() !== "") {
 
-      <span>${item.qty}</span>
+      const div = document.createElement("div");
 
-      <span>₹${item.rate.toFixed(2)}</span>
+      div.className = "receipt-item";
 
-      <span>₹${item.amount.toFixed(2)}</span>
+      div.innerHTML = `
+        <span>${name}</span>
+        <span>${qty}</span>
+        <span>${rate}</span>
+        <span>${amount}</span>
+      `;
 
-    `;
-
-    receiptItems.appendChild(row);
-
+      receiptItems.appendChild(div);
+    }
   });
-
-
-  document.getElementById("rSubtotal")
-    .innerText =
-    "₹" + bill.subtotal.toFixed(2);
-
-  document.getElementById("rGST")
-    .innerText =
-    "₹" + bill.gst.toFixed(2);
-
-  document.getElementById("rTotal")
-    .innerText =
-    "₹" + bill.total.toFixed(2);
-
-  document.getElementById("rPayment")
-    .innerText =
-    bill.payment;
 }
 
 
-/* =========================
-   NEW BILL
-========================= */
+// -------------------------
+// INPUT AUTO CALCULATION
+// -------------------------
+
+document.addEventListener("input", function(e) {
+
+  if (
+    e.target.classList.contains("item-qty") ||
+    e.target.classList.contains("item-rate") ||
+    e.target.classList.contains("item-name") ||
+    e.target.id === "shopName" ||
+    e.target.id === "shopAddress" ||
+    e.target.id === "shopMobile" ||
+    e.target.id === "customerName" ||
+    e.target.id === "customerMobile"
+  ) {
+    calculate();
+  }
+
+});
+
+
+// PAYMENT CHANGE
+
+document.getElementById("payment").addEventListener("change", calculate);
+
+
+// -------------------------
+// ADD ITEM
+// -------------------------
+
+function addItem() {
+
+  const items = document.getElementById("items");
+
+  const row = document.createElement("div");
+
+  row.className = "item-row";
+
+  row.innerHTML = `
+    <input class="item-name" placeholder="Item">
+
+    <input
+      class="item-qty"
+      type="number"
+      value="1"
+      placeholder="Qty">
+
+    <input
+      class="item-rate"
+      type="number"
+      value="0"
+      placeholder="Rate">
+
+    <input
+      class="item-amount"
+      value="0"
+      readonly>
+
+    <button
+      class="delete"
+      onclick="deleteItem(this)">
+      🗑
+    </button>
+  `;
+
+  items.appendChild(row);
+
+  calculate();
+}
+
+
+// -------------------------
+// DELETE ITEM
+// -------------------------
+
+function deleteItem(button) {
+
+  button.parentElement.remove();
+
+  calculate();
+}
+
+
+// -------------------------
+// NEW BILL
+// -------------------------
 
 function newBill() {
+
+  let current =
+    Number(document.getElementById("billNo").textContent);
+
+  current++;
+
+  document.getElementById("billNo").textContent =
+    String(current).padStart(5, "0");
 
   document.getElementById("customerName").value = "";
 
   document.getElementById("customerMobile").value = "";
 
-  document.getElementById("itemContainer").innerHTML = "";
+  document.querySelectorAll(".item-row").forEach(row => {
+    row.remove();
+  });
 
   addItem();
 
-  calculateInvoice();
+  calculate();
 }
 
 
-/* =========================
-   PRINT
-========================= */
+// -------------------------
+// RESET
+// -------------------------
 
-function printReceipt() {
+function resetBill() {
+
+  document.getElementById("shopName").value =
+    "GANESH GENERAL STORES";
+
+  document.getElementById("shopAddress").value =
+    "Murum, Dharashiv";
+
+  document.getElementById("shopMobile").value =
+    "9876543210";
+
+  document.getElementById("customerName").value =
+    "Rahul";
+
+  document.getElementById("customerMobile").value =
+    "9876543210";
+
+  document.getElementById("payment").value =
+    "Cash";
+
+  document.getElementById("items").innerHTML = `
+
+    <div class="item-row">
+      <input class="item-name" value="Sugar">
+      <input class="item-qty" type="number" value="2">
+      <input class="item-rate" type="number" value="50">
+      <input class="item-amount" value="100" readonly>
+      <button class="delete" onclick="deleteItem(this)">🗑</button>
+    </div>
+
+    <div class="item-row">
+      <input class="item-name" value="Rice">
+      <input class="item-qty" type="number" value="5">
+      <input class="item-rate" type="number" value="60">
+      <input class="item-amount" value="300" readonly>
+      <button class="delete" onclick="deleteItem(this)">🗑</button>
+    </div>
+
+    <div class="item-row">
+      <input class="item-name" value="Soap">
+      <input class="item-qty" type="number" value="2">
+      <input class="item-rate" type="number" value="35">
+      <input class="item-amount" value="70" readonly>
+      <button class="delete" onclick="deleteItem(this)">🗑</button>
+    </div>
+  `;
+
+  calculate();
+}
+
+
+// -------------------------
+// CREATE INVOICE
+// -------------------------
+
+function createInvoice() {
+
+  calculate();
+
+  alert("Invoice created successfully! ✅");
+}
+
+
+// -------------------------
+// PRINT
+// -------------------------
+
+function printBill() {
+
+  calculate();
 
   window.print();
-
 }
 
 
-/* =========================
-   WHATSAPP
-========================= */
+// -------------------------
+// DOWNLOAD
+// -------------------------
+
+function downloadBill() {
+
+  const receipt =
+    document.getElementById("receipt");
+
+  const content = receipt.outerHTML;
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Invoice</title>
+
+<style>
+
+body {
+  font-family: Arial;
+  background: white;
+  padding: 20px;
+}
+
+.receipt {
+  width: 380px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+}
+
+.receipt-shop {
+  text-align: center;
+}
+
+.bill-info {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  font-size: 12px;
+}
+
+.receipt-head,
+.receipt-item {
+  display: grid;
+  grid-template-columns:
+  1.6fr .55fr .7fr .8fr;
+  gap: 5px;
+  font-size: 11px;
+}
+
+.receipt-item {
+  margin: 8px 0;
+}
+
+hr {
+  border: none;
+  border-top: 1px dashed #777;
+  margin: 14px 0;
+}
+
+.receipt-total div {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  margin: 8px;
+}
+
+.grand {
+  font-size: 16px;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  padding: 10px;
+}
+
+.payment,
+.thank {
+  text-align: center;
+}
+
+.thank {
+  margin-top: 30px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+${content}
+
+</body>
+</html>
+`;
+
+  const blob =
+    new Blob([html], {
+      type: "text/html"
+    });
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+
+  a.download = "Invoice.html";
+
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+
+// -------------------------
+// WHATSAPP
+// -------------------------
 
 function shareWhatsApp() {
 
-  if (bills.length === 0) {
+  calculate();
 
-    alert("आधी Invoice तयार करा.");
+  const shop =
+    document.getElementById("shopName").value;
 
-    return;
-  }
-
-
-  const bill =
-    bills[bills.length - 1];
-
-
-  let text =
-    `🧾 ${bill.shopName}\n\n`;
-
-  text +=
-    `Bill No: ${bill.billNo}\n`;
-
-  text +=
-    `Date: ${bill.date}\n`;
-
-  text +=
-    `Customer: ${bill.customerName || "--"}\n\n`;
-
-
-  bill.items.forEach(item => {
-
-    text +=
-      `${item.name} × ${item.qty} = ₹${item.amount}\n`;
-
-  });
-
-
-  text +=
-    `\nTOTAL: ₹${bill.total}`;
-
-  text +=
-    `\nPayment: ${bill.payment}`;
-
-  text +=
-    `\n\nThank You! Visit Again`;
-
-
-  window.open(
-    "https://wa.me/?text=" +
-    encodeURIComponent(text),
-    "_blank"
-  );
-}
-
-
-/* =========================
-   CALCULATOR
-========================= */
-
-function calcInput(value) {
-
-  const display =
-    document.getElementById("calcDisplay");
-
-  display.value += value;
-}
-
-
-function calcClear() {
-
-  document.getElementById("calcDisplay")
-    .value = "";
-
-}
-
-
-function calcResult() {
-
-  const display =
-    document.getElementById("calcDisplay");
-
-  try {
-
-    display.value =
-      Function(
-        "return " + display.value
-      )();
-
-  } catch {
-
-    display.value = "Error";
-
-  }
-}
-
-
-/* =========================
-   GST
-========================= */
-
-function calculateGST() {
-
-  const amount =
-    Number(
-      document.getElementById("gstAmount").value
-    ) || 0;
-
-  const rate =
-    Number(
-      document.getElementById("gstRate").value
-    ) || 0;
-
-
-  const gst =
-    amount * rate / 100;
+  const customer =
+    document.getElementById("customerName").value;
 
   const total =
-    amount + gst;
+    document.getElementById("total").textContent;
 
+  const bill =
+    document.getElementById("billNo").textContent;
 
-  document.getElementById("gstResult")
-    .innerHTML = `
+  const message =
+`🧾 ${shop}
 
-      <div class="list-card">
+Bill No: ${bill}
+Customer: ${customer}
 
-        Amount: ₹${amount.toFixed(2)}<br><br>
+Total: ${total}
 
-        GST (${rate}%):
-        ₹${gst.toFixed(2)}<br><br>
+Thank You!
+Visit Again 🙏`;
 
-        <b>Total: ₹${total.toFixed(2)}</b>
+  const url =
+    "https://wa.me/?text=" +
+    encodeURIComponent(message);
 
-      </div>
-
-    `;
+  window.open(url, "_blank");
 }
 
 
-/* =========================
-   EXPENSES
-========================= */
+// -------------------------
+// NAVIGATION
+// -------------------------
 
-function addExpense() {
+function showSection(sectionName) {
 
-  const name =
-    document.getElementById("expenseName")
-      .value.trim();
+  document.querySelectorAll(".section")
+    .forEach(section => {
+      section.classList.remove("active-section");
+      section.style.display = "none";
+    });
 
-  const amount =
-    Number(
-      document.getElementById("expenseAmount").value
-    );
+  const selected =
+    document.getElementById(sectionName);
 
-
-  if (!name || amount <= 0) {
-
-    alert("Expense माहिती भरा.");
-
-    return;
-  }
+  selected.style.display = "block";
+  selected.classList.add("active-section");
 
 
-  expenses.push({
-
-    id: Date.now(),
-
-    name,
-    amount,
-
-    date:
-      new Date().toLocaleDateString("en-IN")
-
-  });
-
-
-  localStorage.setItem(
-    "expenses",
-    JSON.stringify(expenses)
-  );
-
-
-  document.getElementById("expenseName")
-    .value = "";
-
-  document.getElementById("expenseAmount")
-    .value = "";
-
-
-  refreshAll();
-
-  alert("Expense Add झाला.");
-}
-
-
-/* =========================
-   STOCK
-========================= */
-
-function addStock() {
-
-  const name =
-    document.getElementById("stockName")
-      .value.trim();
-
-  const qty =
-    Number(
-      document.getElementById("stockQty").value
-    );
-
-  const price =
-    Number(
-      document.getElementById("stockPrice").value
-    );
-
-
-  if (!name || qty < 0 || price < 0) {
-
-    alert("Stock माहिती भरा.");
-
-    return;
-  }
-
-
-  stocks.push({
-
-    id: Date.now(),
-
-    name,
-    qty,
-    price
-
-  });
-
-
-  localStorage.setItem(
-    "stocks",
-    JSON.stringify(stocks)
-  );
-
-
-  document.getElementById("stockName").value = "";
-
-  document.getElementById("stockQty").value = "";
-
-  document.getElementById("stockPrice").value = "";
-
-
-  renderStocks();
-
-  alert("Stock Add झाला.");
-}
-
-
-function renderStocks() {
-
-  const list =
-    document.getElementById("stockList");
-
-  list.innerHTML = "";
-
-
-  stocks.forEach(stock => {
-
-    const div =
-      document.createElement("div");
-
-    div.className = "list-card";
-
-    div.innerHTML = `
-
-      <b>📦 ${escapeHTML(stock.name)}</b>
-
-      <p>
-        Quantity:
-        <b>${stock.qty}</b>
-      </p>
-
-      <p>
-        Price:
-        ₹${stock.price}
-      </p>
-
-      ${
-        stock.qty <= 5
-        ? `<span class="low-stock">
-             ⚠️ Low Stock
-           </span>`
-        : ""
-      }
-
-    `;
-
-    list.appendChild(div);
-
-  });
+  document.querySelectorAll("nav button")
+    .forEach(button => {
+      button.classList.remove("active");
+    });
 
 }
 
 
-/* =========================
-   UDHAR
-========================= */
-
-function addUdhar() {
-
-  const name =
-    document.getElementById("udharName")
-      .value.trim();
-
-  const amount =
-    Number(
-      document.getElementById("udharAmount").value
-    );
-
-
-  if (!name || amount <= 0) {
-
-    alert("Udhar माहिती भरा.");
-
-    return;
-  }
-
-
-  udhars.push({
-
-    id: Date.now(),
-
-    name,
-    amount,
-
-    date:
-      new Date().toLocaleDateString("en-IN")
-
-  });
-
-
-  localStorage.setItem(
-    "udhars",
-    JSON.stringify(udhars)
-  );
-
-
-  document.getElementById("udharName").value = "";
-
-  document.getElementById("udharAmount").value = "";
-
-
-  renderUdhar();
-
-  alert("Udhar नोंदवले.");
-}
-
-
-function renderUdhar() {
-
-  const list =
-    document.getElementById("udharList");
-
-  list.innerHTML = "";
-
-
-  udhars.forEach(item => {
-
-    const div =
-      document.createElement("div");
-
-    div.className = "list-card";
-
-    div.innerHTML = `
-
-      <b>👤 ${escapeHTML(item.name)}</b>
-
-      <p>
-        Udhar:
-        <strong>₹${item.amount}</strong>
-      </p>
-
-      <small>${item.date}</small>
-
-    `;
-
-    list.appendChild(div);
-
-  });
-
-}
-
-
-/* =========================
-   SALES
-========================= */
-
-function renderSales() {
-
-  const list =
-    document.getElementById("salesList");
-
-  list.innerHTML = "";
-
-
-  if (bills.length === 0) {
-
-    list.innerHTML =
-      "<p>अजून Sales नाही.</p>";
-
-    return;
-  }
-
-
-  bills.slice().reverse().forEach(bill => {
-
-    const div =
-      document.createElement("div");
-
-    div.className = "list-card";
-
-    div.innerHTML = `
-
-      <b>Bill #${bill.billNo}</b>
-
-      <p>
-        Customer:
-        ${escapeHTML(bill.customerName || "--")}
-      </p>
-
-      <p>
-        Total:
-        <strong>₹${bill.total.toFixed(2)}</strong>
-      </p>
-
-      <small>${bill.date}</small>
-
-    `;
-
-    list.appendChild(div);
-
-  });
-
-}
-
-
-/* =========================
-   DASHBOARD
-========================= */
-
-function refreshDashboard() {
-
-  let totalSales = 0;
-
-  let totalExpenses = 0;
-
-
-  bills.forEach(bill => {
-
-    totalSales += bill.total;
-
-  });
-
-
-  expenses.forEach(expense => {
-
-    totalExpenses += expense.amount;
-
-  });
-
-
-  const profit =
-    totalSales - totalExpenses;
-
-
-  document.getElementById("dashSales")
-    .innerText =
-    "₹" + totalSales.toFixed(2);
-
-  document.getElementById("dashExpenses")
-    .innerText =
-    "₹" + totalExpenses.toFixed(2);
-
-  document.getElementById("dashProfit")
-    .innerText =
-    "₹" + profit.toFixed(2);
-
-
-  document.getElementById("profitSales")
-    .innerText =
-    "₹" + totalSales.toFixed(2);
-
-  document.getElementById("profitExpenses")
-    .innerText =
-    "₹" + totalExpenses.toFixed(2);
-
-  document.getElementById("profitAmount")
-    .innerText =
-    "₹" + profit.toFixed(2);
-
-
-  let today = 0;
-
-  const currentDate =
-    new Date().toLocaleDateString("en-IN");
-
-
-  bills.forEach(bill => {
-
-    if (bill.date === currentDate) {
-
-      today += bill.total;
-
-    }
-
-  });
-
-
-  document.getElementById("dashToday")
-    .innerText =
-    "₹" + today.toFixed(2);
-}
-
-
-/* =========================
-   REFRESH
-========================= */
-
-function refreshAll() {
-
-  refreshDashboard();
-
-  renderStocks();
-
-  renderUdhar();
-
-  renderSales();
-
-}
-
-
-/* =========================
-   SECURITY
-========================= */
-
-function escapeHTML(text) {
-
-  return String(text)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
-
-/* =========================
-   START
-========================= */
-
-addItem();
-
-refreshAll();
+// -------------------------
+// INITIAL
+// -------------------------
+
+calculate();
