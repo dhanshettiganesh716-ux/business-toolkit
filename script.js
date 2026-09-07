@@ -252,46 +252,46 @@ function newBill() {
 function resetBill() {
 
   document.getElementById("shopName").value =
-    "GANESH GENERAL STORES";
+    "      ";
 
   document.getElementById("shopAddress").value =
-    "Murum, Dharashiv";
+    "      ";
 
   document.getElementById("shopMobile").value =
-    "9876543210";
+    "        ";
 
   document.getElementById("customerName").value =
-    "Rahul";
+    "       ";
 
   document.getElementById("customerMobile").value =
-    "9876543210";
+    "        ";
 
   document.getElementById("payment").value =
-    "Cash";
+    "     ";
 
   document.getElementById("items").innerHTML = `
 
     <div class="item-row">
       <input class="item-name" value="Sugar">
-      <input class="item-qty" type="number" value="2">
-      <input class="item-rate" type="number" value="50">
-      <input class="item-amount" value="100" readonly>
+      <input class="item-qty" type="number" value="  ">
+      <input class="item-rate" type="number" value="  ">
+      <input class="item-amount" value="   " readonly>
       <button class="delete" onclick="deleteItem(this)">🗑</button>
     </div>
 
     <div class="item-row">
       <input class="item-name" value="Rice">
-      <input class="item-qty" type="number" value="5">
-      <input class="item-rate" type="number" value="60">
-      <input class="item-amount" value="300" readonly>
+      <input class="item-qty" type="number" value="">
+      <input class="item-rate" type="number" value="">
+      <input class="item-amount" value="" readonly>
       <button class="delete" onclick="deleteItem(this)">🗑</button>
     </div>
 
     <div class="item-row">
-      <input class="item-name" value="Soap">
-      <input class="item-qty" type="number" value="2">
-      <input class="item-rate" type="number" value="35">
-      <input class="item-amount" value="70" readonly>
+      <input class="item-name" value="">
+      <input class="item-qty" type="number" value="">
+      <input class="item-rate" type="number" value="">
+      <input class="item-amount" value="" readonly>
       <button class="delete" onclick="deleteItem(this)">🗑</button>
     </div>
   `;
