@@ -316,98 +316,147 @@ function createInvoice() {
 // PRINT
 // -------------------------
 
+.
 function printBill() {
 
   calculate();
 
-  window.print();
-}
+  const receipt = document.getElementById("receipt");
 
+  const printWindow = window.open("", "_blank");
 
-// -------------------------
-// DOWNLOAD
-// -------------------------
+  if (!printWindow) {
+    alert("Print window open होत नाही. Browser मध्ये pop-up allow करा.");
+    return;
+  }
 
-function downloadBill() {
-
-  const receipt =
-    document.getElementById("receipt");
-
-  const content = receipt.outerHTML;
-
-  const html = `
+  printWindow.document.write(`
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Invoice</title>
 
 <style>
 
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial;
-  background: white;
+  margin: 0;
   padding: 20px;
+  background: white;
+  font-family: Arial, sans-serif;
 }
 
 .receipt {
-  width: 380px;
+  width: 100%;
+  max-width: 390px;
   margin: auto;
-  padding: 20px;
-  border: 1px solid #ddd;
+  background: white;
+  padding: 25px 20px;
 }
 
 .receipt-shop {
   text-align: center;
 }
 
+.shop-icon {
+  font-size: 32px;
+}
+
+.receipt-shop h1 {
+  font-size: 19px;
+  margin: 7px 0;
+}
+
+.receipt-shop p {
+  font-size: 12px;
+  margin: 3px 0;
+}
+
+.receipt hr {
+  border: none;
+  border-top: 1px dashed #777;
+  margin: 14px 0;
+}
+
 .bill-info {
   display: flex;
   justify-content: space-between;
-  margin: 10px 0;
-  font-size: 12px;
+  font-size: 11px;
+  margin: 9px 0;
 }
 
 .receipt-head,
 .receipt-item {
   display: grid;
-  grid-template-columns:
-  1.6fr .55fr .7fr .8fr;
+  grid-template-columns: 1.6fr .55fr .7fr .8fr;
   gap: 5px;
   font-size: 11px;
+  text-align: right;
+}
+
+.receipt-head b:first-child,
+.receipt-item span:first-child {
+  text-align: left;
 }
 
 .receipt-item {
-  margin: 8px 0;
-}
-
-hr {
-  border: none;
-  border-top: 1px dashed #777;
-  margin: 14px 0;
+  margin: 9px 0;
 }
 
 .receipt-total div {
   display: flex;
   justify-content: flex-end;
   gap: 20px;
-  margin: 8px;
+  font-size: 12px;
+  margin: 7px 0;
 }
 
-.grand {
+.receipt-total .grand {
   font-size: 16px;
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
-  padding: 10px;
+  border-top: 2px solid #222;
+  border-bottom: 2px solid #222;
+  padding: 9px 0;
+  margin-top: 10px;
 }
 
-.payment,
+.payment {
+  text-align: center;
+  font-size: 12px;
+}
+
 .thank {
   text-align: center;
+  margin-top: 35px;
 }
 
-.thank {
-  margin-top: 30px;
+.thank strong {
+  font-family: cursive;
+  font-size: 25px;
+}
+
+.thank p {
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+@media print {
+
+  body {
+    padding: 0;
+  }
+
+  .receipt {
+    width: 100%;
+    max-width: 390px;
+    margin: auto;
+  }
+
 }
 
 </style>
@@ -416,101 +465,23 @@ hr {
 
 <body>
 
-${content}
+${receipt.outerHTML}
+
+<script>
+
+window.onload = function() {
+  window.print();
+};
+
+window.onafterprint = function() {
+  window.close();
+};
+
+<\/script>
 
 </body>
 </html>
-`;
+  `);
 
-  const blob =
-    new Blob([html], {
-      type: "text/html"
-    });
-
-  const url =
-    URL.createObjectURL(blob);
-
-  const a =
-    document.createElement("a");
-
-  a.href = url;
-
-  a.download = "Invoice.html";
-
-  a.click();
-
-  URL.revokeObjectURL(url);
+  printWindow.document.close();
 }
-
-
-// -------------------------
-// WHATSAPP
-// -------------------------
-
-function shareWhatsApp() {
-
-  calculate();
-
-  const shop =
-    document.getElementById("shopName").value;
-
-  const customer =
-    document.getElementById("customerName").value;
-
-  const total =
-    document.getElementById("total").textContent;
-
-  const bill =
-    document.getElementById("billNo").textContent;
-
-  const message =
-`🧾 ${shop}
-
-Bill No: ${bill}
-Customer: ${customer}
-
-Total: ${total}
-
-Thank You!
-Visit Again 🙏`;
-
-  const url =
-    "https://wa.me/?text=" +
-    encodeURIComponent(message);
-
-  window.open(url, "_blank");
-}
-
-
-// -------------------------
-// NAVIGATION
-// -------------------------
-
-function showSection(sectionName) {
-
-  document.querySelectorAll(".section")
-    .forEach(section => {
-      section.classList.remove("active-section");
-      section.style.display = "none";
-    });
-
-  const selected =
-    document.getElementById(sectionName);
-
-  selected.style.display = "block";
-  selected.classList.add("active-section");
-
-
-  document.querySelectorAll("nav button")
-    .forEach(button => {
-      button.classList.remove("active");
-    });
-
-}
-
-
-// -------------------------
-// INITIAL
-// -------------------------
-
-calculate();
